@@ -1,0 +1,39 @@
+/* header デザイン */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+ul#nav_ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 0%;
+    list-style: none;
+}
+
+ul#nav_ul>li {
+    text-align: center;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    width: -webkit-fill-available;
+}
+
+ul#nav_ul>li+li {
+    border-left: none;
+}
+
+ul#nav_ul>li:hover {
+    background-color: #0000001f;
+}
+
+ul#nav_ul>li>a {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+ul#nav_ul>li>a>i {
+    margin-right: 2px;
+}
+/* header デザインここまで */
