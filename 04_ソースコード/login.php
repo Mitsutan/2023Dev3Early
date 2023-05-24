@@ -20,15 +20,27 @@
 
     <div class="container-fluid">
         <h1>ログイン</h1>
+
+        <div class="mb-2">
+            <a href="./signup.php">新規登録はこちら</a>
+        </div>
+
+        <!-- error message area -->
+        <div class="<?php if (true) echo "d-none" ?>">
+            <div class="border border-danger border-2 rounded mb-2 p-1 err_area fw-bold text-danger">
+                <?php echo "error message" ?>
+            </div>
+        </div>
+
         <form action="./php/login.php" method="post">
             <div class="mb-3">
                 <label for="InputEmail1" class="form-label">メールアドレス</label>
-                <input type="email" class="form-control" id="InputEmail1" name="mail" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="InputEmail1" name="mail" aria-describedby="emailHelp" required>
                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
             <div class="mb-3">
                 <label for="InputPassword1" class="form-label">パスワード</label>
-                <input type="password" class="form-control" id="InputPassword1" name="pass">
+                <input type="password" class="form-control" id="InputPassword1" name="pass" required>
             </div>
             <!-- <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">

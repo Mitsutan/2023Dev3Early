@@ -43,4 +43,8 @@ ul#nav_ul>li>a>i {
 h1 {
     border-left: 5px solid #ffc107;
 }
+
+.err_area {
+    background-color: #ff00001d;
+}
 /* body デザインここまで */
