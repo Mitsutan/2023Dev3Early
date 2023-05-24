@@ -31,6 +31,7 @@ ul#nav_ul>li>a {
     display: block;
     text-decoration: none;
     color: black;
+    margin: 2px;
 }
 
 ul#nav_ul>li>a>i {
