@@ -1,0 +1,14 @@
+# ErrorDocument 404 /Web/github/2023Dev3Early/04_ソースコード/404.php
+# ErrorDocument 503 /Web/github/2023Dev3Early/04_ソースコード/503.php
+
+RewriteEngine on
+
+# RewriteCond %{REQUEST_URI} !=/Web/github/2023Dev3Early/04_ソースコード/503.php
+# RewriteRule ^.*$ $1 [R=503,L]
+ 
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+
+RewriteCond %{THE_REQUEST} \.(php)\ HTTP
+RewriteRule ^(.*)\.(php)$ /Web/github/2023Dev3Early/04_ソースコード/$1 [R=307,L]
