@@ -1,6 +1,6 @@
 <header>
     <div class="container-fluid bg-dark p-1 text-warning fs-2">
-        <img src="./img/logo.png" alt="筋肉Memorial">
+        <img src="./img/logo.png" alt="筋肉Memorial" width="50">
         筋肉Memorial
     </div>
     <nav>
