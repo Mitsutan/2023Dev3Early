@@ -15,8 +15,14 @@ try {
     $user = $db->loginUser($mail, $pass);
 
     //ログイン成功時
-    //どうするかわからないので何も書いてません
-    
+    //セッションに情報保存
+    $_SESSION['user_id'] = $user['user_id'];
+    $_SESSION['user_name'] = $user['user_name'];
+
+    //マイページにリダイレクトする処理
+    header("Location: ../mypage.php");
+
+
 } catch (LogicException $e) {
     // パスワードが間違っている場合のエラーメッセージを表示
     echo "パスワードが違います。";
