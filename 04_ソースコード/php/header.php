@@ -11,7 +11,13 @@
                 <li><a href="./hashtags.php"><i class="fa-solid fa-hashtag"></i><span class="d-none d-md-inline">ハッシュタグ</span></a></li>
                 <li><a href="./goods.php"><i class="fa-solid fa-thumbs-up"></i><span class="d-none d-md-inline">いいね</span></a></li>
                 <li><a href="./search.php"><i class="fa-solid fa-magnifying-glass"></i><span class="d-none d-md-inline">検索</span></a></li>
-                <li><a href="./login.php"><i class="fa-solid fa-arrow-right-to-bracket"></i><span class="d-none d-md-inline">ログイン</span></a></li>
+                <?php
+                if (isset($_SESSION['user_id'])) {
+                    echo '<li><a href="./mypage.php"><i class="fa-solid fa-user"></i><span class="d-none d-md-inline">マイページ</span></a></li>';
+                } else {
+                    echo '<li><a href="./login.php"><i class="fa-solid fa-arrow-right-to-bracket"></i><span class="d-none d-md-inline">ログイン</span></a></li>';
+                }
+                ?>
             </ul>
         </div>
     </nav>
