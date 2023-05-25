@@ -49,6 +49,10 @@ ul#nav_ul>li>a>i {
 h1 {
     border-left: 5px solid #ffc107;
 }
+h2{
+    border :5px solid #ffc107;
+    padding :10px;
+}
 
 .err_area {
     background-color: #ff00001d;
