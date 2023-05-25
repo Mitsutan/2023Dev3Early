@@ -21,4 +21,22 @@ class DBManager
             throw new Exception("原因不明のエラーが発生しました。<br />しばらく時間をおいて再度お試しください。", 100);
         }
     }
+
+    public function loginUser(string $mail, string $pass)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM users WHERE user_mail = ?");
+        $ps->bindValue(1, $mail, pdo::PARAM_STR);
+        $ps->execute();
+
+        $data = $ps->fetch();
+        if ($data != false) {
+            if (password_verify($pass, $data["user_password"])) {
+                return $data;
+            } else {
+                throw new LogicException("パスワードが違います");
+            }
+        } else {
+            throw new BadMethodCallException("メールアドレスが存在しません");
+        }
+    }
 }
