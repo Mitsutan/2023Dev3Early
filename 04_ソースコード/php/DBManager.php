@@ -1,0 +1,110 @@
+<?php
+class DBManager
+{
+    private function connectDb()
+    {
+        $pdo = new PDO("mysql:host=localhost;dbname=mmemorial;charset=utf8", 'root', 'root'); // 開発用
+        return $pdo;
+    }
+
+    public function submitUser(string $name, string $pass, string $mail)
+    {
+        $ps = $this->connectDb()->prepare("INSERT INTO users(user_name,user_password,user_mail,user_pic,user_signup_date_time,user_about_me) VALUES (?,?,?,?,?,?)");
+        $ps->bindValue(1, $name, pdo::PARAM_STR);
+        $ps->bindValue(2, password_hash($pass, PASSWORD_DEFAULT), pdo::PARAM_STR);
+        $ps->bindValue(3, $mail, pdo::PARAM_STR);
+        $ps->bindValue(4, null, pdo::PARAM_STR);
+        $ps->bindValue(5, date('Y-m-d H:i:s'), pdo::PARAM_STR);
+        $ps->bindValue(6, null, pdo::PARAM_STR);
+
+        if (!$ps->execute()) {
+            throw new Exception("原因不明のエラーが発生しました。<br />しばらく時間をおいて再度お試しください。", 100);
+        }
+    }
+
+    public function loginUser(string $mail, string $pass)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM users WHERE user_mail = ?");
+        $ps->bindValue(1, $mail, pdo::PARAM_STR);
+        $ps->execute();
+
+        $data = $ps->fetch();
+        if ($data != false) {
+            if (password_verify($pass, $data["user_password"])) {
+                return $data;
+            } else {
+                throw new LogicException("パスワードが違います");
+            }
+        } else {
+            throw new BadMethodCallException("メールアドレスが存在しません");
+        }
+    }
+
+    public function editUser(int $id, string $mail, string $name, string $desc)
+    {
+        $ps = $this->connectDb()->prepare("UPDATE users SET user_mail = ?, user_name = ?, user_about_me = ? WHERE user_id = ?");
+        $ps->bindValue(1, $mail, pdo::PARAM_STR);
+        $ps->bindValue(2, $name, pdo::PARAM_STR);
+        $ps->bindValue(3, $desc, pdo::PARAM_STR);
+        $ps->bindValue(4, $id, pdo::PARAM_INT);
+        if (!$ps->execute()) {
+            throw new Exception("原因不明のエラーが発生しました。<br />しばらく時間をおいて再度お試しください。", 100);
+        }
+    }
+
+    public function followUser(int $userId, int $followingUserId) //followUser: ユーザーが別のユーザーをフォローするためのメソッド。
+    {
+        $ps = $this->connectDb()->prepare("INSERT INTO follows(user_id, following_user_id, follow_datetime) VALUES (?, ?, ?)");
+        $ps->bindValue(1, $userId, PDO::PARAM_INT);
+        $ps->bindValue(2, $followingUserId, PDO::PARAM_INT);
+        $ps->bindValue(3, date('Y-m-d H:i:s'), PDO::PARAM_STR);
+
+        if (!$ps->execute()) {
+            throw new Exception("フォローに失敗しました。");
+        }
+    }
+
+    public function unfollowUser(int $userId, int $followingUserId) //unfollowUser: ユーザーがフォローしているユーザーをアンフォローするためのメソッド。
+    {
+        $ps = $this->connectDb()->prepare("DELETE FROM follows WHERE user_id = ? AND following_user_id = ?");
+        $ps->bindValue(1, $userId, PDO::PARAM_INT);
+        $ps->bindValue(2, $followingUserId, PDO::PARAM_INT);
+
+        if (!$ps->execute()) {
+            throw new Exception("アンフォローに失敗しました。");
+        }
+    }
+
+    public function isFollowingUser(int $userId, int $followingUserId) //isFollowingUser: ユーザーが特定のユーザーをフォローしているかどうかを判定するためのメソッドで
+    {
+        $ps = $this->connectDb()->prepare("SELECT COUNT(*) FROM follows WHERE user_id = ? AND following_user_id = ?");
+        $ps->bindValue(1, $userId, PDO::PARAM_INT);
+        $ps->bindValue(2, $followingUserId, PDO::PARAM_INT);
+        $ps->execute();
+
+        $count = $ps->fetchColumn();
+        return ($count > 0);
+    }
+
+    public function getFollowersCount(int $userId) //getFollowersCount: ユーザーがフォローされているユーザー数を取得するためのメソッドです。
+    {
+        $ps = $this->connectDb()->prepare("SELECT COUNT(*) FROM follows WHERE following_user_id = ?");
+        $ps->bindValue(1, $userId, PDO::PARAM_INT);
+        $ps->execute();
+
+        $count = $ps->fetchColumn();
+        return $count;
+    }
+
+    public function getFollowingCount(int $userId) //getFollowingCount: ユーザーがフォローしているユーザー数を取得するためのメソッドです。
+    {
+        $ps = $this->connectDb()->prepare("SELECT COUNT(*) FROM follows WHERE user_id = ?");
+        $ps->bindValue(1, $userId, PDO::PARAM_INT);
+        $ps->execute();
+
+        $count = $ps->fetchColumn();
+        return $count;
+    }
+}
+
+

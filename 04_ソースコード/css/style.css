@@ -1,8 +1,14 @@
 /* header デザイン */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
+
 header {
     position: sticky;
     top: 0;
     z-index: 1;
+}
+
+.logo {
+    font-family: 'Noto Serif', serif;
 }
 
 ul#nav_ul {

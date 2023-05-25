@@ -1,5 +1,5 @@
 <?php
-session_start()
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -25,8 +25,19 @@ session_start()
         <h1>新規登録</h1>
 
         <div class="mb-2">
-            <a href="./signup.php">新規登録はこちら</a>
+            <a href="./login.php">ログインはこちら</a>
         </div>
+
+        <!-- error message area -->
+        <div class="<?php if (!isset($_SESSION['errorMsg'])) echo "d-none" ?>">
+            <div class="border border-danger border-2 rounded mb-2 p-1 err_area fw-bold text-danger">
+                <?php
+                echo $_SESSION['errorMsg'];
+                unset($_SESSION['errorMsg']);
+                ?>
+            </div>
+        </div>
+
         <form action="./php/signup.php" method="post">
             <div class="mb-3">
                 <label for="InputEmail1" class="form-label">メールアドレス</label>
@@ -37,6 +48,10 @@ session_start()
                 <label for="InputPassword1" class="form-label">パスワード</label>
                 <input type="password" class="form-control" id="InputPassword1" name="pass" required>
             </div>
+            <div class="mb-3">
+                <label for="InputName" class="form-label">ユーザー名</label>
+                <input type="text" class="form-control" id="InputName" name="name" required>
+            </div>
             <!-- <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
@@ -44,6 +59,7 @@ session_start()
             <button type="submit" class="btn btn-warning">ログイン</button>
         </form>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./script/script.js"></script>
