@@ -10,6 +10,8 @@ $db = new DBManager;
 $mail = $_POST['mail'];
 $pass = $_POST['pass'];
 
+unset($_SESSION['errorMsg']);
+
 try {
     //ログイン処理
     $user = $db->loginUser($mail, $pass);
@@ -25,9 +27,13 @@ try {
 
 } catch (LogicException $e) {
     // パスワードが間違っている場合のエラーメッセージを表示
-    echo "パスワードが違います。";
+    // echo "パスワードが違います。";
+    $_SESSION['errorMsg'] = $e->getMessage();
+    header("Location: ../login.php");
 } catch (BadMethodCallException $e) {
     // メールアドレスが存在しない場合のエラーメッセージを表示
-    echo "メールアドレスが存在しません。";
+    // echo "メールアドレスが存在しません。";
+    $_SESSION['errorMsg'] = $e->getMessage();
+    header("Location: ../login.php");
 }
 ?>

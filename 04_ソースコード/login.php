@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -26,9 +29,12 @@
         </div>
 
         <!-- error message area -->
-        <div class="<?php if (true) echo "d-none" ?>">
+        <div class="<?php if (!isset($_SESSION['errorMsg'])) echo "d-none" ?>">
             <div class="border border-danger border-2 rounded mb-2 p-1 err_area fw-bold text-danger">
-                <?php echo "error message" ?>
+                <?php
+                echo $_SESSION['errorMsg'];
+                unset($_SESSION['errorMsg']);
+                ?>
             </div>
         </div>
 
