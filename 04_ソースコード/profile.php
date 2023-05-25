@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 </head>
 <body>
     <header>
-        <!-- ヘッダーの内容 -->
+    <?php include 'header.php'; ?>
     </header>
 
     <div class="container">
