@@ -2,7 +2,7 @@
 session_start();
 
 // DBManager.php ファイルをインクルードします
-require_once './php/DBManager.php';
+require_once './DBManager.php';
 
 // POST リクエストの処理を行います
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $dbManager->submitUser('', $pass, $mail); // ユーザー名は空文字列としていますが、適宜修正してください
 
         // 登録成功時の処理（例: ログイン画面にリダイレクト）
-        header('Location: login.php');
+        header('Location: ../login.php');
         exit;
     } catch (Exception $e) {
         // エラーが発生した場合の処理（例: エラーメッセージの表示）
