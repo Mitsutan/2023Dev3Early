@@ -1,5 +1,30 @@
 <?php
 session_start()
+
+// DBManager.php ファイルをインクルードします
+require_once './php/DBManager.php';
+
+// POST リクエストの処理を行います
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // 入力された情報を取得します
+    $mail = $_POST['mail'];
+    $pass = $_POST['pass'];
+
+    // DBManager オブジェクトを作成します
+    $dbManager = new DBManager();
+
+    try {
+        // ユーザーを登録します
+        $dbManager->submitUser('', $pass, $mail); // ユーザー名は空文字列としていますが、適宜修正してください
+
+        // 登録成功時の処理（例: ログイン画面にリダイレクト）
+        header('Location: login.php');
+        exit;
+    } catch (Exception $e) {
+        // エラーが発生した場合の処理（例: エラーメッセージの表示）
+        $errorMessage = $e->getMessage();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -44,6 +69,7 @@ session_start()
             <button type="submit" class="btn btn-warning">ログイン</button>
         </form>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./script/script.js"></script>
