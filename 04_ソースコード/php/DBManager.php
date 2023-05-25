@@ -39,4 +39,16 @@ class DBManager
             throw new BadMethodCallException("メールアドレスが存在しません");
         }
     }
+
+    public function editUser(int $id, string $mail, string $name, string $desc)
+    {
+        $ps = $this->connectDb()->prepare("UPDATE users SET user_mail = ?, user_name = ?, user_about_me = ? WHERE user_id = ?");
+        $ps->bindValue(1, $mail, pdo::PARAM_STR);
+        $ps->bindValue(2, $name, pdo::PARAM_STR);
+        $ps->bindValue(3, $desc, pdo::PARAM_STR);
+        $ps->bindValue(4, $id, pdo::PARAM_INT);
+        if (!$ps->execute()) {
+            throw new Exception("原因不明のエラーが発生しました。<br />しばらく時間をおいて再度お試しください。", 100);
+        }
+    }
 }
