@@ -141,6 +141,31 @@ class DBManager
             throw new Exception("記事の詳細の追加に失敗しました。");
         }
     }
+    //記事更新処理　林田作
+    public function updateArticle(int $articleId, string $title, string $detailText)
+    {
+        $currentTime = date('Y-m-d H:i:s');
+
+        // 記事の更新
+        $ps = $this->connectDb()->prepare("UPDATE articles SET title = ?, update_datetime = ? WHERE article_id = ?");
+        $ps->bindValue(1, $title, PDO::PARAM_STR);
+        $ps->bindValue(2, $currentTime, PDO::PARAM_STR);
+        $ps->bindValue(3, $articleId, PDO::PARAM_INT);
+
+        if (!$ps->execute()) {
+            throw new Exception("記事の更新に失敗しました。");
+        }
+
+        // 記事詳細の更新
+        $ps = $this->connectDb()->prepare("UPDATE details SET detail_text = ?, detail_updateday = ? WHERE article_id = ?");
+        $ps->bindValue(1, $detailText, PDO::PARAM_STR);
+        $ps->bindValue(2, $currentTime, PDO::PARAM_STR);
+        $ps->bindValue(3, $articleId, PDO::PARAM_INT);
+
+        if (!$ps->execute()) {
+            throw new Exception("記事の詳細の更新に失敗しました。");
+        }
+    }
 }
 
 
