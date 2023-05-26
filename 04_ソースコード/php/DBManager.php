@@ -168,7 +168,5 @@ class DBManager
     }
 }
 
-}
-
 
 
