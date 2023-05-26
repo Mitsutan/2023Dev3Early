@@ -24,7 +24,7 @@ session_start()
     <div class="container-fluid">
     <h1>登録完了</h1>
 
-<div class="mb-2">
+<div class="col-sm-4 col-form-label col-form-label-lg">
     <a href="./login.php">ログインへ</a>
 </div>
 
