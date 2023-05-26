@@ -7,6 +7,7 @@ class DBManager
         return $pdo;
     }
 
+    // user crud関連 ---
     public function submitUser(string $name, string $pass, string $mail)
     {
         $ps = $this->connectDb()->prepare("INSERT INTO users(user_name,user_password,user_mail,user_pic,user_signup_date_time,user_about_me) VALUES (?,?,?,?,?,?)");
@@ -51,6 +52,9 @@ class DBManager
             throw new Exception("原因不明のエラーが発生しました。<br />しばらく時間をおいて再度お試しください。", 100);
         }
     }
+    // user crud関連ここまで ---
+
+    // follow crud関連 ---
 
     public function followUser(int $userId, int $followingUserId) //followUser: ユーザーが別のユーザーをフォローするためのメソッド。
     {
@@ -105,6 +109,7 @@ class DBManager
         $count = $ps->fetchColumn();
         return $count;
     }
+    // follow crud関連ここまで ---
 }
 
 
