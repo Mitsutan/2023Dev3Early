@@ -16,11 +16,12 @@
     <?php require_once "./php/header.php" ?>
 
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-6-md.offset-md-3">
+                <div class="container">
         <h1>（関数記入）のページ</h1>
-        <div class="container">
-        <div class="d-grid gap-2"><a href="./signup.php" class="btn btn-warning">新規記事投稿</a></div>
-        </div>
-        <form action="./php/update.php" method="post">
+        <div class="d-grid gap-2 text-center"><a href="./signup.php" class="btn-lg btn-warning">新規記事投稿</a></div>
+        <form action="./php/update.php" enctype="multipart/form-data" method="post">
             <div class="mb-3">
                 <label for="UpdateEmail1" class="form-label">メールアドレス</label>
                 <input type="email" class="form-control" id="UpdateEmail1" name="mail" aria-describedby="emailHelp" required>
@@ -38,8 +39,28 @@
                 <label for="UpdateIntroduce" class="form-label">自己紹介</label>
                 <input type="text" class="form-control" id="updateIntroduce" name="Introduce" required>
             </div>
+            <div class="mb-3">
+                <label for="UpdateIntroduce" class="form-label">プロフィール画像</label><br>
+                <input type="file" name="avatar">
+            </div>
+            <div class="container mt-3 mb-3 text-center">
             <button type="submit" class="btn-lg btn-warning">更新</button>
+            </div>
+            <!-- <button type="submit" class="btn-lg btn-warning">更新</button> -->
+            <!-- error message area -->
+            <div class="<?php if (!isset($_SESSION['errorMsg'])) echo "d-none" ?>">
+                <div class="border border-danger border-2 rounded mb-2 p-1 err_area fw-bold text-danger">
+                    <?php
+                    echo $_SESSION['errorMsg'];
+                    unset($_SESSION['errorMsg']);
+                    ?>
+                </div>
+            </div>
         </form>
+        <div><a href="./profile.php">自分のプロフィール画面をみる</a></div><br>
+        <div><a href="./php/logout.php">ログアウト</a></div>
+        </div>
+    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
