@@ -114,7 +114,7 @@ class DBManager
     //新規記事投稿処理　林田作
     public function submitArticle(int $userId, string $title, string $detailText)
     {
-        $currentTime = date('Y-m-d H:i:s'); //投稿日時と更新日時
+        $currentTime = date('Y-m-d H:i:s'); //現在の日時を取得
 
         // 記事の投稿
         $ps = $this->connectDb()->prepare("INSERT INTO articles(user_id, title, post_datetime, update_datetime) VALUES (?, ?, ?, ?)");
