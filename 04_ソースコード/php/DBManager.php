@@ -110,6 +110,38 @@ class DBManager
         return $count;
     }
     // follow crud関連ここまで ---
+
+    //新規記事投稿処理　林田作
+    public function submitArticle(int $userId, string $title, string $detailText)
+    {
+        $currentTime = date('Y-m-d H:i:s'); //投稿日時と更新日時
+
+        // 記事の投稿
+        $ps = $this->connectDb()->prepare("INSERT INTO articles(user_id, title, post_datetime, update_datetime) VALUES (?, ?, ?, ?)");
+        $ps->bindValue(1, $userId, PDO::PARAM_INT);
+        $ps->bindValue(2, $title, PDO::PARAM_STR);
+        $ps->bindValue(3, $currentTime, PDO::PARAM_STR);
+        $ps->bindValue(4, $currentTime, PDO::PARAM_STR);
+
+        if (!$ps->execute()) {
+            throw new Exception("記事の投稿に失敗しました。");
+        }
+
+        $articleId = $this->connectDb()->lastInsertId(); // 追加された記事のIDを取得
+
+        // 記事詳細の追加
+        $ps = $this->connectDb()->prepare("INSERT INTO details(article_id, detail_submitday, detail_updateday, detail_text) VALUES (?, ?, ?, ?)");
+        $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+        $ps->bindValue(2, $currentTime, PDO::PARAM_STR);
+        $ps->bindValue(3, $currentTime, PDO::PARAM_STR);
+        $ps->bindValue(4, $detailText, PDO::PARAM_STR);
+
+        if (!$ps->execute()) {
+            // エラー処理（記事の詳細の追加に失敗した場合）
+            throw new Exception("記事の詳細の追加に失敗しました。");
+        }
+    }
 }
+
 
 
