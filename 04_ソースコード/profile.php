@@ -1,61 +1,32 @@
-
+<?php
+session_start()
+?>
 <!DOCTYPE html>
-<html>
-<head>
-    <title>プロフィール</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-</head>
-<body>
-    <header>
-    <?php include 'header.php'; ?>
-    </header>
+<html lang="ja">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <h2>プロフィール名</h2>
-                <img src="path_to_profile_image" alt="プロフィール画像">
-                <p>自己紹介文</p>
-                <p>フォロー数: <span id="following-count"></span></p>
-                <p>フォロワー数: <span id="followers-count"></span></p>
-            </div>
-            <div class="col-md-9">
-                <h2>投稿した記事一覧</h2>
-                <ul id="article-list"></ul>
-            </div>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <title>タイトル</title>
+</head>
+
+<body>
+    <?php require_once "./php/header.php" ?>
+
+    <div class="container-fluid">
+        (ここにユーザー名)
     </div>
 
-    <script>
-        $(document).ready(function() {
-            // ページ読み込み時にプロフィール情報を取得
-            getProfileData();
-        });
-
-        function getProfileData() {
-            // バックエンドとのデータ連携（Ajax）
-            $.ajax({
-                url: "backend.php", // バックエンドの処理を実行するファイルのパスを指定
-                type: "GET",
-                dataType: "json",
-                success: function(response) {
-                    // 応答データを元にプロフィール情報を表示
-                    $("#following-count").text(response.followingCount);
-                    $("#followers-count").text(response.followersCount);
-
-                    // 投稿記事一覧を表示
-                    var articleList = response.articleList;
-                    for (var i = 0; i < articleList.length; i++) {
-                        var article = articleList[i];
-                        $("#article-list").append("<li>" + article.title + "</li>");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log("エラー: " + error);
-                }
-            });
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="./script/script.js"></script>
 </body>
+
 </html>
