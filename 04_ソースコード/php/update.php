@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // プロフィール画像のアップロード処理
     if ($_FILES["avatar"]["name"]) {
         $avatar = $_FILES["avatar"]["name"];
-        $avatarPath = "./avatars/" . $avatar;
+        $avatarPath = "./" . $avatar;
         move_uploaded_file($_FILES["avatar"]["tmp_name"], $avatarPath);
     } else {
         $avatar = ""; // もし画像がアップロードされていない場合は、空の値を設定する
