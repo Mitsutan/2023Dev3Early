@@ -195,7 +195,9 @@ class DBManager
     }
 
     return $article;
-}
+    }
+    
+
 
 }
 
