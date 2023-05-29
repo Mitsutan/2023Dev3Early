@@ -41,6 +41,15 @@ class DBManager
         }
     }
 
+    public function getUser(int $id)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM users WHERE user_id = ?");
+        $ps->bindValue(1, $id, pdo::PARAM_INT);
+        $ps->execute();
+
+        return $ps->fetch();
+    }
+
     public function editUser(int $id, string $mail, string $name, string $desc)
     {
         $ps = $this->connectDb()->prepare("UPDATE users SET user_mail = ?, user_name = ?, user_about_me = ? WHERE user_id = ?");

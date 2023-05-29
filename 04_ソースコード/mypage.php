@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+require_once "./php/DBManager.php";
+$db = new DBManager();
+
+$userData = $db->getUser($_SESSION["user_id"]);
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -25,18 +30,18 @@ session_start();
         <div class="row">
             <div class="col-6-md.offset-md-3">
                 <div class="container">
-                    <h1>（関数記入）のページ</h1>
+                    <h1><?php echo $_SESSION["user_name"]; ?>のページ</h1>
                     <div class="d-grid gap-2 text-center"><a href="./write.php" class="btn-lg btn-warning">新規記事投稿</a></div>
                     <form action="./php/update.php" enctype="multipart/form-data" method="post">
                         <div class="mb-3">
                             <label for="UpdateEmail1" class="form-label">メールアドレス</label>
-                            <input type="email" class="form-control" id="UpdateEmail1" name="mail" aria-describedby="emailHelp" required>
+                            <input type="email" class="form-control" id="UpdateEmail1" name="mail" value="<?php echo $userData['user_mail'] ?>" aria-describedby="emailHelp" required>
                             <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="UpdatePassword1" class="form-label">パスワード</label>
-                            <input type="password" class="form-control" id="UpdatePassword1" name="pass" required>
-                        </div>
+                            <input type="password" class="form-control" id="UpdatePassword1" name="pass" value="" required>
+                        </div> -->
                         <!-- <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
