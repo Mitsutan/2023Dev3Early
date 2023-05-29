@@ -15,20 +15,14 @@ session_start()
 
     <link rel="stylesheet" href="./css/style.css">
 
-    <title>筋肉Memorial</title>
+    <title>タイトル</title>
 </head>
 
 <body>
     <?php require_once "./php/header.php" ?>
 
     <div class="container-fluid">
-        <h1>今日の注目記事</h1>
-        <h1>新着記事</h1>
-        <?php
-        if (isset($_SESSION['user_id'])) {
-            echo '<h1>フォローユーザーの記事</h1>';
-        }
-        ?>
+        ここにページの内容
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
