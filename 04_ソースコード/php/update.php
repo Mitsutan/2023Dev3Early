@@ -7,6 +7,7 @@ $db = new DBManager();
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $mail = $_POST["mail"];
     $introduce = $_POST["Introduce"];
+    $name="a";
 
     // プロフィール画像のアップロード処理
     if ($_FILES["avatar"]["name"]) {
