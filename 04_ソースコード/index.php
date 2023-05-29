@@ -15,7 +15,7 @@ session_start()
 
     <link rel="stylesheet" href="./css/style.css">
 
-    <title>タイトル</title>
+    <title>筋肉Memorial</title>
 </head>
 
 <body>
