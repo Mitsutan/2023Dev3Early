@@ -41,6 +41,15 @@ class DBManager
         }
     }
 
+    public function getUser(int $id)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM users WHERE user_id = ?");
+        $ps->bindValue(1, $id, pdo::PARAM_INT);
+        $ps->execute();
+
+        return $ps->fetch();
+    }
+
     public function editUser(int $id, string $mail, string $name, string $desc)
     {
         $ps = $this->connectDb()->prepare("UPDATE users SET user_mail = ?, user_name = ?, user_about_me = ? WHERE user_id = ?");
@@ -166,6 +175,30 @@ class DBManager
             throw new Exception("記事の詳細の更新に失敗しました。");
         }
     }
+    //記事取得処理
+    // 記事を一件取得するメソッド
+    public function getArticleById(int $articleId)
+    {
+    $ps = $this->connectDb()->prepare("SELECT * FROM articles WHERE article_id = ?");
+    $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+    $ps->execute();
+
+    $article = $ps->fetch(PDO::FETCH_ASSOC);
+
+    if ($article) {
+        $ps = $this->connectDb()->prepare("SELECT * FROM details WHERE article_id = ?");
+        $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+        $ps->execute();
+
+        $details = $ps->fetchAll(PDO::FETCH_ASSOC);
+        $article['details'] = $details;
+    }
+
+    return $article;
+    }
+    
+
+
 }
 
 
