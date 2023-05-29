@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +26,7 @@
             <div class="col-6-md.offset-md-3">
                 <div class="container">
         <h1>（関数記入）のページ</h1>
-        <div class="d-grid gap-2 text-center"><a href="./signup.php" class="btn-lg btn-warning">新規記事投稿</a></div>
+        <div class="d-grid gap-2 text-center"><a href="./write.php" class="btn-lg btn-warning">新規記事投稿</a></div>
         <form action="./php/update.php" enctype="multipart/form-data" method="post">
             <div class="mb-3">
                 <label for="UpdateEmail1" class="form-label">メールアドレス</label>
@@ -68,4 +74,3 @@
 </body>
 
 </html>
----
