@@ -15,14 +15,56 @@ session_start()
 
     <link rel="stylesheet" href="./css/style.css">
 
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+
     <title>タイトル</title>
 </head>
 
 <body>
     <?php require_once "./php/header.php" ?>
 
-    <div class="container-fluid">
-        ここにページの内容
+    <div class="container">
+            <div class="mb-3">
+                <h1>新規記事投稿</h1>
+            </div>
+            <form action="./php/write.php" enctype="multipart/form-data" method="post">
+            <div class="mb-3 row">
+                <label for="article_write" class="form-label">シリーズ</label>
+                <input type="text" class="form-control col-md-5" id="articleseries" name="series" required>
+            </div>
+            <div class="mb-3">
+                <label for="article_write" class="form-label">記事名</label>
+                <input type="text" class="form-control" id="articletitle" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="article_write" class="form-label">記事概要</label>
+                <input type="text" class="form-control" id="articleoverview" name="overview" required>
+            </div>
+            <div class="mb-3">
+                <label for="article_write" class="form-label">表紙画像</label><br>
+                <input type="file" name="avatar">
+            </div>
+            <div class="mb-3">
+                <label for="article_write" class="form-label">タグ</label>
+                <input type="text" class="form-control" id="articletag" name="tag" required>
+            </div>
+
+            <div class="mb-3">
+            <input id="x" type="hidden" name="content">
+            <trix-editor input="x"></trix-editor>
+            </div>
+            <button type="submit" class="btn-lg btn-warning">更新</button>
+            </div>
+            <div class="<?php if (!isset($_SESSION['errorMsg'])) echo "d-none" ?>">
+                <div class="border border-danger border-2 rounded mb-2 p-1 err_area fw-bold text-danger">
+                    <?php
+                    echo $_SESSION['errorMsg'];
+                    unset($_SESSION['errorMsg']);
+                    ?>
+                </div>
+            </div>
+        </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
