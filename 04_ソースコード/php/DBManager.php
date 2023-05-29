@@ -166,6 +166,28 @@ class DBManager
             throw new Exception("記事の詳細の更新に失敗しました。");
         }
     }
+    //記事取得処理
+    // 記事を一件取得するメソッド
+    public function getArticleById(int $articleId)
+    {
+    $ps = $this->connectDb()->prepare("SELECT * FROM articles WHERE article_id = ?");
+    $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+    $ps->execute();
+
+    $article = $ps->fetch(PDO::FETCH_ASSOC);
+
+    if ($article) {
+        $ps = $this->connectDb()->prepare("SELECT * FROM details WHERE article_id = ?");
+        $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+        $ps->execute();
+
+        $details = $ps->fetchAll(PDO::FETCH_ASSOC);
+        $article['details'] = $details;
+    }
+
+    return $article;
+}
+
 }
 
 
