@@ -15,7 +15,8 @@ session_start()
 
     <link rel="stylesheet" href="./css/style.css">
 
-    <title>タイトル</title>
+    <title>ハッシュタグ一覧
+    </title>
 </head>
 
 <body>
