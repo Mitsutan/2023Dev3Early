@@ -15,7 +15,7 @@ session_start()
 
     <link rel="stylesheet" href="./css/style.css">
 
-    <title>タイトル</title>
+    <title>登録完了</title>
 </head>
 
 <body>
@@ -24,7 +24,7 @@ session_start()
     <div class="container-fluid">
     <h1>登録完了</h1>
 
-<div class="col-sm-4 col-form-label col-form-label-lg">
+<div class="col-sm-2 col-form-label col-form-label-lg">
     <a href="./login.php">ログインへ</a>
 </div>
 

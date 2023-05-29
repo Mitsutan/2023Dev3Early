@@ -15,18 +15,22 @@ session_start()
 
     <link rel="stylesheet" href="./css/style.css">
 
-    <title>タイトル</title>
+    <title>プロフィール</title>
 </head>
 
 <body>
     <?php require_once "./php/header.php" ?>
 
     <div class="container-fluid">
-        (ここにユーザー名)
+    <h1>（ここにユーザー名）</h1>
+    <div class = "row">
+    <img src="kawaii.jpg" class="rounded-circle col-3" style = width:200px height=200px>
+    <div class ="col-9"></div>
     </div>
+    
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="./script/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="./script/script.js"></script>
 </body>
 
 </html>
