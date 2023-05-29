@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // データベースの更新処理
-    $db->updateUser($_SESSION["user_id"], $mail, $introduce, $avatar);
+    $db->editUser($_SESSION["user_id"], $mail, $introduce, $avatar);
 }
 
 $userData = $db->getUser($_SESSION["user_id"]);
