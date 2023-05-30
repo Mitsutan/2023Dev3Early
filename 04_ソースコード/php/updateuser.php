@@ -11,6 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // プロフィール画像のアップロード処理
     if ($_FILES["avatar"]["name"]) {
+
+        // 古い画像を削除
+        if (glob("../img/userpics/".$_SESSION['user_id']."/userpic*")) {
+            array_map("unlink", glob("../img/userpics/".$_SESSION['user_id']."/*"));
+        }
+
         mkdir("../img/userpics/".$_SESSION["user_id"]);
         $avatar = "userpic".$_FILES["avatar"]["name"];
         $avatarPath = "../img/userpics/".$_SESSION["user_id"]."/".$avatar;
