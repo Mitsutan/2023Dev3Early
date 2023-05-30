@@ -25,10 +25,10 @@ session_start()
     <?php require_once "./php/header.php" ?>
 
     <div class="container">
-            <div class="mb-3">
-                <h1>新規記事投稿</h1>
-            </div>
-            <form action="./php/write.php" enctype="multipart/form-data" method="post">
+        <div class="mb-3">
+            <h1>新規記事投稿</h1>
+        </div>
+        <form action="./php/write.php" enctype="multipart/form-data" method="post">
             <div class="mb-3 row">
                 <label for="article_write" class="form-label">シリーズ</label>
                 <input type="text" class="form-control col-md-5" id="articleseries" name="series" required>
@@ -51,11 +51,11 @@ session_start()
             </div>
 
             <div class="mb-3">
-            <input id="x" type="hidden" name="content">
-            <trix-editor input="x"></trix-editor>
+                <input id="x" type="hidden" name="content">
+                <trix-editor input="x"></trix-editor>
             </div>
-            <button type="submit" class="btn-lg btn-warning">更新</button>
-            </div>
+            <button type="submit" class="btn-lg btn-warning">投稿</button>
+
             <div class="<?php if (!isset($_SESSION['errorMsg'])) echo "d-none" ?>">
                 <div class="border border-danger border-2 rounded mb-2 p-1 err_area fw-bold text-danger">
                     <?php
@@ -69,6 +69,7 @@ session_start()
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./script/script.js"></script>
+    <script src="./script/trix_img_uploader.js"></script>
 </body>
 
 </html>
