@@ -13,7 +13,7 @@
 
     // 添付画像削除時発火イベント===
     addEventListener("trix-attachment-remove", function (event) {
-        console.log(event);
+        console.log(event.attachment.file);
     });
     // ===
 
@@ -53,7 +53,7 @@
                 }
                 successCallback(attributes)
             } else {
-                console.log("something happen",xhr.status);
+                console.log("something happen", xhr.status);
             }
         })
 
