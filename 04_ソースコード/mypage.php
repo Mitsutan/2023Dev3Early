@@ -54,7 +54,7 @@ $userData = $db->getUser($_SESSION["user_id"]);
                             } else {
                                 echo "./img/user_default.png";
                             }
-                            ?>" alt="">
+                            ?>" alt="" class="rounded-circle w-25">
                             <label for="UpdateIntroduce" class="form-label">プロフィール画像</label><br>
                             <input type="file" name="avatar">
                         </div>
