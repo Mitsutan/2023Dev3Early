@@ -52,7 +52,7 @@ $userData = $db->getUser($_SESSION["user_id"]);
                             if ($userpic) {
                                 echo $userpic[0];
                             } else {
-                                echo "./kawai.jpg";
+                                echo "./img/user_default.png";
                             }
                             ?>" alt="">
                             <label for="UpdateIntroduce" class="form-label">プロフィール画像</label><br>
