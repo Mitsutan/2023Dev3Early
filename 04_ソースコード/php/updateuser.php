@@ -9,6 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $introduce = $_POST["Introduce"];
     $name = $_POST["name"];
 
+    unset($_SESSION['errorMsg']);
+    try {
     // プロフィール画像のアップロード処理
     if ($_FILES["avatar"]["name"]) {
 
@@ -27,9 +29,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // データベースの更新処理
     $db->editUser($_SESSION["user_id"], $mail,$name, $introduce);
+
+    } catch (Exception $e) {
+        $_SESSION['errorMsg'] = $e->getMessage();
+    }
+    
 }
 
 // $userData = $db->getUser($_SESSION["user_id"]);
 
 header("Location: ../mypage.php");
-?>
