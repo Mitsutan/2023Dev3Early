@@ -28,15 +28,19 @@ $userData = $db->getUser($_GET["id"]);
     <?php require_once "./php/header.php" ?>
 
     <div class="container-fluid">
-    <h1><?php echo $userData['user_name'] ?></h1>
-    <div class = "row">
-    <img src="kawaii.jpg" class="rounded-circle col-3" style = width:200px height=200px>
-    <div class ="col-9"></div>
-    </div>
-    
+        <h1><?php echo $userData['user_name'] ?></h1>
+        <div class="row">
+            <div class="col-3">
+                <img src="./img/user_default.png" class="rounded-circle w-100">
+            </div>
+            <div class="col-9">
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="./script/script.js"></script>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="./script/script.js"></script>
 </body>
 
 </html>
