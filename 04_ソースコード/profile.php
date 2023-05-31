@@ -1,5 +1,11 @@
 <?php
-session_start()
+session_start();
+
+require_once "./php/DBManager.php";
+$db = new DBManager;
+
+$userData = $db->getUser($_GET["id"]);
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -22,7 +28,7 @@ session_start()
     <?php require_once "./php/header.php" ?>
 
     <div class="container-fluid">
-    <h1>（ここにユーザー名）</h1>
+    <h1><?php echo $userData['user_name'] ?></h1>
     <div class = "row">
     <img src="kawaii.jpg" class="rounded-circle col-3" style = width:200px height=200px>
     <div class ="col-9"></div>

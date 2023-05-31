@@ -32,25 +32,29 @@ $userData = $db->getUser($_SESSION["user_id"]);
                 <div class="container">
                     <h1><?php echo $_SESSION["user_name"]; ?>のページ</h1>
                     <div class="d-grid gap-2 text-center"><a href="./write.php" class="btn-lg btn-warning">新規記事投稿</a></div>
-                    <form action="./php/update.php" enctype="multipart/form-data" method="post">
+                    <form action="./php/updateuser.php" enctype="multipart/form-data" method="post">
                         <div class="mb-3">
                             <label for="UpdateEmail1" class="form-label">メールアドレス</label>
                             <input type="email" class="form-control" id="UpdateEmail1" name="mail" value="<?php echo $userData['user_mail'] ?>" aria-describedby="emailHelp" required>
                             <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                         </div>
-                        <!-- <div class="mb-3">
-                            <label for="UpdatePassword1" class="form-label">パスワード</label>
-                            <input type="password" class="form-control" id="UpdatePassword1" name="pass" value="" required>
-                        </div> -->
-                        <!-- <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div> -->
                         <div class="mb-3">
-                            <label for="UpdateIntroduce" class="form-label">自己紹介</label>
-                            <input type="text" class="form-control" id="updateIntroduce" name="Introduce" required>
+                            <label for="UpdateEmail1" class="form-label">ユーザー名</label>
+                            <input type="text" class="form-control" id="UpdateName" name="name" value="<?php echo $userData['user_name'] ?>" required>
                         </div>
                         <div class="mb-3">
+                            <label for="UpdateIntroduce" class="form-label">自己紹介</label>
+                            <textarea name="Introduce" class="form-control" id="updateIntroduce"><?php echo $userData['user_about_me'] ?></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <img src="<?php
+                            $userpic = glob("./img/userpics/".$_SESSION['user_id']."/userpic*");
+                            if ($userpic) {
+                                echo $userpic[0];
+                            } else {
+                                echo "./kawai.jpg";
+                            }
+                            ?>" alt="">
                             <label for="UpdateIntroduce" class="form-label">プロフィール画像</label><br>
                             <input type="file" name="avatar">
                         </div>
@@ -68,7 +72,7 @@ $userData = $db->getUser($_SESSION["user_id"]);
                             </div>
                         </div>
                     </form>
-                    <div><a href="./profile.php">自分のプロフィール画面をみる</a></div><br>
+                    <div><a href="./profile?id=<?php echo $_SESSION['user_id'] ?>">自分のプロフィール画面をみる</a></div><br>
                     <div><a href="./php/logout.php">ログアウト</a></div>
                 </div>
             </div>
