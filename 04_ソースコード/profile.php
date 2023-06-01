@@ -4,7 +4,7 @@ session_start();
 require_once "./php/DBManager.php";
 $db = new DBManager;
 
-$userData = $db->getUser($_GET["id"]);
+// $userData = $db->getUser($_GET["id"]);
 
 ?>
 <!DOCTYPE html>
@@ -29,33 +29,29 @@ $userData = $db->getUser($_GET["id"]);
     <div class="container-fluid">
         <h1 style = "margin-top:70px; margin-left:30px;">（ここにユーザー名）</h1>
         <div class = "row gx-3" style = "height: 400px">
-        <div class = "col-3 d-flex align-items-center">
-            <img src="kawaii.jpg" class="mx-auto d-block" style = "border-radius: 50%; width: 250px; height: 250px;">
-        </div>
-        <div class="follower-box">
-            <div class="follow-count">フォロー:</div>
-            <div class="follower-count">フォロワー:</div>
+            <div class = "col-3 d-flex align-items-center">
+                <img src="kawaii.jpg" class="mx-auto d-block" style = "border-radius: 50%; width: 250px; height: 250px;">
+            </div>
         
-
-    <div class ="col-9">
-    <?php
-        $showIntroduction = true; // 紹介文を表示するかどうかの条件
-        if ($showIntroduction) {
-            echo "<div>（ここに自己紹介文）</div>";
-        } else {
-            // 紹介文を表示しない場合の処理
-        }
-    ?>
-    </div>
-    </div>
-    
-
+        <div class ="col-9">
+            <?php
+                $showIntroduction = true; // 紹介文を表示するかどうかの条件
+                if ($showIntroduction) {
+                    echo "<div>（ここに自己紹介文）</div>";
+                } else {
+                    // 紹介文を表示しない場合の処理
+                }
+            ?>
+        </div>
+        <div class="col-3" style="text-align:center; margin-left:50px">
+            <div class="follower-box">
+                <div class="follow-count" style="float: left;">フォロー:</div>
+                <div class="follower-count">フォロワー:</div>
             </div>
         </div>
-
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script src="./script/script.js"></script>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="./script/script.js"></script>
 </body>
-
 </html>
