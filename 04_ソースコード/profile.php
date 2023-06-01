@@ -1,5 +1,11 @@
 <?php
-session_start()
+session_start();
+
+require_once "./php/DBManager.php";
+$db = new DBManager;
+
+$userData = $db->getUser($_GET["id"]);
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -44,8 +50,12 @@ session_start()
     </div>
     
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="./script/script.js"></script>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="./script/script.js"></script>
 </body>
 
 </html>
