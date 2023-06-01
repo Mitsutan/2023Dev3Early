@@ -20,12 +20,27 @@ session_start()
 
 <body>
     <?php require_once "./php/header.php" ?>
-
     <div class="container-fluid">
-    <h1>（ここにユーザー名）</h1>
-    <div class = "row">
-    <img src="kawaii.jpg" class="rounded-circle col-3" style = width:200px height=200px>
-    <div class ="col-9"></div>
+        <h1 style = "margin-top:70px; margin-left:30px;">（ここにユーザー名）</h1>
+        <div class = "row gx-3" style = "height: 400px">
+        <div class = "col-3 d-flex align-items-center">
+            <img src="kawaii.jpg" class="mx-auto d-block" style = "border-radius: 50%; width: 250px; height: 250px;">
+        </div>
+        <div class="follower-box">
+            <div class="follow-count">フォロー:</div>
+            <div class="follower-count">フォロワー:</div>
+        
+
+    <div class ="col-9">
+    <?php
+        $showIntroduction = true; // 紹介文を表示するかどうかの条件
+        if ($showIntroduction) {
+            echo "<div>（ここに自己紹介文）</div>";
+        } else {
+            // 紹介文を表示しない場合の処理
+        }
+    ?>
+    </div>
     </div>
     
 
