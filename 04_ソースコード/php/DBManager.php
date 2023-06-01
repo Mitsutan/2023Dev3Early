@@ -198,6 +198,17 @@ class DBManager
     }
     
 
+    // -----
+
+    // tags 取得---
+    public function getTags()
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM tags");
+        $ps->execute();
+
+        return $ps->fetchAll();
+    }
+    // -----
 
 }
 
