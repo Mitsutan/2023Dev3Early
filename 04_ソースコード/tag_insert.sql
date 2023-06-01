@@ -1,0 +1,14 @@
+INSERT INTO tags(tag_name) VALUES ("ダイエット");
+INSERT INTO tags(tag_name) VALUES ("筋肉");
+INSERT INTO tags(tag_name) VALUES ("胸");
+INSERT INTO tags(tag_name) VALUES ("肩");
+INSERT INTO tags(tag_name) VALUES ("二頭筋");
+INSERT INTO tags(tag_name) VALUES ("三頭筋");
+INSERT INTO tags(tag_name) VALUES ("脚");
+INSERT INTO tags(tag_name) VALUES ("腹筋");
+INSERT INTO tags(tag_name) VALUES ("背中");
+INSERT INTO tags(tag_name) VALUES ("減量");
+INSERT INTO tags(tag_name) VALUES ("増量");
+INSERT INTO tags(tag_name) VALUES ("ストレッチ");
+INSERT INTO tags(tag_name) VALUES ("食事");
+INSERT INTO tags(tag_name) VALUES ("サプリメント");
