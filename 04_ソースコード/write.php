@@ -1,5 +1,8 @@
 <?php
-session_start()
+session_start();
+
+require_once "./php/DBManager.php";
+$db = new DBManager;
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -29,25 +32,36 @@ session_start()
             <h1>新規記事投稿</h1>
         </div>
         <form action="./php/write.php" enctype="multipart/form-data" method="post">
-            <div class="mb-3 row">
-                <label for="article_write" class="form-label">シリーズ</label>
-                <input type="text" class="form-control col-md-5" id="articleseries" name="series" required>
+            <div class="mb-3">
+                <label for="articleseries" class="form-label">シリーズ</label>
+                <select class="form-select" aria-label="Default select example">
+
+                    <option selected>---新規---</option>
+                    <!-- 以下に既存の記事名が入る -->
+                    <!-- <option value="1">One</option> -->
+                </select>
             </div>
             <div class="mb-3">
-                <label for="article_write" class="form-label">記事名</label>
+                <label for="articletitle" class="form-label">記事名</label>
                 <input type="text" class="form-control" id="articletitle" name="title" required>
             </div>
             <div class="mb-3">
-                <label for="article_write" class="form-label">記事概要</label>
+                <label for="articleoverview" class="form-label">記事概要</label>
                 <input type="text" class="form-control" id="articleoverview" name="overview" required>
             </div>
             <div class="mb-3">
-                <label for="article_write" class="form-label">表紙画像</label><br>
+                <label for="article_image" class="form-label">表紙画像</label><br>
                 <input type="file" name="avatar">
             </div>
             <div class="mb-3">
-                <label for="article_write" class="form-label">タグ</label>
-                <input type="text" class="form-control" id="articletag" name="tag" required>
+                <label for="article_tags" class="form-label">タグ</label><br />
+                <!-- <input type="text" class="form-control" id="articletag" name="tag" required> -->
+                <?php
+                $tags = $db->getTags();
+                foreach ($tags as $key) {
+                    echo '<label class="d-block"><input type="checkbox" name="tags[]">' . $key['tag_name'] . '</label>';
+                }
+                ?>
             </div>
 
             <div class="mb-3">
