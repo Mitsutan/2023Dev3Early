@@ -28,7 +28,7 @@ session_start()
             <div class="col-8">
                 <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5">編集</button></a>
                 <img class="img-fluid img-thumbnail mb-3" src="./kawaii.jpg" />
-                <div class="h3 alert-secondary border border-1 border-dark rounded p-2" >
+                <div class="h3 alert-secondary border border-1 border-dark rounded p-2">
                     <?php echo "#タグ #を #表示 #します" ?>
                 </div>
                 <hr aline="center" size="5" class="bg-primary mb-3">
@@ -40,8 +40,13 @@ session_start()
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-2">
                     <h3><?php echo "投稿者プロフィール" ?></h3>
                     <div class="row">
-                        <img src="./kawaii.jpg" class="col-md-5" style="border-radius: 50%; width: 140px; height: 140px;">
-                        <p class="col-md-7"> <?php echo "投稿者名" ?> </p>
+                        <!-- <img src="./kawaii.jpg" class="col-md-5" style="border-radius: 50%; width: 140px; height: 140px;"> -->
+                        <div class="col-md-3">
+                            <div class="rounded-circle ratio ratio-1x1">
+                                <img src="kawaii.jpg" class="rounded-circle ratio ratio-1x1" width="250" height="250">
+                            </div>
+                        </div>
+                        <p class="col-md-9"> <?php echo "投稿者名" ?> </p>
                     </div>
                 </div>
             </div>
