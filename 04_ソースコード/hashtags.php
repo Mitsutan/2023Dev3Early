@@ -1,5 +1,8 @@
 <?php
-session_start()
+session_start();
+
+require_once "./php/DBManager.php";
+$db = new DBManager;
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -21,8 +24,16 @@ session_start()
 <body>
     <?php require_once "./php/header.php" ?>
 
-    <div class="container-fluid">
-    <h1>ハッシュタグ一覧<h1>
+    <div class="container">
+        <h1>ハッシュタグ一覧</h1>
+        <ul>
+            <?php
+            $tags = $db->getTags();
+            foreach ($tags as $key) {
+                echo '<li><a href="./search.php?type=0&word='.$key['tag_name'].'">' . $key['tag_name'] . '</a></li>';
+            }
+            ?>
+        </ul>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
