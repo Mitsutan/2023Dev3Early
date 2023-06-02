@@ -30,14 +30,16 @@ $userData = $db->getUser($_GET["id"]);
         <h1><?php echo $userData['user_name'] ?></h1>
         <div class="row gx-3">
             <div class="col-3 text-center">
-                <img src="<?php
-                            $userpic = glob("./img/userpics/" . $_GET["id"] . "/userpic*");
-                            if ($userpic) {
-                                echo $userpic[0];
-                            } else {
-                                echo "./img/user_default.png";
-                            }
-                            ?>" class="rounded-circle" width="250" height="250">
+                <div class="rounded-circle ratio ratio-1x1">
+                    <img src="<?php
+                                $userpic = glob("./img/userpics/" . $_GET["id"] . "/userpic*");
+                                if ($userpic) {
+                                    echo $userpic[0];
+                                } else {
+                                    echo "./img/user_default.png";
+                                }
+                                ?>" class="rounded-circle ratio ratio-1x1" width="250" height="250">
+                </div>
             </div>
             <div class="col-9">
                 <?php
