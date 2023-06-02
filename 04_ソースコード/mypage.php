@@ -47,14 +47,16 @@ $userData = $db->getUser($_SESSION["user_id"]);
                             <textarea name="Introduce" class="form-control" id="updateIntroduce"><?php echo $userData['user_about_me'] ?></textarea>
                         </div>
                         <div class="mb-3">
-                            <img src="<?php
-                            $userpic = glob("./img/userpics/".$_SESSION['user_id']."/userpic*");
-                            if ($userpic) {
-                                echo $userpic[0];
-                            } else {
-                                echo "./img/user_default.png";
-                            }
-                            ?>" alt="" class="rounded-circle w-25">
+                            <div class="rounded-circle ratio ratio-1x1 w-25 h-25">
+                                <img src="<?php
+                                            $userpic = glob("./img/userpics/" . $_SESSION['user_id'] . "/userpic*");
+                                            if ($userpic) {
+                                                echo $userpic[0];
+                                            } else {
+                                                echo "./img/user_default.png";
+                                            }
+                                            ?>" class="rounded-circle ratio ratio-1x1" width="250" height="250">
+                            </div>
                             <label for="UpdateIntroduce" class="form-label">プロフィール画像</label><br>
                             <input type="file" name="avatar">
                         </div>
