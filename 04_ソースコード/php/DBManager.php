@@ -152,12 +152,12 @@ class DBManager
             throw new Exception("記事の詳細の追加に失敗しました。");
         }
 
-        // if (is_uploaded_file($_FILES['file']['tmp_name'])) {
+         if (!empty($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
 
-        //    mkdir("../img/article/".$articleId);
+           mkdir("../img/article/".$articleId);
         
-        //     move_uploaded_file($_FILES['file']['tmp_name'], "../img/article/".$articleId."/article".$_FILES['file']['name']);
-        // }
+             move_uploaded_file($_FILES['file']['tmp_name'], "../img/article/".$articleId."/article".$_FILES['file']['name']);
+         }
     }
     //記事更新処理　林田作
     public function updateArticle(int $articleId, string $title, string $detailText)
