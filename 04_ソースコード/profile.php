@@ -26,8 +26,8 @@ $db = new DBManager;
 
 <body>
     <?php require_once "./php/header.php" ?>
-    <div class="container-fluid">
-        <h1 style = "margin-top:70px; margin-left:30px;">（ここにユーザー名）</h1>
+    <div class="container-fluid" style = "padding:5%;">
+        <h1 style = "margin-top:70px;">（ここにユーザー名）</h1>
         <div class = "row gx-3" style = "height: 400px">
             <div class = "col-3 d-flex align-items-center">
                 <img src="kawaii.jpg" class="mx-auto d-block" style = "border-radius: 50%; width: 250px; height: 250px;">
@@ -43,10 +43,47 @@ $db = new DBManager;
                 }
             ?>
         </div>
-        <div class="col-3" style="text-align:center; margin-left:50px">
+        <div class="col-3" style="text-align:center; padding-left:3%">
             <div class="follower-box">
                 <div class="follow-count" style="float: left;">フォロー:</div>
                 <div class="follower-count">フォロワー:</div>
+            </div>
+        </div>
+
+
+
+        <h1 style = "margin-top:70px;">投稿記事</h1>
+        <div class="row gx-5">
+            <div class="col-6" style="border-right: 3px solid red; border-left: 3px solid red; position: relative;">
+              <P>記事の見出し</p>
+              <p>2023/xx/xx</p>
+              <div>
+                <div style="display:inline-block;">#ダイエット</div>
+                <div style="display:inline-block;">#筋トレ</div>
+                <div style="display:inline-block;">#胸</div>
+              </div>
+              <img src="kawaii.jpg"  style = "border-radius: 50%; width: 15%; height: 45%; float: left; margin-top:1%;">
+              <div style="padding-left:25%; margin-top:5%;">
+                <div >ユーザー名</div>
+                <div>フォローする</div>
+              </div>
+              <img src="kawai.jpg"  style = "width: 40%; height: 80%;position: absolute; right:20px; top:10px">
+            </div>
+
+            <div class="col-6" style="border-right: 3px solid red; border-left: 3px solid red; position: relative;">
+              <P>記事の見出し</p>
+              <p>2023/xx/xx</p>
+              <div>
+                <div style="display:inline-block;">#ダイエット</div>
+                <div style="display:inline-block;">#筋トレ</div>
+                <div style="display:inline-block;">#胸</div>
+              </div>
+              <img src="kawaii.jpg"  style = "border-radius: 50%; width: 15%; height: 45%; float: left; margin-top:1%;">
+              <div style="padding-left:25%; margin-top:5%;">
+                <div >ユーザー名</div>
+                <div>フォローする</div>
+              </div>
+              <img src="kawai.jpg"  style = "width: 40%; height: 80%;position: absolute; right:20px; top:10px">
             </div>
         </div>
     </div>
