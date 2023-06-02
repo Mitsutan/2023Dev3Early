@@ -53,8 +53,8 @@ $userData = $db->getUser($_GET["id"]);
             </div>
         </div>
         <div class="follower-box">
-            <div class="follow-count">フォロー:</div>
-            <div class="follower-count">フォロワー:</div>
+            <div class="follow-count">フォロー:<?php echo $db->getFollowingCount($_GET["id"]); ?></div>
+            <div class="follower-count">フォロワー:<?php echo $db->getFollowersCount($_GET["id"]); ?></div>
         </div>
     </div>
 
