@@ -151,6 +151,13 @@ class DBManager
             // エラー処理（記事の詳細の追加に失敗した場合）
             throw new Exception("記事の詳細の追加に失敗しました。");
         }
+
+        if (is_uploaded_file($_FILES['file']['tmp_name'])) {
+
+            mkdir("../img/article/".$articleId);
+        
+            move_uploaded_file($_FILES['file']['tmp_name'], "../img/article/".$articleId."/article".$_FILES['file']['name']);
+        }
     }
     //記事更新処理　林田作
     public function updateArticle(int $articleId, string $title, string $detailText)
