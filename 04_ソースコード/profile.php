@@ -28,7 +28,7 @@ $userData = $db->getUser($_GET["id"]);
     <?php require_once "./php/header.php" ?>
     <div class="container">
         <h1><?php echo $userData['user_name'] ?></h1>
-        <div class="row gx-3">
+        <div class="row">
             <div class="col-3 text-center">
                 <div class="rounded-circle ratio ratio-1x1">
                     <img src="<?php
@@ -38,7 +38,7 @@ $userData = $db->getUser($_GET["id"]);
                                 } else {
                                     echo "./img/user_default.png";
                                 }
-                                ?>" class="rounded-circle ratio ratio-1x1" width="250" height="250">
+                                ?>" class="rounded-circle ratio ratio-1x1 p-3" width="100" height="100">
                 </div>
             </div>
             <div class="col-9">
@@ -61,41 +61,82 @@ $userData = $db->getUser($_GET["id"]);
 
 
         <h1 style = "margin-top:70px;">投稿記事</h1>
+
         <div class="row gx-5">
-            <div class="col-6" style="border-right: 3px solid red; border-left: 3px solid red; position: relative;">
-              <P>記事の見出し</p>
-              <p>2023/xx/xx</p>
-              <div>
-                <div style="display:inline-block;">#ダイエット</div>
-                <div style="display:inline-block;">#筋トレ</div>
-                <div style="display:inline-block;">#胸</div>
-              </div>
-              <img src="kawaii.jpg"  style = "border-radius: 50%; width: 15%; height: 45%; float: left; margin-top:1%;">
-              <div style="padding-left:25%; margin-top:5%;">
-                <div >ユーザー名</div>
-                <div>フォローする</div>
-              </div>
-              <img src="kawai.jpg"  style = "width: 40%; height: 80%;position: absolute; right:20px; top:10px">
+            <div class="col-6">
+                <div class="row border border-primary">
+                    <div class="col-7">
+                        <h3>記事の見出し</h3>
+                        <p>2023/xx/xx</p>
+                        <div>
+                            <div style="display:inline-block;">#ダイエット</div>
+                            <div style="display:inline-block;">#筋トレ</div>
+                            <div style="display:inline-block;">#胸</div>
+                        </div>
+                        <div class="row align-items-end" style="min-height: 10vh;">
+                            <div class="col-3">
+                                <!-- <div class="rounded-circle ratio ratio-1x1 w-25"> -->
+                                    <img src="<?php
+                                                $userpic = glob("./img/userpics/" . $_GET["id"] . "/userpic*");
+                                                if ($userpic) {
+                                                    echo $userpic[0];
+                                                } else {
+                                                    echo "./img/user_default.png";
+                                                }
+                                                ?>" class="rounded-circle ratio ratio-1x1">
+                                <!-- </div> -->
+                            </div>
+                            <div class="col-9">
+                                <div>
+                                    <div >ユーザー名</div>
+                                    <div>フォローする</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="col-5">
+                        <img src="kawai.jpg" class="w-100 h-100 d-inline-block">
+                        <!-- <p>aaaa</p> -->
+                    </div>
+                </div>
             </div>
 
-            <div class="col-6" style="border-right: 3px solid red; border-left: 3px solid red; position: relative;">
-              <P>記事の見出し</p>
-              <p>2023/xx/xx</p>
-              <div>
-                <div style="display:inline-block;">#ダイエット</div>
-                <div style="display:inline-block;">#筋トレ</div>
-                <div style="display:inline-block;">#胸</div>
-              </div>
-              <img src="kawaii.jpg"  style = "border-radius: 50%; width: 15%; height: 45%; float: left; margin-top:1%;">
-              <div style="padding-left:25%; margin-top:5%;">
-                <div >ユーザー名</div>
-                <div>フォローする</div>
-              </div>
-              <img src="kawai.jpg"  style = "width: 40%; height: 80%;position: absolute; right:20px; top:10px">
+            <div class="col-6">
+                <div class="row border border-primary">
+                    <div class="col-7">
+                        <P>記事の見出し</p>
+                        <p>2023/xx/xx</p>
+                        <div>
+                            <div style="display:inline-block;">#ダイエット</div>
+                            <div style="display:inline-block;">#筋トレ</div>
+                            <div style="display:inline-block;">#胸</div>
+                        </div>
+                        <div class="rounded-circle ratio ratio-1x1 w-25">
+                                <img src="<?php
+                                            $userpic = glob("./img/userpics/" . $_GET["id"] . "/userpic*");
+                                            if ($userpic) {
+                                                echo $userpic[0];
+                                            } else {
+                                                echo "./img/user_default.png";
+                                            }
+                                            ?>" class="rounded-circle ratio ratio-1x1 p-3">
+                        </div>
+                        <div style="padding-left:25%; margin-top:5%;">
+                            <div >ユーザー名</div>
+                            <div>フォローする</div>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <img src="kawai.jpg" class="w-100">
+                        <!-- <p>aaaa</p> -->
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./script/script.js"></script>
