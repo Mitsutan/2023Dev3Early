@@ -206,6 +206,17 @@ class DBManager
     return $article;
     }
     
+    // ユーザーIDから記事を全件取得するメソッド
+    public function getArticlesByUserId(int $userId)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM articles WHERE user_id = ?");
+        $ps->bindValue(1, $userId, PDO::PARAM_INT);
+        $ps->execute();
+
+        $articles = $ps->fetchAll();
+
+        return $articles;
+    }
 
     // -----
 
