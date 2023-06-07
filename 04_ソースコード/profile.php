@@ -69,7 +69,10 @@ $userData = $db->getUser($_GET["id"]);
                 <div class="row border-start border-end border-dark border-1 p-2">
                     <div class="col-7">
                         <h3>記事の見出し</h3>
-                        <p>2023/xx/xx</p>
+                        <div class="d-flex justify-content-between">
+                            <p>2023/xx/xx</p>
+                            <p><i class="fa-solid fa-thumbs-up me-1"></i>1234</p>
+                        </div>
                         <div>
                             <div style="display:inline-block;">#ダイエット</div>
                             <div style="display:inline-block;">#筋トレ</div>
@@ -103,9 +106,9 @@ $userData = $db->getUser($_GET["id"]);
             </div>
 
             <?php
-            // foreach ($db->getArticlesByUserId($_GET["id"]) as $key => $value) {
-            //     $card->createCard($value["article_id"], $value["title"], $value["update_datetime"], "", 0);
-            // }
+            foreach ($db->getArticlesByUserId($_GET["id"]) as $key => $value) {
+                $card->createCard($value["article_id"], $value["title"], $value["update_datetime"], "", 0);
+            }
             ?>
 
         </div>

@@ -62,3 +62,20 @@ img {
     object-fit: cover;
 }
 /* body デザインここまで */
+
+/* article card デザイン */
+.tag-area>a::before {
+    content: "#";
+}
+
+h3>a,
+.tag-area>a {
+    text-decoration: none;
+    color: black;
+}
+
+h3>a:hover,
+.tag-area>a:hover {
+    color: gray;
+}
+/* article card デザインここまで */

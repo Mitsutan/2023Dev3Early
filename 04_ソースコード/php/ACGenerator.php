@@ -16,12 +16,13 @@ class ACGenerator
             <div class="col-6">
                     <div class="row border-start border-end border-dark border-1 p-2">
                         <div class="col-7">
-                            <h3>'.$title.'</h3>
-                            <p>'.$date.'</p>
-                            <div>
-                                <div style="display:inline-block;">#ダイエット</div>
-                                <div style="display:inline-block;">#筋トレ</div>
-                                <div style="display:inline-block;">#胸</div>
+                            <h3><a href="./article?id=' . $id . '">' . $title . '</a></h3>
+                            <div class="d-flex justify-content-between">
+                                <p>' . $date . '</p>
+                                <p><i class="fa-solid fa-thumbs-up me-1"></i>1234</p>
+                            </div>
+                            <div class="tag-area">
+                                <a href="./search?type=0&word=ダイエット" class="d-inline-block">ダイエット</a>
                             </div>
                             <div class="row align-items-end" style="min-height: 10vmax;">
                                 <div class="col-3">
