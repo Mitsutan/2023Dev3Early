@@ -2,7 +2,7 @@
 <?php
 class ACGenerator
 {
-    public function createCard(int $id, int $userID, string $title, string $date, string $tags, int $goods)
+    public function createCard(int $id, int $userID, string $title, string $date, $tags, int $goods)
     {
 
         $userpic = glob("./img/userpics/" . $userID . "/userpic*");
@@ -22,7 +22,13 @@ class ACGenerator
                                 <p><i class="fa-solid fa-thumbs-up me-1"></i>1234</p>
                             </div>
                             <div class="tag-area">
-                                <a href="./search?type=0&word=ダイエット" class="d-inline-block">ダイエット</a>
+            ';
+
+        foreach ($tags as $key => $value) {
+            echo '<a href="./search?type=0&word=' . $value['tag_name'] . '" class="d-inline-block">' . $value['tag_name'] . '</a>';
+        }
+
+        echo '
                             </div>
                             <div class="row align-items-end" style="min-height: 10vmax;">
                                 <div class="col-3">
