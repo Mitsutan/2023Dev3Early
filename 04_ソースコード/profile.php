@@ -79,7 +79,7 @@ $userData = $db->getUser($_GET["id"]);
                             <div style="display:inline-block;">#胸</div>
                         </div>
                         <div class="row align-items-end" style="min-height: 10vmax;">
-                            <div class="col-3">
+                            <div class="col-4">
                                 <!-- <div class="rounded-circle ratio ratio-1x1 w-25"> -->
                                 <img src="<?php
                                             $userpic = glob("./img/userpics/" . $_GET["id"] . "/userpic*");
@@ -91,7 +91,7 @@ $userData = $db->getUser($_GET["id"]);
                                             ?>" class="rounded-circle ratio ratio-1x1">
                                 <!-- </div> -->
                             </div>
-                            <div class="col-9">
+                            <div class="col-8">
                                 <div>
                                     <div>ユーザー名</div>
                                     <div>フォローする</div>
