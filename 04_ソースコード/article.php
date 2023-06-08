@@ -26,16 +26,36 @@ session_start()
 
         <div class="row">
             <div class="col-8">
-                <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5">編集</button></a>
+                <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5">　編集　</button></a>
                 <img class="img-fluid img-thumbnail mb-3" src="./kawaii.jpg" />
                 <div class="h3 alert-secondary border border-1 border-dark rounded p-2">
                     <?php echo "#タグ #を #表示 #します" ?>
                 </div>
                 <hr aline="center" size="5" class="bg-primary mb-3">
-                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-2">
+                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
                     <p>
                         <?php echo "本文を表示----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ?>
                     </p>
+                </div>
+                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="kawaii.jpg" class="rounded" width="200" height="75">
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class=""> <?php echo "同じ投稿者の次の投稿記事です" ?> </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="kawaii.jpg" class="rounded" width="200" height="75">
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class=""> <?php echo "同じ投稿者の前の投稿記事です" ?> </h3>
+                        </div>
+                    </div>
                 </div>
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-2">
                     <h3><?php echo "投稿者プロフィール" ?></h3>
@@ -46,15 +66,25 @@ session_start()
                                 <img src="kawaii.jpg" class="rounded-circle ratio ratio-1x1" width="250" height="250">
                             </div>
                         </div>
-                        <p class="col-md-9"> <?php echo "投稿者名" ?> </p>
+                        <div class="col-md-9">
+                            <h4> <?php echo "投稿者名" ?> </h4><br>
+                            <p> <?php echo "---------------------------------------------------------------" ?> </p>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-4">
-                <div class="">
+                <div class="mb-3">
                     <h2>同じシリーズの記事</h2>
-
                 </div>
+                <div class="h2 text-center alert-secondary border border-1 border-dark rounded p-2 mb-2" >
+                    <a href="./signup.php" class="mb-2 text-dark"> <?php echo "関連記事1日目" ?> </a> 
+                </div>
+                <!-- <a href="./signup.php">
+                    <div class="h2 text-center alert-secondary border border-1 border-dark rounded p-2 mb-2">
+                        <?php //echo "関連記事１日目" ?>
+                    </div>
+                </a> -->
             </div>
         </div>
     </div>
