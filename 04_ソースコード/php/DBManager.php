@@ -121,7 +121,7 @@ class DBManager
     // follow crud関連ここまで ---
 
     //新規記事投稿処理　林田作
-    public function submitArticle(int $userId, string $title, string $overview, string $detail)
+    public function submitArticle(int $userId, string $title, string $overview, string $detail, $tagIds)
     {
         $currentTime = date('Y-m-d H:i:s'); //現在の日時を取得
 
@@ -140,6 +140,18 @@ class DBManager
 
         $articleId = $pdo->lastInsertId(); // 追加された記事のIDを取得
 
+        // タグ付与
+        foreach ($tagIds as $key) {
+            $ps = $this->connectDb()->prepare("INSERT INTO usedtags(article_id, tag_id) VALUES (?, ?)");
+            $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+            $ps->bindValue(2, $key, PDO::PARAM_STR);
+
+            if (!$ps->execute()) {
+                // エラー処理（タグ付与に失敗した場合）
+                throw new Exception("タグ付与に失敗しました。");
+            }
+        }
+
         // 記事詳細の追加
         $ps = $this->connectDb()->prepare("INSERT INTO details(article_id, detail_submitday, detail_updateday, detail_text) VALUES (?, ?, ?, ?)");
         $ps->bindValue(1, $articleId, PDO::PARAM_INT);
@@ -152,13 +164,14 @@ class DBManager
             throw new Exception("記事の詳細の追加に失敗しました。");
         }
 
-         if (!empty($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
+        if (!empty($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
 
-           mkdir("../img/article/".$articleId);
-        
-             move_uploaded_file($_FILES['file']['tmp_name'], "../img/article/".$articleId."/article".$_FILES['file']['name']);
-         }
+            mkdir("../img/article/" . $articleId);
+
+            move_uploaded_file($_FILES['file']['tmp_name'], "../img/article/" . $articleId . "/article" . $_FILES['file']['name']);
+        }
     }
+
     //記事更新処理　林田作
     public function updateArticle(int $articleId, string $title, string $detailText)
     {
@@ -188,24 +201,24 @@ class DBManager
     // 記事を一件取得するメソッド
     public function getArticleById(int $articleId)
     {
-    $ps = $this->connectDb()->prepare("SELECT * FROM articles WHERE article_id = ?");
-    $ps->bindValue(1, $articleId, PDO::PARAM_INT);
-    $ps->execute();
-
-    $article = $ps->fetch(PDO::FETCH_ASSOC);
-
-    if ($article) {
-        $ps = $this->connectDb()->prepare("SELECT * FROM details WHERE article_id = ?");
+        $ps = $this->connectDb()->prepare("SELECT * FROM articles WHERE article_id = ?");
         $ps->bindValue(1, $articleId, PDO::PARAM_INT);
         $ps->execute();
 
-        $details = $ps->fetchAll(PDO::FETCH_ASSOC);
-        $article['details'] = $details;
+        $article = $ps->fetch(PDO::FETCH_ASSOC);
+
+        if ($article) {
+            $ps = $this->connectDb()->prepare("SELECT * FROM details WHERE article_id = ?");
+            $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+            $ps->execute();
+
+            $details = $ps->fetchAll(PDO::FETCH_ASSOC);
+            $article['details'] = $details;
+        }
+
+        return $article;
     }
 
-    return $article;
-    }
-    
     // ユーザーIDから記事を全件取得するメソッド
     public function getArticlesByUserId(int $userId)
     {
@@ -228,9 +241,28 @@ class DBManager
 
         return $ps->fetchAll();
     }
+
+    // tag_idからタグを取得するメソッド
+    public function getTagById(int $tagId)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM tags WHERE tag_id = ?");
+        $ps->bindValue(1, $tagId, PDO::PARAM_INT);
+        $ps->execute();
+
+        return $ps->fetch();
+    }
+
+    // article_idから使用タグのタグ名を取得するメソッド
+    public function getTagsByArticleId(int $articleId)
+    {
+        $ps = $this->connectDb()->prepare("SELECT t.tag_name FROM usedtags AS ut LEFT OUTER JOIN tags AS t ON ut.tag_id = t.tag_id WHERE article_id = ?");
+        $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+        $ps->execute();
+
+        $tags = $ps->fetchAll();
+
+        return $tags;
+    }
     // -----
 
 }
-
-
-
