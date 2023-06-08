@@ -2,10 +2,10 @@
 <?php
 class ACGenerator
 {
-    public function createCard(int $id, string $title, string $date, string $tags, int $goods)
+    public function createCard(int $id, int $userID, string $title, string $date, string $tags, int $goods)
     {
 
-        $userpic = glob("./img/userpics/" . $_GET["id"] . "/userpic*");
+        $userpic = glob("./img/userpics/" . $userID . "/userpic*");
         if ($userpic) {
             $userpic = $userpic[0];
         } else {
