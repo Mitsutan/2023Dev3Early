@@ -147,7 +147,8 @@ $userData = $db->getUser($_GET["id"]);
 
             <?php
             foreach ($db->getArticlesByUserId($_GET["id"]) as $key => $value) {
-                $card->createCard($value["article_id"], $value["user_id"], $value["title"], $value["update_datetime"], "", 0);
+                $tags = $db->getTagsByArticleId($value["article_id"]);
+                $card->createCard($value["article_id"], $value["user_id"], $value["title"], $value["update_datetime"], $tags, 0);
             }
             ?>
 
