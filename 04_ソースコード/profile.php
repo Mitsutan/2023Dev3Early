@@ -53,10 +53,10 @@ $userData = $db->getUser($_GET["id"]);
                 }
                 ?>
             </div>
-            <div class="col-3" style="text-align:center; padding-left:3%">
-                <div class="follower-box">
-                    <div class="follow-count" style="float: left;">フォロー:</div>
-                    <div class="follower-count">フォロワー:</div>
+            <div class="col-3" style="text-align:center;">
+                <div class="row follower-box">
+                    <div class="col-md-6 col-12 follow-count" style="float: left;">フォロー:</div>
+                    <div class="col-md-6 col-12 follower-count">フォロワー:</div>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@ $userData = $db->getUser($_GET["id"]);
         <h1 style="margin-top:70px;">投稿記事</h1>
 
         <div class="row g-5 mx-0">
-            <div class="col-6">
+            <div class="col-md-6 col-12">
                 <div class="row border-start border-end border-dark border-1 p-2">
                     <div class="col-7">
                         <h3>記事の見出し</h3>
@@ -79,7 +79,7 @@ $userData = $db->getUser($_GET["id"]);
                             <div style="display:inline-block;">#胸</div>
                         </div>
                         <div class="row align-items-end" style="min-height: 10vmax;">
-                            <div class="col-3">
+                            <div class="col-4">
                                 <!-- <div class="rounded-circle ratio ratio-1x1 w-25"> -->
                                 <img src="<?php
                                             $userpic = glob("./img/userpics/" . $_GET["id"] . "/userpic*");
@@ -91,7 +91,47 @@ $userData = $db->getUser($_GET["id"]);
                                             ?>" class="rounded-circle ratio ratio-1x1">
                                 <!-- </div> -->
                             </div>
-                            <div class="col-9">
+                            <div class="col-8">
+                                <div>
+                                    <div>ユーザー名</div>
+                                    <div>フォローする</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <img src="kawaii.jpg" class="w-100 h-100">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="row border-start border-end border-dark border-1 p-2">
+                    <div class="col-7">
+                        <h3>記事の見出し</h3>
+                        <div class="d-flex justify-content-between">
+                            <p>2023/xx/xx</p>
+                            <p><i class="fa-solid fa-thumbs-up me-1"></i>1234</p>
+                        </div>
+                        <div>
+                            <div style="display:inline-block;">#ダイエット</div>
+                            <div style="display:inline-block;">#筋トレ</div>
+                            <div style="display:inline-block;">#胸</div>
+                        </div>
+                        <div class="row align-items-end" style="min-height: 10vmax;">
+                            <div class="col-4">
+                                <!-- <div class="rounded-circle ratio ratio-1x1 w-25"> -->
+                                <img src="<?php
+                                            $userpic = glob("./img/userpics/" . $_GET["id"] . "/userpic*");
+                                            if ($userpic) {
+                                                echo $userpic[0];
+                                            } else {
+                                                echo "./img/user_default.png";
+                                            }
+                                            ?>" class="img-fluid mw-100 h-auto rounded-circle ratio ratio-1x1 ">
+                                <!-- </div> -->
+                            </div>
+                            <div class="col-8">
                                 <div>
                                     <div>ユーザー名</div>
                                     <div>フォローする</div>
@@ -107,7 +147,8 @@ $userData = $db->getUser($_GET["id"]);
 
             <?php
             foreach ($db->getArticlesByUserId($_GET["id"]) as $key => $value) {
-                $card->createCard($value["article_id"], $value["user_id"], $value["title"], $value["update_datetime"], "", 0);
+                $tags = $db->getTagsByArticleId($value["article_id"]);
+                $card->createCard($value["article_id"], $value["user_id"], $value["title"], $value["update_datetime"], $tags, 0);
             }
             ?>
 
