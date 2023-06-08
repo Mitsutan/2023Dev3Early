@@ -13,7 +13,7 @@ class ACGenerator
         }
 
         echo '
-            <div class="col-6">
+            <div class="col-md-6 col-12">
                     <div class="row border-start border-end border-dark border-1 p-2">
                         <div class="col-7">
                             <h3><a href="./article?id=' . $id . '">' . $title . '</a></h3>
@@ -31,10 +31,10 @@ class ACGenerator
         echo '
                             </div>
                             <div class="row align-items-end" style="min-height: 10vmax;">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <img src="' . $userpic . '" class="rounded-circle ratio ratio-1x1">
                                 </div>
-                                <div class="col-9">
+                                <div class="col-8">
                                     <div>
                                         <div>ユーザー名</div>
                                         <div>フォローする</div>
