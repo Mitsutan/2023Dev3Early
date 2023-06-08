@@ -59,12 +59,13 @@ $db = new DBManager;
                 <?php
                 $tags = $db->getTags();
                 foreach ($tags as $key) {
-                    echo '<label class="d-block"><input type="checkbox" name="tags[]">' . $key['tag_name'] . '</label>';
+                    echo '<label class="d-block"><input type="checkbox" name="tags[]" value="' . $key['tag_id'] . '">' . $key['tag_name'] . '</label>';
                 }
                 ?>
             </div>
 
             <div class="mb-3">
+                <label>日目</label><br />
                 <input id="x" type="hidden" name="content">
                 <trix-editor input="x"></trix-editor>
             </div>
