@@ -140,6 +140,13 @@ class DBManager
 
         $articleId = $pdo->lastInsertId(); // 追加された記事のIDを取得
 
+        if (is_uploaded_file($_FILES['topimg']['tmp_name'])) {
+
+            mkdir("../img/article/" . $articleId);
+
+            move_uploaded_file($_FILES['topimg']['tmp_name'], "../img/article/" . $articleId . "/topimage" . $_FILES['topimg']['name']);
+        }
+
         // タグ付与
         foreach ($tagIds as $key) {
             $ps = $this->connectDb()->prepare("INSERT INTO usedtags(article_id, tag_id) VALUES (?, ?)");

@@ -12,6 +12,13 @@ class ACGenerator
             $userpic = "./img/user_default.png";
         }
 
+        $topimg = glob("./img/article/" . $id . "/topimage*");
+        if ($topimg) {
+            $topimg = $topimg[0];
+        } else {
+            $topimg = "./img/article_default.png";
+        }
+
         echo '
             <div class="col-md-6 col-12">
                     <div class="row border-start border-end border-dark border-1 p-2">
@@ -43,7 +50,7 @@ class ACGenerator
                             </div>
                         </div>
                         <div class="col-5">
-                            <img src="kawaii.jpg" class="w-100 h-100">
+                            <img src="' . $topimg . '" class="w-100 h-100">
                         </div>
                     </div>
                 </div>
