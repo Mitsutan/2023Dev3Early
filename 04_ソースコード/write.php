@@ -51,7 +51,7 @@ $db = new DBManager;
             </div>
             <div class="mb-3">
                 <label for="article_image" class="form-label">表紙画像</label><br>
-                <input type="file" name="avatar">
+                <input type="file" name="topimg">
             </div>
             <div class="mb-3">
                 <label for="article_tags" class="form-label">タグ</label><br />
