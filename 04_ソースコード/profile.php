@@ -29,7 +29,7 @@ $userData = $db->getUser($_GET["id"]);
 <body>
     <?php require_once "./php/header.php" ?>
     <div class="container">
-        <h1><?php echo $userData['user_name'] ?></h1>
+        <h1><?= $userData['user_name'] ?></h1>
         <div class="row mx-0">
             <div class="col-3 text-center">
                 <div class="rounded-circle ratio ratio-1x1">
