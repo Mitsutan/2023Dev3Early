@@ -27,8 +27,7 @@ session_start()
         <div class="row">
             <div class="col-8">
                 <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5">　編集　</button></a>
-                <p>本文</p>
-                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
+                <div class=" border border-1 border-dark rounded p-2 mb-3">
                     <p>
                         <?php echo "本文を表示----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ?>
                     </p>

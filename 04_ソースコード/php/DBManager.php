@@ -121,7 +121,11 @@ class DBManager
     // follow crud関連ここまで ---
 
     //新規記事投稿処理　林田作
+<<<<<<< Updated upstream
     public function submitArticle(int $userId, string $title, string $overview, string $detail, $tagIds)
+=======
+    public function submitArticle(int $userId, string $title, string $overview, string $detail)
+>>>>>>> Stashed changes
     {
         $currentTime = date('Y-m-d H:i:s'); //現在の日時を取得
 
@@ -139,6 +143,7 @@ class DBManager
         }
 
         $articleId = $pdo->lastInsertId(); // 追加された記事のIDを取得
+<<<<<<< Updated upstream
 
         if (is_uploaded_file($_FILES['topimg']['tmp_name'])) {
 
@@ -158,6 +163,8 @@ class DBManager
                 throw new Exception("タグ付与に失敗しました。");
             }
         }
+=======
+>>>>>>> Stashed changes
 
         // 記事詳細の追加
         $ps = $this->connectDb()->prepare("INSERT INTO details(article_id, detail_submitday, detail_updateday, detail_text) VALUES (?, ?, ?, ?)");
@@ -171,12 +178,21 @@ class DBManager
             throw new Exception("記事の詳細の追加に失敗しました。");
         }
 
+<<<<<<< Updated upstream
         if (!empty($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
 
             mkdir("../img/article/" . $articleId);
 
             move_uploaded_file($_FILES['file']['tmp_name'], "../img/article/" . $articleId . "/article" . $_FILES['file']['name']);
         }
+=======
+         if (!empty($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
+
+           mkdir("../img/article/".$articleId);
+        
+             move_uploaded_file($_FILES['file']['tmp_name'], "../img/article/".$articleId."/article".$_FILES['file']['name']);
+         }
+>>>>>>> Stashed changes
     }
 
     //記事更新処理　林田作
@@ -234,11 +250,14 @@ class DBManager
         $ps->bindValue(1, $userId, PDO::PARAM_INT);
         $ps->execute();
 
+<<<<<<< Updated upstream
         $articles = $ps->fetchAll();
 
         return $articles;
     }
 
+=======
+>>>>>>> Stashed changes
     // -----
 
     // tags 取得---
@@ -249,6 +268,7 @@ class DBManager
 
         return $ps->fetchAll();
     }
+<<<<<<< Updated upstream
 
     // tag_idからタグを取得するメソッド
     public function getTagById(int $tagId)
@@ -271,6 +291,25 @@ class DBManager
 
         return $tags;
     }
+=======
+>>>>>>> Stashed changes
     // -----
 
+    // goods crud関連 今泉---
+    
+    //いいねボタン押下情報の登録
+    public function submitGoods(int $user, int $article)
+    {
+        $ps = $this->connectDb()->prepare("INSERT INTO goods(user_id,article_id,good_datetime) VALUES (?,?,?)");
+        $ps->bindValue(1, $user, pdo::PARAM_INT);
+        $ps->bindValue(2, $article, pdo::PARAM_INT);
+        $ps->bindValue(3, date('Y-m-d H:i:s'), pdo::PARAM_STR);
+
+        if (!$ps->execute()) {
+            throw new Exception("原因不明のエラーが発生しました。<br />しばらく時間をおいて再度お試しください。", 100);
+        }
+    }
+
+    //いいね数表示のメソッド
+    public
 }
