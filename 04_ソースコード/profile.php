@@ -29,8 +29,13 @@ $userData = $db->getUser($_GET["id"]);
 <body>
     <?php require_once "./php/header.php" ?>
     <div class="container">
+<<<<<<< Updated upstream
         <h1><?= $userData['user_name'] ?></h1>
         <div class="row mx-0">
+=======
+        <h1><?php echo $userData['user_name'] ?></h1>
+        <div class="row gx-3">
+>>>>>>> Stashed changes
             <div class="col-3 text-center">
                 <div class="rounded-circle ratio ratio-1x1">
                     <img src="<?php
@@ -40,7 +45,11 @@ $userData = $db->getUser($_GET["id"]);
                                 } else {
                                     echo "./img/user_default.png";
                                 }
+<<<<<<< Updated upstream
                                 ?>" class="rounded-circle ratio ratio-1x1 p-3" width="100" height="100">
+=======
+                                ?>" class="rounded-circle ratio ratio-1x1" width="250" height="250">
+>>>>>>> Stashed changes
                 </div>
             </div>
             <div class="col-9">
@@ -51,6 +60,7 @@ $userData = $db->getUser($_GET["id"]);
                 } else {
                     // 紹介文を表示しない場合の処理
                 }
+<<<<<<< Updated upstream
                 ?>
             </div>
             <div class="col-3" style="text-align:center;">
@@ -158,6 +168,58 @@ $userData = $db->getUser($_GET["id"]);
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="./script/script.js"></script>
+=======
+            ?>
+        </div>
+        <div class="col-3" style="text-align:center; padding-left:3%">
+            <div class="follower-box">
+                <div class="follow-count" style="float: left;">フォロー:</div>
+                <div class="follower-count">フォロワー:</div>
+            </div>
+        </div>
+
+
+
+        <h1 style = "margin-top:70px;">投稿記事</h1>
+        <div class="row gx-5">
+            <div class="col-6" style="border-right: 3px solid red; border-left: 3px solid red; position: relative;">
+              <P>記事の見出し</p>
+              <p>2023/xx/xx</p>
+              <div>
+                <div style="display:inline-block;">#ダイエット</div>
+                <div style="display:inline-block;">#筋トレ</div>
+                <div style="display:inline-block;">#胸</div>
+              </div>
+              <img src="kawaii.jpg"  style = "border-radius: 50%; width: 15%; height: 45%; float: left; margin-top:1%;">
+              <div style="padding-left:25%; margin-top:5%;">
+                <div >ユーザー名</div>
+                <div>フォローする</div>
+              </div>
+              <img src="kawai.jpg"  style = "width: 40%; height: 80%;position: absolute; right:20px; top:10px">
+            </div>
+
+            <div class="col-6" style="border-right: 3px solid red; border-left: 3px solid red; position: relative;">
+              <P>記事の見出し</p>
+              <p>2023/xx/xx</p>
+              <div>
+                <div style="display:inline-block;">#ダイエット</div>
+                <div style="display:inline-block;">#筋トレ</div>
+                <div style="display:inline-block;">#胸</div>
+              </div>
+              <img src="kawaii.jpg"  style = "border-radius: 50%; width: 15%; height: 45%; float: left; margin-top:1%;">
+              <div style="padding-left:25%; margin-top:5%;">
+                <div >ユーザー名</div>
+                <div>フォローする</div>
+              </div>
+              <img src="kawai.jpg"  style = "width: 40%; height: 80%;position: absolute; right:20px; top:10px">
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="./script/script.js"></script>
+>>>>>>> Stashed changes
 </body>
 
 </html>

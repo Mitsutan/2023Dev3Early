@@ -24,6 +24,19 @@ $db = new DBManager;
 <body>
     <?php require_once "./php/header.php" ?>
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD:04_ソースコード/tag.php
+    <div class="container-fluid">
+    <h1 class="mb-3">ハッシュタグ一覧</h1>
+        <form action = "" method = "POST">
+        <h5>・<a href = "" name = "">タグ名</a></h5><br>
+        <h5>・<a href = "" name = "">タグ名</a></h5><br>
+        <h5>・<a href = "" name = "">タグ名</a></h5><br>
+        <h5>・<a href = "" name = "">タグ名</a></h5>
+        </form>
+=======
+>>>>>>> Stashed changes
     <div class="container">
         <h1>ハッシュタグ一覧</h1>
         <ul>
@@ -34,6 +47,10 @@ $db = new DBManager;
             }
             ?>
         </ul>
+<<<<<<< Updated upstream
+=======
+>>>>>>> 0a402d8afc2f4c54a4470029a86340ec349dffba:04_ソースコード/hashtags.php
+>>>>>>> Stashed changes
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
