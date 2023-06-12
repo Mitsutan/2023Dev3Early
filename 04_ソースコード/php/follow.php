@@ -1,0 +1,23 @@
+<?php
+// DBManagerクラスを使用できるようにします
+require_once 'DBManager.php';
+
+// フォローユーザーのIDを取得
+$followingUserId = $_POST['followingUserId'];
+
+// 自分のユーザーIDを設定（例えば、セッションから取得するなど）
+$userId = 123; // 自分のユーザーIDを設定してください
+
+// DBManagerのインスタンスを作成
+$dbManager = new DBManager();
+
+try {
+  // フォローユーザーを追加
+  $dbManager->followUser($userId, $followingUserId);
+
+  // フォロー成功の処理
+  echo "フォローしました";
+} catch (Exception $e) {
+  // フォロー失敗の処理
+  echo "フォローに失敗しました";
+}

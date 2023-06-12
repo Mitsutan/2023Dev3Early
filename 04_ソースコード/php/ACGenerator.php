@@ -32,7 +32,7 @@ class ACGenerator
             ';
 
         foreach ($tags as $key => $value) {
-            echo '<a href="./search?type=0&word=' . $value['tag_name'] . '" class="d-inline-block">' . $value['tag_name'] . '</a>';
+            echo '<a href="./search?type=0&word=' . $value['tag_name'] . '" class="d-inline-block me-1">' . $value['tag_name'] . '</a>';
         }
 
         echo '

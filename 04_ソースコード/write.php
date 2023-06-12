@@ -51,7 +51,11 @@ $db = new DBManager;
             </div>
             <div class="mb-3">
                 <label for="article_image" class="form-label">表紙画像</label><br>
+<<<<<<< Updated upstream
                 <input type="file" name="topimg">
+=======
+                <input type="file" name="avatar">
+>>>>>>> Stashed changes
             </div>
             <div class="mb-3">
                 <label for="article_tags" class="form-label">タグ</label><br />
@@ -59,7 +63,11 @@ $db = new DBManager;
                 <?php
                 $tags = $db->getTags();
                 foreach ($tags as $key) {
+<<<<<<< Updated upstream
                     echo '<label class="d-block"><input type="checkbox" name="tags[]" value="' . $key['tag_id'] . '">' . $key['tag_name'] . '</label>';
+=======
+                    echo '<label class="d-block"><input type="checkbox" name="tags[]">' . $key['tag_name'] . '</label>';
+>>>>>>> Stashed changes
                 }
                 ?>
             </div>
