@@ -61,24 +61,10 @@ $userData = $db->getUser($articleData['user_id']);
                     </p>
                 </div>
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="kawaii.jpg" class="rounded" width="200" height="75">
-                        </div>
-                        <div class="col-md-8">
-                            <h3 class=""> <?php echo "同じ投稿者の次の投稿記事です" ?> </h3>
-                        </div>
-                    </div>
+                    <h3 class=""> <?php echo "同じ投稿者の次の投稿記事です" ?> </h3>
                 </div>
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="kawaii.jpg" class="rounded" width="200" height="75">
-                        </div>
-                        <div class="col-md-8">
-                            <h3 class=""> <?php echo "同じ投稿者の前の投稿記事です" ?> </h3>
-                        </div>
-                    </div>
+                    <h3 class=""> <?php echo "同じ投稿者の次の投稿記事です" ?> </h3>
                 </div>
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-2">
                     <h3><?php echo "投稿者プロフィール" ?></h3>
@@ -107,8 +93,8 @@ $userData = $db->getUser($articleData['user_id']);
                 <div class="mb-3">
                     <h2>同じシリーズの記事</h2>
                 </div>
-                <div class="h2 text-center alert-secondary border border-1 border-dark rounded p-2 mb-2" >
-                    <a href="./signup.php" class="mb-2 text-dark"> <?php echo "関連記事1日目" ?> </a> 
+                <div class="h2 text-center alert-secondary border border-1 border-dark rounded p-5 mb-5" >
+                    <a href="./signup.php" class="mb-2 text-dark" style="font-size: 45px;"> <?php echo "関連記事1日目" ?> </a> 
                 </div>
                 <!-- <a href="./signup.php">
                     <div class="h2 text-center alert-secondary border border-1 border-dark rounded p-2 mb-2">
