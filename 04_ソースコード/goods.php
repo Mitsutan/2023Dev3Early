@@ -39,7 +39,10 @@ $userData = $db->getUser($_GET["id"]);
                         <h3>記事の見出し</h3>
                         <div class="d-flex justify-content-between">
                             <p>2023/xx/xx</p>
-                            <p><i class="fa-solid fa-thumbs-up me-1"></i>1234</p>
+                            <p><i class="fa-solid fa-thumbs-up me-1">
+                                <?php
+                                    
+                            </i>1234</p>
                         </div>
                         <div>
                             <div style="display:inline-block;">#ダイエット</div>

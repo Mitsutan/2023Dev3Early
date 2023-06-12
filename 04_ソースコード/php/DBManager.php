@@ -272,4 +272,21 @@ class DBManager
     }
     // -----
 
+    // goods crud関連 今泉---
+    
+    //いいねボタン押下情報の登録
+    public function submitGoods(int $user, int $article)
+    {
+        $ps = $this->connectDb()->prepare("INSERT INTO goods(user_id,article_id,good_datetime) VALUES (?,?,?)");
+        $ps->bindValue(1, $user, pdo::PARAM_INT);
+        $ps->bindValue(2, $article, pdo::PARAM_INT);
+        $ps->bindValue(3, date('Y-m-d H:i:s'), pdo::PARAM_STR);
+
+        if (!$ps->execute()) {
+            throw new Exception("原因不明のエラーが発生しました。<br />しばらく時間をおいて再度お試しください。", 100);
+        }
+    }
+
+    //いいね数表示のメソッド
+    public
 }
