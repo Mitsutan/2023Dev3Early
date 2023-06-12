@@ -214,14 +214,15 @@ class DBManager
 
         $article = $ps->fetch(PDO::FETCH_ASSOC);
 
-        if ($article) {
-            $ps = $this->connectDb()->prepare("SELECT * FROM details WHERE article_id = ?");
-            $ps->bindValue(1, $articleId, PDO::PARAM_INT);
-            $ps->execute();
+        // いったんコメントアウト
+        // if ($article) {
+        //     $ps = $this->connectDb()->prepare("SELECT * FROM details WHERE article_id = ?");
+        //     $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+        //     $ps->execute();
 
-            $details = $ps->fetchAll(PDO::FETCH_ASSOC);
-            $article['details'] = $details;
-        }
+        //     $details = $ps->fetchAll(PDO::FETCH_ASSOC);
+        //     $article['details'] = $details;
+        // }
 
         return $article;
     }
