@@ -94,7 +94,7 @@ $userData = $db->getUser($_GET["id"]);
                             <div class="col-8">
                                 <div>
                                     <div>ユーザー名</div>
-                                    <div><form action="follow.php" method="post">
+                                    <div><form action="./php/follow.php" method="post">
                                     <input type="hidden" name="followingUserId" value="フォロー対象のユーザーID">
                                     <button type="submit">フォローする</button>
                                     </form></div>
