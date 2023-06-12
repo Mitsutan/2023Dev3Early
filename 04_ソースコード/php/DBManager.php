@@ -311,5 +311,15 @@ class DBManager
     }
 
     //いいね数表示のメソッド
-    public
+    public function countGoods(int $article)
+    {
+        $ps = $this->connectDb()->prepare("SELECT COUNT(*) FROM goods WHERE article_id = ?");
+
+        $ps->bindValue(1, $article, PDO::PARAM_INT);
+        $ps->execute();
+
+        $cnt = $ps->fetchAll();
+
+        return $cnt;
+    }
 }
