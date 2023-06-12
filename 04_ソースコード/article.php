@@ -1,5 +1,11 @@
 <?php
-session_start()
+session_start();
+
+require_once "./php/DBManager.php";
+$db = new DBManager();
+
+$articleData = $db->getArticleById($_GET["id"]);
+$userData = $db->getUser($articleData['user_id']);
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -15,26 +21,43 @@ session_start()
 
     <link rel="stylesheet" href="./css/style.css">
 
-    <title>タイトル</title>
+    <title><?= $articleData['title'] ?></title>
 </head>
 
 <body>
     <?php require_once "./php/header.php" ?>
 
     <div class="container">
-        <h1 class="mb-3">ハッシュタグ一覧</h1>
+        <h1 class="mb-3"><?= $articleData['title'] ?></h1>
 
         <div class="row">
             <div class="col-8">
-                <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5">　編集　</button></a>
-                <img class="img-fluid img-thumbnail mb-3" src="./kawaii.jpg" />
+                <!-- <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5 px-4">編集</button></a> -->
+                <form action="./update.php" method="post">
+                    <input type="hidden" name="article_id" value="<?= $articleData['article_id'] ?>">
+                    <button type="submit" class="btn btn-warning mb-3 fs-5 px-4">編集</button>
+                </form>
+                <img class="img-fluid img-thumbnail mb-3" src="<?php
+                $topimg = glob("./img/article/" . $articleData['article_id'] . "/topimage*");
+                if ($topimg) {
+                    echo $topimg[0];
+                } else {
+                    echo "./img/article_default.png";
+                }
+                ?>" />
                 <div class="h3 alert-secondary border border-1 border-dark rounded p-2">
-                    <?php echo "#タグ #を #表示 #します" ?>
+                    <?php
+                    // echo "#タグ #を #表示 #します";
+                    foreach ($db->getTagsByArticleId($articleData['article_id']) as $key => $value) {
+                        echo '<a href="./search?type=0&word=' . $value['tag_name'] . '" class="d-inline-block me-1">#' . $value['tag_name'] . '</a>';
+                    }
+                    ?>
+                    
                 </div>
                 <hr aline="center" size="5" class="bg-primary mb-3">
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
                     <p>
-                        <?php echo "本文を表示----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ?>
+                        <?= $articleData['article_description'] ?>
                     </p>
                 </div>
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
@@ -63,12 +86,19 @@ session_start()
                         <!-- <img src="./kawaii.jpg" class="col-md-5" style="border-radius: 50%; width: 140px; height: 140px;"> -->
                         <div class="col-md-3">
                             <div class="rounded-circle ratio ratio-1x1">
-                                <img src="kawaii.jpg" class="rounded-circle ratio ratio-1x1" width="250" height="250">
+                                <img src="<?php
+                                $userpic = glob("./img/userpics/" . $userData['user_id'] . "/userpic*");
+                                if ($userpic) {
+                                    echo $userpic[0];
+                                } else {
+                                    echo "./img/user_default.png";
+                                }
+                                ?>" class="rounded-circle ratio ratio-1x1" width="250" height="250">
                             </div>
                         </div>
                         <div class="col-md-9">
-                            <h4> <?php echo "投稿者名" ?> </h4><br>
-                            <p> <?php echo "---------------------------------------------------------------" ?> </p>
+                            <h4><?= $userData['user_name'] ?></h4><br>
+                            <p><?= $userData['user_about_me'] ?></p>
                         </div>
                     </div>
                 </div>
