@@ -5,7 +5,6 @@ require_once "./DBManager.php";
 $db = new DBManager;
 
 try {
-<<<<<<< Updated upstream
     $db->submitArticle($_SESSION['user_id'], $_POST['title'], $_POST['overview'], $_POST['content'], $_POST['tags']);
 
     // 登録成功時の処理
@@ -15,10 +14,5 @@ try {
     // エラーが発生した場合の処理（例: エラーメッセージの表示）
     $_SESSION['errorMsg'] = $e->getMessage();
     header("Location: ../write.php");
-=======
-    $db->submitArticle($_SESSION['user_id'], $_POST['title'], $_POST['overview'], $_POST['content']);
-} catch (Exception $e) {
-    echo $e->getMessage();
->>>>>>> Stashed changes
 }
 ?>
