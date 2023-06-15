@@ -3,6 +3,8 @@ session_start();
 
 require_once "./php/DBManager.php";
 $db = new DBManager;
+
+$userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -34,34 +36,41 @@ $db = new DBManager;
         <form action="./php/write.php" enctype="multipart/form-data" method="post">
             <div class="mb-3">
                 <label for="articleseries" class="form-label">シリーズ</label>
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" id="articleselect" aria-label="Default select example">
 
                     <option selected>---新規---</option>
                     <!-- 以下に既存の記事名が入る -->
                     <!-- <option value="1">One</option> -->
+                    <?php
+                    foreach ($userArticleData as $key => $value) {
+                        echo '<option value="' . $value['article_id'] . '">' . $value['title'] . '</option>';
+                    }
+                    ?>
                 </select>
             </div>
-            <div class="mb-3">
-                <label for="articletitle" class="form-label">記事名</label>
-                <input type="text" class="form-control" id="articletitle" name="title" required>
-            </div>
-            <div class="mb-3">
-                <label for="articleoverview" class="form-label">記事概要</label>
-                <input type="text" class="form-control" id="articleoverview" name="overview" required>
-            </div>
-            <div class="mb-3">
-                <label for="article_image" class="form-label">表紙画像</label><br>
-                <input type="file" name="topimg">
-            </div>
-            <div class="mb-3">
-                <label for="article_tags" class="form-label">タグ</label><br />
-                <!-- <input type="text" class="form-control" id="articletag" name="tag" required> -->
-                <?php
-                $tags = $db->getTags();
-                foreach ($tags as $key) {
-                    echo '<label class="d-block"><input type="checkbox" name="tags[]" value="' . $key['tag_id'] . '">' . $key['tag_name'] . '</label>';
-                }
-                ?>
+            <div id="new-field">
+                <div class="mb-3">
+                    <label for="articletitle" class="form-label">記事名</label>
+                    <input type="text" class="form-control" id="articletitle" name="title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="articleoverview" class="form-label">記事概要</label>
+                    <input type="text" class="form-control" id="articleoverview" name="overview" required>
+                </div>
+                <div class="mb-3">
+                    <label for="article_image" class="form-label">表紙画像</label><br>
+                    <input type="file" name="topimg">
+                </div>
+                <div class="mb-3">
+                    <label for="article_tags" class="form-label">タグ</label><br />
+                    <!-- <input type="text" class="form-control" id="articletag" name="tag" required> -->
+                    <?php
+                    $tags = $db->getTags();
+                    foreach ($tags as $key) {
+                        echo '<label class="d-block"><input type="checkbox" name="tags[]" value="' . $key['tag_id'] . '">' . $key['tag_name'] . '</label>';
+                    }
+                    ?>
+                </div>
             </div>
 
             <div class="mb-3">
@@ -85,6 +94,20 @@ $db = new DBManager;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./script/script.js"></script>
     <script src="./script/trix_img_uploader.js"></script>
+    <script>
+        const select = document.getElementById('articleselect');
+        const newField = document.getElementById('new-field');
+
+        select.addEventListener('change', function() {
+            console.log(select.selectedIndex);
+
+            if (select.selectedIndex != 0) {
+                newField.classList.add('d-none');
+            } else {
+                newField.classList.remove('d-none');
+            }
+        });
+    </script>
 </body>
 
 </html>
