@@ -7,9 +7,8 @@ require_once './DBManager.php';
 // POST リクエストの処理を行います
 try {
     $db->submitGoods($_SESSION['user_id'], $_POST['art']);
-    
-    // 登録成功時の処理
-    header('Location: ../mypage.php');
+    $db->countGoods($_POST['art']);
+
     exit;
 } catch (Exception $e) {
     // エラーが発生した場合の処理（例: エラーメッセージの表示）
