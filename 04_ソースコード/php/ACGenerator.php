@@ -23,7 +23,7 @@ class ACGenerator
             <div class="col-md-6 col-12">
                     <div class="row border-start border-end border-dark border-1 p-2">
                         <div class="col-7">
-                            <h3 class="text-truncate"><a href="./article?id=' . $id . '">' . $title . '</a></h3>
+                            <h3><a href="./article?id=' . $id . '">' . $title . '</a></h3>
                             <div class="d-flex justify-content-between">
                                 <p>' . $date . '</p>
                                 <p><i class="fa-solid fa-thumbs-up me-1"></i>1234</p>

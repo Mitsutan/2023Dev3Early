@@ -25,41 +25,28 @@ session_start()
         <h1 class="mb-3">記事の見出し-1日目-</h1>
 
         <div class="row">
-            <div class="col-8">
-                <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5"> 編集 </button></a>
-                <div class=" border border-1 border-dark rounded p-2 mb-3">
+            <div class="col-6">
+                <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5">　編集　</button></a>
+                <p>説明</p>
+                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
                     <p>
                         <?php echo "本文を表示----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ?>
                     </p>
                 </div>
-                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-2">
-                    <p>
-                        <?php echo "コメント 件" ?>
-                    </p>
-                </div>
-                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-2">
-                    <script language=javascript>
-                    <!--
-                    function show(inputData){
-                        var objID=document.getElementById( "layer_" + inputData );
-                        var buttonID=document.getElementById( "category_" + inputData );
-                        if(objID.className=='close') {
-                            objID.style.display='block';
-                            objID.className='open';
-                        }else{
-                            objID.style.display='none';
-                            objID.className='close';
-                        }
-                    }
-                    //-->
-                    </script>
-                    <a href="javascript:void(0)" id="category_折りたたみ" onclick="show('折りたたみ');">続きを表示</a>
-                    <div id="layer_折りたたみ" style="display: none;position:relative;margin-left:15pt" class="close">
-                    あ<br>
-                    い<br>
-                    う<br>
+                <hr aline="center" size="5" class="bg-primary mb-3">
+                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
+                    <div class="row h3">
+                        <div class="col-6">
+                            <?php echo "　コメント"?>
+                        </div>
+                        <div class="col-6 text-center">
+                            <?php echo "××" ?>
+                            <?php echo "件" ?>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-2">
             </div>
             <div class="col-4">
                 <div class="mb-3">

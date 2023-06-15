@@ -40,7 +40,9 @@ $userData = $db->getUser($_GET["id"]);
                         <div class="d-flex justify-content-between">
                             <p>2023/xx/xx</p>
                             <p><i class="fa-solid fa-thumbs-up me-1">
-                                <?php
+                                <form action = "./goods.php" method = "post">
+                                <input type="hidden" name="article_id" value="<?= $articleData['article_id'] ?>">
+                                </form>
                                     
                             </i>1234</p>
                         </div>
