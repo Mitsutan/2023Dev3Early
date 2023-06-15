@@ -61,14 +61,19 @@ session_start()
                 //-->
                 </script>
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
+                <p>　コメント一件目</p>
+                    <div class="text-center">
                     <a href="javascript:void(0)" id="category_折りたたみ" onclick="show('折りたたみ');">続きを表示</a>
+                    </div>
                     <div id="layer_折りたたみ" style="display: none;position:relative;margin-left:15pt" class="close">
-                        a<br>
-                        a<br>
-                        a
+                        二件目<br>
+                        三件目<br>
+                        四件目
                     </div>
                 </div>
+                <div class="text-center">
                 <a href=""><button type="submit" class="btn btn-warning mb-3 fs-5">　コメントを投稿　</button></a>
+                </div>
             </div>
             <div class="col-2">
             </div>
