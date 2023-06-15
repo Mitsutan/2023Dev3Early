@@ -286,6 +286,18 @@ class DBManager
     // -----
 
     // goods crud関連 今泉---
+
+    //いいね数表示のメソッド
+    public function countGoods(int $article)
+    {
+        $ps = $this->connectDb()->prepare("SELECT COUNT(*) AS count FROM goods WHERE article_id = ?");
+
+        $ps->bindValue(1, $article, PDO::PARAM_INT);
+        $ps->execute();
+        $cnt = $ps->fetchColumn();
+
+        return $cnt;
+    }
     
     //いいねボタン押下情報の登録と削除
     public function submitGoods(int $user, int $article)
@@ -310,17 +322,9 @@ class DBManager
                 throw new Exception("原因不明のエラーが発生しました。<br />しばらく時間をおいて再度お試しください。", 100);
             }
         }
+
+        return $this->countGoods($article);
     }
 
-    //いいね数表示のメソッド
-    public function countGoods(int $article)
-    {
-        $ps = $this->connectDb()->prepare("SELECT COUNT(*) AS count FROM goods WHERE article_id = ?");
-
-        $ps->bindValue(1, $article, PDO::PARAM_INT);
-        $ps->execute();
-        $cnt = $ps->fetchColumn();
-
-        return $cnt;
-    }
+    
 }
