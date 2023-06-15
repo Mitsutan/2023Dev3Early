@@ -28,7 +28,7 @@ session_start()
             <div class="col-6">
                 <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5">　編集　</button></a>
                 <p>説明</p>
-                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
+                <div class="rounded p-2 mb-3">
                     <p>
                         <?php echo "本文を表示----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ?>
                     </p>
@@ -45,6 +45,30 @@ session_start()
                         </div>
                     </div>
                 </div>
+                <script language=javascript>
+                <!--
+                function show(inputData){
+                    var objID=document.getElementById( "layer_" + inputData );
+                    var buttonID=document.getElementById( "category_" + inputData );
+                    if(objID.className=='close') {
+                        objID.style.display='block';
+                        objID.className='open';
+                    }else{
+                        objID.style.display='none';
+                        objID.className='close';
+                    }
+                }
+                //-->
+                </script>
+                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
+                    <a href="javascript:void(0)" id="category_折りたたみ" onclick="show('折りたたみ');">続きを表示</a>
+                    <div id="layer_折りたたみ" style="display: none;position:relative;margin-left:15pt" class="close">
+                        a<br>
+                        a<br>
+                        a
+                    </div>
+                </div>
+                <a href=""><button type="submit" class="btn btn-warning mb-3 fs-5">　コメントを投稿　</button></a>
             </div>
             <div class="col-2">
             </div>
@@ -58,7 +82,6 @@ session_start()
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./script/script.js"></script>
 </body>
