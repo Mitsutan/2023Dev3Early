@@ -287,28 +287,39 @@ class DBManager
 
     // goods crud関連 今泉---
     
-    //いいねボタン押下情報の登録
+    //いいねボタン押下情報の登録と削除
     public function submitGoods(int $user, int $article)
     {
-        $ps = $this->connectDb()->prepare("INSERT INTO goods(user_id,article_id,good_datetime) VALUES (?,?,?)");
-        $ps->bindValue(1, $user, pdo::PARAM_INT);
-        $ps->bindValue(2, $article, pdo::PARAM_INT);
-        $ps->bindValue(3, date('Y-m-d H:i:s'), pdo::PARAM_STR);
+        $look = $this->connectDb()->prepare("SELECT * FROM goods WHERE user_id = ? AND article_id = ?");
+        $look->bindValue(1, $user, pdo::PARAM_INT);
+        $look->bindValue(2, $article, pdo::PARAM_INT);
+        $look->execute();
+        $result = $look->fetchColumn();
+        if($result > 0) {
+            $delete = $this->connectDb()->prepare("DELETE FROM goods WHERE user_id = ? AND article_id = ?");
+            $delete->bindValue(1, $user, pdo::PARAM_INT);
+            $delete->bindValue(2, $article, pdo::PARAM_INT);
+            $delete->execute();
 
-        if (!$ps->execute()) {
-            throw new Exception("原因不明のエラーが発生しました。<br />しばらく時間をおいて再度お試しください。", 100);
+        }else {
+            $ps = $this->connectDb()->prepare("INSERT INTO goods(user_id,article_id,good_datetime) VALUES (?,?,?)");
+            $ps->bindValue(1, $user, pdo::PARAM_INT);
+            $ps->bindValue(2, $article, pdo::PARAM_INT);
+            $ps->bindValue(3, date('Y-m-d H:i:s'), pdo::PARAM_STR);
+            if (!$ps->execute()) {
+                throw new Exception("原因不明のエラーが発生しました。<br />しばらく時間をおいて再度お試しください。", 100);
+            }
         }
     }
 
     //いいね数表示のメソッド
     public function countGoods(int $article)
     {
-        $ps = $this->connectDb()->prepare("SELECT COUNT(*) FROM goods WHERE article_id = ?");
+        $ps = $this->connectDb()->prepare("SELECT COUNT(*) AS count FROM goods WHERE article_id = ?");
 
         $ps->bindValue(1, $article, PDO::PARAM_INT);
         $ps->execute();
-
-        $cnt = $ps->fetchAll();
+        $cnt = $ps->fetchColumn();
 
         return $cnt;
     }

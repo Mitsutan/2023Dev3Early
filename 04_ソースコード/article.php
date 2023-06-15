@@ -4,8 +4,13 @@ session_start();
 require_once "./php/DBManager.php";
 $db = new DBManager();
 
+// 記事データ取得
 $articleData = $db->getArticleById($_GET["id"]);
-$userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
+// 記事の詳細データ一覧取得
+$articleDetails = $db->getDetailsByArticleId($_GET["id"]);
+// この記事を書いたユーザーのほかの記事一覧を取得
+$userArticleData = $db->getArticlesByUserId($articleData['user_id']);
+// この記事を書いたユーザーのデータを取得
 $userData = $db->getUser($articleData['user_id']);
 ?>
 <!DOCTYPE html>
@@ -99,9 +104,16 @@ $userData = $db->getUser($articleData['user_id']);
                 <div class="mb-3">
                     <h2>同じシリーズの記事</h2>
                 </div>
-                <div class="h2 text-center alert-secondary border border-1 border-dark rounded p-5 mb-5" >
-                    <a href="./signup.php" class="mb-2 text-dark" style="font-size: 45px;"> <?php echo "関連記事1日目" ?> </a> 
-                </div>
+                <?php
+                for ($i=0; $i < count($articleDetails); $i++) { 
+                    echo '<div class="h2 text-center alert-secondary border border-1 border-dark rounded p-5 mb-5" >';
+                    echo '<a href="./detail.php?id=' . $articleDetails[$i]['article_id'] . '" class="mb-2 text-dark" style="font-size: 45px;">関連記事' . $i+1 . '日目</a>';
+                    echo '</div>';
+                }
+                ?>
+                <!-- <div class="h2 text-center alert-secondary border border-1 border-dark rounded p-5 mb-5" >
+                    <a href="./detail.php?id=" class="mb-2 text-dark" style="font-size: 45px;"> <?php //echo "関連記事1日目" ?> </a> 
+                </div> -->
                 <!-- <a href="./signup.php">
                     <div class="h2 text-center alert-secondary border border-1 border-dark rounded p-2 mb-2">
                         <?php //echo "関連記事１日目" ?>
