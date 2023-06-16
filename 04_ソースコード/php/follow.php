@@ -1,5 +1,6 @@
 <?php
 // DBManagerクラスを使用できるようにします
+session_start();
 require_once 'DBManager.php';
 
 // フォローユーザーのIDを取得

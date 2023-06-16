@@ -1,4 +1,5 @@
 <?php
+session_start();
 // DBManagerクラスを使用できるようにします
 require_once 'DBManager.php';
 

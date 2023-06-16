@@ -100,7 +100,7 @@ $userData = $db->getUser($_GET["id"]);
                                             <script>
                                             // フォローボタンをクリックした時の処理
                                             function followUser() {
-                                                var followingUserId = "フォロー対象のユーザーID";
+                                                var followingUserId = "2";
 
                                                 var xhr = new XMLHttpRequest();
                                                 xhr.open("POST", "./php/follow.php");
@@ -117,7 +117,7 @@ $userData = $db->getUser($_GET["id"]);
 
                                             // アンフォローボタンをクリックした時の処理
                                             function unfollowUser() {
-                                                var unfollowingUserId = "アンフォロー対象のユーザーID";
+                                                var unfollowingUserId = "2";
 
                                                 var xhr = new XMLHttpRequest();
                                                 xhr.open("POST", "./php/unfollow.php");
