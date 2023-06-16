@@ -107,7 +107,7 @@ $userData = $db->getUser($articleData['user_id']);
                 <?php
                 for ($i=0; $i < count($articleDetails); $i++) { 
                     echo '<div class="h2 text-center alert-secondary border border-1 border-dark rounded p-5 mb-5" >';
-                    echo '<a href="./detail.php?id=' . $articleDetails[$i]['article_id'] . '" class="mb-2 text-dark" style="font-size: 45px;">関連記事' . $i+1 . '日目</a>';
+                    echo '<a href="./detail.php?id=' . $articleDetails[$i]['detail_id'] . '" class="mb-2 text-dark" style="font-size: 45px;">関連記事' . $i+1 . '日目</a>';
                     echo '</div>';
                 }
                 ?>
