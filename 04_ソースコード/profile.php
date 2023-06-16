@@ -94,10 +94,44 @@ $userData = $db->getUser($_GET["id"]);
                             <div class="col-8">
                                 <div>
                                     <div>ユーザー名</div>
-                                    <div><form action="follow.php" method="post">
-                                    <input type="hidden" name="followingUserId" value="フォロー対象のユーザーID">
-                                    <button type="submit">フォローする</button>
-                                    </form></div>
+                                    <div><button onclick="followUser()">フォローする</button>
+                                        　<button onclick="unfollowUser()">フォロー解除する</button>
+
+                                            <script>
+                                            // フォローボタンをクリックした時の処理
+                                            function followUser() {
+                                                var followingUserId = "フォロー対象のユーザーID";
+
+                                                var xhr = new XMLHttpRequest();
+                                                xhr.open("POST", "follow.php");
+                                                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                xhr.onload = function() {
+                                                if (xhr.status === 200) {
+                                                    alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
+                                                } else {
+                                                    alert("フォローに失敗しました");
+                                                }
+                                                };
+                                                xhr.send("followingUserId=" + encodeURIComponent(followingUserId));
+                                            }
+
+                                            // アンフォローボタンをクリックした時の処理
+                                            function unfollowUser() {
+                                                var unfollowingUserId = "アンフォロー対象のユーザーID";
+
+                                                var xhr = new XMLHttpRequest();
+                                                xhr.open("POST", "unfollow.php");
+                                                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                xhr.onload = function() {
+                                                if (xhr.status === 200) {
+                                                    alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
+                                                } else {
+                                                    alert("フォロー解除に失敗しました");
+                                                }
+                                                };
+                                                xhr.send("unfollowingUserId=" + encodeURIComponent(unfollowingUserId));
+                                            }
+                                            </script></div>
                                 </div>
                             </div>
                         </div>
