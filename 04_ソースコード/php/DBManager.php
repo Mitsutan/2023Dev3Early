@@ -239,6 +239,18 @@ class DBManager
         return $details;
     }
 
+    // 記事詳細を一件取得するメソッド
+    public function getDetailById(int $detailId)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM details WHERE detail_id = ?");
+        $ps->bindValue(1, $detailId, PDO::PARAM_INT);
+        $ps->execute();
+
+        $detail = $ps->fetch(PDO::FETCH_ASSOC);
+
+        return $detail;
+    }
+
     // ユーザーIDから記事を全件取得するメソッド
     public function getArticlesByUserId(int $userId)
     {
