@@ -7,6 +7,7 @@ $db = new DBManager;
 $card = new ACGenerator;
 
 $userData = $db->getUser($_GET["id"]);
+$userId = $_SESSION['user_id'];
 
 ?>
 <!DOCTYPE html>
@@ -94,44 +95,62 @@ $userData = $db->getUser($_GET["id"]);
                             <div class="col-8">
                                 <div>
                                     <div>ユーザー名</div>
-                                    <div><button onclick="followUser()">フォローする</button>
-                                        　<button onclick="unfollowUser()">フォロー解除する</button>
+                                    <div id="followButtonContainer">
+                                        <?php
+                                        // DBManagerクラスをインスタンス化
+                                        $dbManager = new DBManager();
 
-                                            <script>
-                                            // フォローボタンをクリックした時の処理
-                                            function followUser() {
-                                                var followingUserId = "2";
+                                        // フォロー状態の判定と表示
+                                        $isFollowing = $dbManager->isFollowingUser($userId, $followingUserId);
+                                        if ($isFollowing) {
+                                            echo '<button onclick="unfollowUser()">フォロー解除する</button>';
+                                        } else {
+                                            echo '<button onclick="followUser()">フォローする</button>';
+                                        }
+                                        ?>
+                                        </div>
 
-                                                var xhr = new XMLHttpRequest();
-                                                xhr.open("POST", "./php/follow.php");
-                                                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                                xhr.onload = function() {
-                                                if (xhr.status === 200) {
-                                                    alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
-                                                } else {
-                                                    alert("フォローに失敗しました");
-                                                }
-                                                };
-                                                xhr.send("followingUserId=" + encodeURIComponent(followingUserId));
+                                        <script>
+                                        // フォローボタンをクリックした時の処理
+                                        function followUser() {
+                                            var followingUserId = "1";
+
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.open("POST", "./php/follow.php");
+                                            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                            xhr.onload = function() {
+                                            if (xhr.status === 200) {
+                                                alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
+                                                // ボタンの表示を切り替える
+                                                document.getElementById("followButtonContainer").innerHTML = '<button onclick="unfollowUser()">フォロー解除する</button>';
+                                            } else {
+                                                alert("フォローに失敗しました");
                                             }
+                                            };
+                                            xhr.send("followingUserId=" + encodeURIComponent(followingUserId));
+                                        }
 
-                                            // アンフォローボタンをクリックした時の処理
-                                            function unfollowUser() {
-                                                var unfollowingUserId = "2";
+                                        // アンフォローボタンをクリックした時の処理
+                                        function unfollowUser() {
+                                            var unfollowingUserId = "1";
 
-                                                var xhr = new XMLHttpRequest();
-                                                xhr.open("POST", "./php/unfollow.php");
-                                                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                                xhr.onload = function() {
-                                                if (xhr.status === 200) {
-                                                    alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
-                                                } else {
-                                                    alert("フォロー解除に失敗しました");
-                                                }
-                                                };
-                                                xhr.send("unfollowingUserId=" + encodeURIComponent(unfollowingUserId));
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.open("POST", "./php/unfollow.php");
+                                            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                            xhr.onload = function() {
+                                            if (xhr.status === 200) {
+                                                alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
+                                                // ボタンの表示を切り替える
+                                                document.getElementById("followButtonContainer").innerHTML = '<button onclick="followUser()">フォローする</button>';
+                                            } else {
+                                                alert("フォロー解除に失敗しました");
                                             }
-                                            </script></div>
+                                            };
+                                            xhr.send("unfollowingUserId=" + encodeURIComponent(unfollowingUserId));
+                                        }
+                                        </script>
+
+                                    <div></div>
                                 </div>
                             </div>
                         </div>
