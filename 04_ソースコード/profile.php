@@ -103,7 +103,7 @@ $userData = $db->getUser($_GET["id"]);
                                                 var followingUserId = "フォロー対象のユーザーID";
 
                                                 var xhr = new XMLHttpRequest();
-                                                xhr.open("POST", "follow.php");
+                                                xhr.open("POST", "./php/follow.php");
                                                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                                 xhr.onload = function() {
                                                 if (xhr.status === 200) {
@@ -120,7 +120,7 @@ $userData = $db->getUser($_GET["id"]);
                                                 var unfollowingUserId = "アンフォロー対象のユーザーID";
 
                                                 var xhr = new XMLHttpRequest();
-                                                xhr.open("POST", "unfollow.php");
+                                                xhr.open("POST", "./php/unfollow.php");
                                                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                                 xhr.onload = function() {
                                                 if (xhr.status === 200) {
