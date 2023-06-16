@@ -74,7 +74,7 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
             </div>
 
             <div class="mb-3">
-                <label>日目</label><br />
+                <label><span id="detail-date">1</span>日目</label><br />
                 <input id="x" type="hidden" name="content">
                 <trix-editor input="x"></trix-editor>
             </div>
@@ -109,11 +109,13 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
                 for (let i = 0; i < requireFields.length; i++) {
                     requireFields[i].required = false;
                 }
+                getNextDetailNum(select.value);
             } else {
                 newField.classList.remove('d-none');
                 for (let i = 0; i < requireFields.length; i++) {
                     requireFields[i].required = true;
                 }
+                getNextDetailNum(select.value);
             }
         });
     </script>
