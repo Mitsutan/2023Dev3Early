@@ -36,9 +36,9 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
         <form action="./php/write.php" enctype="multipart/form-data" method="post">
             <div class="mb-3">
                 <label for="articleseries" class="form-label">シリーズ</label>
-                <select class="form-select" id="articleselect" aria-label="Default select example">
+                <select class="form-select" id="articleselect" name="articleselect" aria-label="Default select example">
 
-                    <option selected>---新規---</option>
+                    <option value="" selected>---新規---</option>
                     <!-- 以下に既存の記事名が入る -->
                     <!-- <option value="1">One</option> -->
                     <?php
@@ -99,14 +99,21 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
 
         const select = document.getElementById('articleselect');
         const newField = document.getElementById('new-field');
+        const requireFields = document.getElementsByClassName('form-control');
 
         select.addEventListener('change', function() {
             console.log(select.selectedIndex);
 
             if (select.selectedIndex != 0) {
                 newField.classList.add('d-none');
+                for (let i = 0; i < requireFields.length; i++) {
+                    requireFields[i].required = false;
+                }
             } else {
                 newField.classList.remove('d-none');
+                for (let i = 0; i < requireFields.length; i++) {
+                    requireFields[i].required = true;
+                }
             }
         });
     </script>

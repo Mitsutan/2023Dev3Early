@@ -179,6 +179,20 @@ class DBManager
         }
     }
 
+    function submitDetail(int $articleId, string $detail) {
+        // 記事詳細の追加
+        $ps = $this->connectDb()->prepare("INSERT INTO details(article_id, detail_submitday, detail_updateday, detail_text) VALUES (?, ?, ?, ?)");
+        $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+        $ps->bindValue(2, date('Y-m-d H:i:s'), PDO::PARAM_STR);
+        $ps->bindValue(3, date('Y-m-d H:i:s'), PDO::PARAM_STR);
+        $ps->bindValue(4, $detail, PDO::PARAM_STR);
+
+        if (!$ps->execute()) {
+            // エラー処理（記事の詳細の追加に失敗した場合）
+            throw new Exception("記事の詳細の追加に失敗しました。");
+        }
+    }
+
     //記事更新処理　林田作
     public function updateArticle(int $articleId, string $title, string $detailText)
     {
