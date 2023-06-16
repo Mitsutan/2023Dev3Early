@@ -99,7 +99,7 @@ $userId = $_SESSION['user_id'];
                                         <?php
                                         // DBManagerクラスをインスタンス化
                                         $dbManager = new DBManager();
-
+                                        $followingUserId = 1;
                                         // フォロー状態の判定と表示
                                         $isFollowing = $dbManager->isFollowingUser($userId, $followingUserId);
                                         if ($isFollowing) {
