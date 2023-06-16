@@ -6,7 +6,7 @@ require_once 'DBManager.php';
 $followingUserId = $_POST['followingUserId'];
 
 // 自分のユーザーIDを設定（例えば、セッションから取得するなど）
-$userId = 123; // 自分のユーザーIDを設定してください
+$userId = $_SESSION['user_id']; // 自分のユーザーIDを設定してください
 
 // DBManagerのインスタンスを作成
 $dbManager = new DBManager();
@@ -19,5 +19,6 @@ try {
   echo "フォローしました";
 } catch (Exception $e) {
   // フォロー失敗の処理
+  echo $e->getMessage();
   echo "フォローに失敗しました";
 }
