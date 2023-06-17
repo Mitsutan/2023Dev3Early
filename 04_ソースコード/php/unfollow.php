@@ -7,7 +7,7 @@ require_once 'DBManager.php';
 $unfollowingUserId = $_POST['unfollowingUserId'];
 
 // 自分のユーザーIDを設定（例えば、セッションから取得するなど）
-$userId = 123; // 自分のユーザーIDを設定してください
+$userId = $_SESSION['user_id']; // 自分のユーザーIDを設定してください
 
 // DBManagerのインスタンスを作成
 $dbManager = new DBManager();
