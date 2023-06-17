@@ -24,15 +24,6 @@ $db = new DBManager;
 <body>
     <?php require_once "./php/header.php" ?>
 
-    <div class="container-fluid">
-    <h1 class="mb-3">ハッシュタグ一覧</h1>
-        <form action = "" method = "POST">
-        <h5>・<a href = "" name = "">タグ名</a></h5><br>
-        <h5>・<a href = "" name = "">タグ名</a></h5><br>
-        <h5>・<a href = "" name = "">タグ名</a></h5><br>
-        <h5>・<a href = "" name = "">タグ名</a></h5>
-        </form>
-
     <div class="container">
         <h1>ハッシュタグ一覧</h1>
         <ul>
