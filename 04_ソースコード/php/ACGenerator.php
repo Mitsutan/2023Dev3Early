@@ -5,6 +5,8 @@ class ACGenerator
     public function createCard(int $id, int $userID, string $title, string $date, $tags, int $goods)
     {
 
+        require_once("./php/DBManager.php");
+        $db = new DBManager();
         $userpic = glob("./img/userpics/" . $userID . "/userpic*");
         if ($userpic) {
             $userpic = $userpic[0];
@@ -44,7 +46,15 @@ class ACGenerator
                                 <div class="col-8">
                                     <div>
                                         <div>ユーザー名</div>
-                                        <div>フォローする</div>
+                                            <div class="followButtonContainer-' . $userID . '">
+            ';
+        $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $userID);
+        if ($isFollowing) {
+            echo '<button onclick="unfollowUser(' . $userID . ')">フォロー解除する</button>';
+        } else {
+            echo '<button onclick="followUser(' . $userID . ')">フォローする</button>';
+        }
+        echo '                          </div>
                                     </div>
                                 </div>
                             </div>
