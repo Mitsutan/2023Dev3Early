@@ -4,10 +4,16 @@ session_start();
 // DBManager.php ファイルをインクルードします
 require_once './DBManager.php';
 
+// DBManagerのインスタンスを作成
+$db = new DBManager();
+
+// 自分のユーザーIDを設定（例えば、セッションから取得するなど）
+$userId = $_SESSION['user_id']; // 自分のユーザーIDを設定してください
+$articleId = $_POST['articleNum'];
+
 // POST リクエストの処理を行います
 try {
-    $db->submitGoods($_SESSION['user_id'], $_POST['article_id']);
-    $db->countGoods($_POST['article_id']);
+    echo $db->submitGoods($userId, $articleId);
 
     exit;
 } catch (Exception $e) {

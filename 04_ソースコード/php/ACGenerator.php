@@ -26,9 +26,9 @@ class ACGenerator
                     <div class="row border-start border-end border-dark border-1 p-2 h-100">
                         <div class="col-7">
                             <h3 class="text-truncate"><a href="./article?id=' . $id . '">' . $title . '</a></h3>
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between articleGoodsContainer'.$id.'">
                                 <p>' . $date . '</p>
-                                <p><i class="fa-solid fa-thumbs-up me-1"></i>1234</p>
+                                <p onclick = "clickGoods('.$id.')"><i class="fa-solid fa-thumbs-up me-1"></i><span id = "goodsCnt">1234</span></p>
                             </div>
                             <div class="tag-area">
             ';
