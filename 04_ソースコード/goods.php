@@ -43,8 +43,11 @@ $userData = $db->getUser($_GET["id"]);
                                 <form action = "./goods.php" method = "post">
                                     <input type="hidden" name="article_id" value="<?= $articleData['article_id'] ?>">
                                     <p><i class="fa-solid fa-thumbs-up me-1">
+                                    </i>1234</p>
+                                </form>
+                                <script>
                                     
-                            </i>1234</p>
+                                </script>
                         </div>
                         <div>
                             <div style="display:inline-block;">#ダイエット</div>
