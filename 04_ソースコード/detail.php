@@ -25,7 +25,7 @@ session_start()
         <h1 class="mb-3">記事の見出し-1日目-</h1>
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-8">
                 <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5">　編集　</button></a>
                 <p>説明</p>
                 <div class="rounded p-2 mb-3">
@@ -75,8 +75,8 @@ session_start()
                 <a href=""><button type="submit" class="btn btn-warning mb-3 fs-5">　コメントを投稿　</button></a>
                 </div>
             </div>
-            <div class="col-2">
-            </div>
+            <!-- <div class="col-2">
+            </div> -->
             <div class="col-4">
                 <div class="mb-3">
                     <h2>同じシリーズの記事</h2>
