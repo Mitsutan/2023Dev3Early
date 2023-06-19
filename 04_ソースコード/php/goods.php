@@ -6,8 +6,8 @@ require_once './DBManager.php';
 
 // POST リクエストの処理を行います
 try {
-    $db->submitGoods($_SESSION['user_id'], $_POST['art']);
-    $db->countGoods($_POST['art']);
+    $db->submitGoods($_SESSION['user_id'], $_POST['article_id']);
+    $db->countGoods($_POST['article_id']);
 
     exit;
 } catch (Exception $e) {

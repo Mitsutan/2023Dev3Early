@@ -1,5 +1,10 @@
 <?php
-session_start()
+session_start();
+
+require_once "./php/DBManager.php";
+$db = new DBManager;
+
+$detailData = $db->getDetailById($_GET['id']);
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -15,6 +20,8 @@ session_start()
 
     <link rel="stylesheet" href="./css/style.css">
 
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+
     <title>記事詳細</title>
 </head>
 
@@ -29,9 +36,10 @@ session_start()
                 <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5">　編集　</button></a>
                 <p>説明</p>
                 <div class="rounded p-2 mb-3">
-                    <p>
-                        <?php echo "本文を表示----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ?>
-                    </p>
+                    <!-- <p>
+                        <?php //echo "本文を表示----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ?>
+                    </p> -->
+                    <div class="trix-content"><?php echo $detailData['detail_text'] ?></div>
                 </div>
                 <hr aline="center" size="5" class="bg-primary mb-3">
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
@@ -46,7 +54,6 @@ session_start()
                     </div>
                 </div>
                 <script language=javascript>
-                <!--
                 function show(inputData){
                     var objID=document.getElementById( "layer_" + inputData );
                     var buttonID=document.getElementById( "category_" + inputData );
@@ -58,7 +65,6 @@ session_start()
                         objID.className='close';
                     }
                 }
-                //-->
                 </script>
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
                 <p>　コメント一件目</p>

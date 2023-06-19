@@ -1,7 +1,7 @@
 (function () {
     // フォルダパス
-    var HOST = "./"
-    // var HOST = "http://localhost/Web/github/2023Dev3Early/04_ソースコード/trix_editor_test/"
+    // var HOST = "./img/detail/";
+    // var HOST = "http://localhost/Web/github/2023Dev3Early/04_ソースコード/img/detail/"
 
     // 画像添付時発火イベント===
     addEventListener("trix-attachment-add", function (event) {
@@ -46,10 +46,10 @@
         xhr.addEventListener("load", function (event) {
             if (xhr.status == 200) {
                 var attributes = {
-                    // url: HOST + key,
+                    url: HOST + key,
                     // href: HOST + key + "?content-disposition=attachment"
-                    url: key,
-                    href: key
+                    // url: key,
+                    href: HOST + key
                 }
                 successCallback(attributes)
             } else {

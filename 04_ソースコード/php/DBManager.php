@@ -179,6 +179,20 @@ class DBManager
         }
     }
 
+    function submitDetail(int $articleId, string $detail) {
+        // 記事詳細の追加
+        $ps = $this->connectDb()->prepare("INSERT INTO details(article_id, detail_submitday, detail_updateday, detail_text) VALUES (?, ?, ?, ?)");
+        $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+        $ps->bindValue(2, date('Y-m-d H:i:s'), PDO::PARAM_STR);
+        $ps->bindValue(3, date('Y-m-d H:i:s'), PDO::PARAM_STR);
+        $ps->bindValue(4, $detail, PDO::PARAM_STR);
+
+        if (!$ps->execute()) {
+            // エラー処理（記事の詳細の追加に失敗した場合）
+            throw new Exception("記事の詳細の追加に失敗しました。");
+        }
+    }
+
     //記事更新処理　林田作
     public function updateArticle(int $articleId, string $title, string $detailText)
     {
@@ -239,6 +253,18 @@ class DBManager
         return $details;
     }
 
+    // 記事詳細を一件取得するメソッド
+    public function getDetailById(int $detailId)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM details WHERE detail_id = ?");
+        $ps->bindValue(1, $detailId, PDO::PARAM_INT);
+        $ps->execute();
+
+        $detail = $ps->fetch(PDO::FETCH_ASSOC);
+
+        return $detail;
+    }
+
     // ユーザーIDから記事を全件取得するメソッド
     public function getArticlesByUserId(int $userId)
     {
@@ -286,6 +312,18 @@ class DBManager
     // -----
 
     // goods crud関連 今泉---
+
+    //いいね数表示のメソッド
+    public function countGoods(int $article)
+    {
+        $ps = $this->connectDb()->prepare("SELECT COUNT(*) AS count FROM goods WHERE article_id = ?");
+
+        $ps->bindValue(1, $article, PDO::PARAM_INT);
+        $ps->execute();
+        $cnt = $ps->fetchColumn();
+
+        return $cnt;
+    }
     
     //いいねボタン押下情報の登録と削除
     public function submitGoods(int $user, int $article)
@@ -310,17 +348,9 @@ class DBManager
                 throw new Exception("原因不明のエラーが発生しました。<br />しばらく時間をおいて再度お試しください。", 100);
             }
         }
+
+        return $this->countGoods($article);
     }
 
-    //いいね数表示のメソッド
-    public function countGoods(int $article)
-    {
-        $ps = $this->connectDb()->prepare("SELECT COUNT(*) AS count FROM goods WHERE article_id = ?");
-
-        $ps->bindValue(1, $article, PDO::PARAM_INT);
-        $ps->execute();
-        $cnt = $ps->fetchColumn();
-
-        return $cnt;
-    }
+    
 }
