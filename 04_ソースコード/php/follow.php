@@ -20,6 +20,7 @@ try {
   echo "フォローしました";
 } catch (Exception $e) {
   // フォロー失敗の処理
+  http_response_code(500);
   echo $e->getMessage();
   echo "フォローに失敗しました";
 }
