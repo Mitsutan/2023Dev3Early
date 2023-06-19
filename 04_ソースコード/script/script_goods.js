@@ -8,6 +8,7 @@ function clickGoods(article) {
     xhr.onload = function () {
         if (xhr.status === 200) {
             alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
+            document.getElementById("goodsCnt").innerHTML = xhr.responseText;
             // ボタンの表示を切り替える
             // document.getElementById("followButtonContainer").innerHTML = '<button onclick="unfollowUser()">フォロー解除する</button>';
             //const fbc = document.getElementsByClassName("followButtonContainer-" + id);
@@ -20,7 +21,6 @@ function clickGoods(article) {
         }
     };
     xhr.send("articleNum=" + encodeURIComponent(articleId));
-    document.getElementById("goodsCnt").innerHTML = xhr.responseText;
 }
 
 // アンフォローボタンをクリックした時の処理
