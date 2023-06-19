@@ -7,6 +7,8 @@ class ACGenerator
 
         require_once("./php/DBManager.php");
         $db = new DBManager();
+        $userData = $db->getUser($userID);
+
         $userpic = glob("./img/userpics/" . $userID . "/userpic*");
         if ($userpic) {
             $userpic = $userpic[0];
@@ -45,7 +47,7 @@ class ACGenerator
                                 </div>
                                 <div class="col-8">
                                     <div>
-                                        <div>ユーザー名</div>
+                                        <div>' . $userData['user_name'] . '</div>
                                             <div class="followButtonContainer-' . $userID . '">
             ';
         $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $userID);
