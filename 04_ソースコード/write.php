@@ -36,9 +36,9 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
         <form action="./php/write.php" enctype="multipart/form-data" method="post">
             <div class="mb-3">
                 <label for="articleseries" class="form-label">シリーズ</label>
-                <select class="form-select" id="articleselect" aria-label="Default select example">
+                <select class="form-select" id="articleselect" name="articleselect" aria-label="Default select example">
 
-                    <option selected>---新規---</option>
+                    <option value="" selected>---新規---</option>
                     <!-- 以下に既存の記事名が入る -->
                     <!-- <option value="1">One</option> -->
                     <?php
@@ -74,7 +74,7 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
             </div>
 
             <div class="mb-3">
-                <label>日目</label><br />
+                <label><span id="detail-date">1</span>日目</label><br />
                 <input id="x" type="hidden" name="content">
                 <trix-editor input="x"></trix-editor>
             </div>
@@ -93,21 +93,33 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./script/script.js"></script>
-    <script src="./script/trix_img_uploader.js"></script>
     <script>
+        // 本文内画像の保存先
+        var HOST = "./img/detail/<?= $_SESSION['user_id'] ?>/";
+
         const select = document.getElementById('articleselect');
         const newField = document.getElementById('new-field');
+        const requireFields = document.getElementsByClassName('form-control');
 
         select.addEventListener('change', function() {
             console.log(select.selectedIndex);
 
             if (select.selectedIndex != 0) {
                 newField.classList.add('d-none');
+                for (let i = 0; i < requireFields.length; i++) {
+                    requireFields[i].required = false;
+                }
+                getNextDetailNum(select.value);
             } else {
                 newField.classList.remove('d-none');
+                for (let i = 0; i < requireFields.length; i++) {
+                    requireFields[i].required = true;
+                }
+                getNextDetailNum(select.value);
             }
         });
     </script>
+    <script src="./script/trix_img_uploader.js"></script>
 </body>
 
 </html>
