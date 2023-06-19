@@ -20,5 +20,6 @@ try {
   echo "フォローを解除しました";
 } catch (Exception $e) {
   // フォロー解除失敗の処理
+  http_response_code(500);
   echo "フォロー解除に失敗しました";
 }
