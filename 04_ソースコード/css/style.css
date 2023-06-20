@@ -78,4 +78,8 @@ h3>a:hover,
 .tag-area>a:hover {
     color: gray;
 }
+
+.good-counter:hover {
+    cursor: pointer;
+}
 /* article card デザインここまで */
