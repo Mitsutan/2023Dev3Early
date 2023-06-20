@@ -371,7 +371,10 @@ class DBManager
             }
         }
 
-        return $this->countGoods($article);
+        return [
+            "count" => $this->countGoods($article),
+            "result" => $result > 0 ? false : true
+        ];
     }
 
     

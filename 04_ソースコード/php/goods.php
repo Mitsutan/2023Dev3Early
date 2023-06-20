@@ -13,7 +13,8 @@ $articleId = $_POST['articleNum'];
 
 // POST リクエストの処理を行います
 try {
-    echo $db->submitGoods($userId, $articleId);
+    header("Content-Type: application/json; charset=UTF-8");
+    echo json_encode($db->submitGoods($userId, $articleId));
 
     exit;
 } catch (Exception $e) {
