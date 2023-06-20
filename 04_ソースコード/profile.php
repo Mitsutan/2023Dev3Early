@@ -171,7 +171,9 @@ $userId = $_SESSION['user_id'];
             <?php
             foreach ($db->getArticlesByUserId($_GET["id"]) as $key => $value) {
                 $tags = $db->getTagsByArticleId($value["article_id"]);
-                $card->createCard($value["article_id"], $value["user_id"], $value["title"], $value["update_datetime"], $tags, 0);
+                $user = $db->getUser($value["user_id"]);
+                $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $_GET['id']);
+                $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, 0, $isFollowing);
             }
             ?>
 

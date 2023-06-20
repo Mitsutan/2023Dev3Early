@@ -2,12 +2,8 @@
 <?php
 class ACGenerator
 {
-    public function createCard(int $id, int $userID, string $title, string $date, $tags, int $goods)
+    public function createCard(int $id, int $userID, string $userName, string $title, string $date, $tags, int $goods, bool $isFollowing)
     {
-
-        require_once("./php/DBManager.php");
-        $db = new DBManager();
-        $userData = $db->getUser($userID);
 
         $userpic = glob("./img/userpics/" . $userID . "/userpic*");
         if ($userpic) {
@@ -28,9 +24,9 @@ class ACGenerator
                     <div class="row border-start border-end border-dark border-1 p-2 h-100">
                         <div class="col-7">
                             <h3 class="text-truncate"><a href="./article?id=' . $id . '">' . $title . '</a></h3>
-                            <div class="d-flex justify-content-between articleGoodsContainer'.$id.'">
+                            <div class="d-flex justify-content-between articleGoodsContainer' . $id . '">
                                 <p>' . $date . '</p>
-                                <p onclick = "clickGoods('.$id.')"><i class="fa-solid fa-thumbs-up me-1"></i><span id = "goodsCnt">1234</span></p>
+                                <p onclick = "clickGoods(' . $id . ')"><i class="fa-solid fa-thumbs-up me-1"></i><span id = "goodsCnt">1234</span></p>
                             </div>
                             <div class="tag-area">
             ';
@@ -47,10 +43,9 @@ class ACGenerator
                                 </div>
                                 <div class="col-8">
                                     <div>
-                                        <div>' . $userData['user_name'] . '</div>
+                                        <div>' . $userName . '</div>
                                             <div class="followButtonContainer-' . $userID . '">
             ';
-        $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $userID);
         if ($isFollowing) {
             echo '<button onclick="unfollowUser(' . $userID . ')">フォロー解除する</button>';
         } else {
