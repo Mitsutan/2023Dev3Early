@@ -12,9 +12,9 @@ function clickGoods(article) {
             document.getElementById("goodsCnt" + article).innerHTML = data['count'];
             if (data['result']) {
                 document.getElementById("goodsIcon" + article).classList.remove('fa-regular');
-                document.getElementById("goodsIcon" + article).classList.add('fa-solid');
+                document.getElementById("goodsIcon" + article).classList.add('fa-solid','click-good');
             } else {
-                document.getElementById("goodsIcon" + article).classList.remove('fa-solid');
+                document.getElementById("goodsIcon" + article).classList.remove('fa-solid','click-good');
                 document.getElementById("goodsIcon" + article).classList.add('fa-regular');
             }
             // ボタンの表示を切り替える
