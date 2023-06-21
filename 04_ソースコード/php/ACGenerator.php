@@ -47,7 +47,7 @@ class ACGenerator
                                             <div class="followButtonContainer-' . $userID . '">
             ';
         if ($isFollowing) {
-            echo '<button onclick="unfollowUser(' . $userID . ')">フォロー解除する</button>';
+            echo '<button class="btn btn-primary btn-sm" onclick="unfollowUser(' . $userID . ')">フォロー解除する</button>';
         } else {
             echo '<button class="btn btn-outline-primary btn-sm" onclick="followUser(' . $userID . ')">フォローする</button>';
         }
