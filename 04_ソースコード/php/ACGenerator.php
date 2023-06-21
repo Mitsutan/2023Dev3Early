@@ -37,7 +37,7 @@ class ACGenerator
 
         echo '
                             </div>
-                            <div class="row align-items-end mt-1">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4">
                                     <img src="' . $userpic . '" class="rounded-circle ratio ratio-1x1">
                                 </div>
