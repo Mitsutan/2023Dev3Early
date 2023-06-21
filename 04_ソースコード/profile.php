@@ -54,10 +54,10 @@ $userId = $_SESSION['user_id'];
                 }
                 ?>
             </div>
-            <div class="col-3" style="text-align:center;">
+            <div class="col-3 text-center">
                 <div class="row follower-box">
-                    <div class="col-md-6 col-12 follow-count" style="float: left;">フォロー:</div>
-                    <div class="col-md-6 col-12 follower-count">フォロワー:</div>
+                    <div class="col-md-6 col-12 follow-count">フォロー:<?= $db->getFollowingCount($_GET['id']) ?></div>
+                    <div class="col-md-6 col-12 follower-count">フォロワー:<?= $db->getFollowersCount($_GET['id']) ?></div>
                 </div>
             </div>
         </div>
