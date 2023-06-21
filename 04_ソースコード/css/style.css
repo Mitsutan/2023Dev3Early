@@ -48,6 +48,7 @@ ul#nav_ul>li>a>i {
 /* body デザイン */
 h1 {
     border-left: 5px solid #ffc107;
+    padding-left: 5px;
 }
 h2{
     border :5px solid #ffc107;
