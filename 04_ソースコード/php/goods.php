@@ -23,5 +23,3 @@ try {
     header("Location: ../write.php");
 }
 ?>
-
-?>
