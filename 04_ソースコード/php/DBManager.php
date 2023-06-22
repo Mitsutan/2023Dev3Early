@@ -77,6 +77,11 @@ class DBManager
 
     public function followUser(int $userId, int $followingUserId) //followUser: ユーザーが別のユーザーをフォローするためのメソッド。
     {
+
+        if ($userId == $followingUserId) {
+            throw new Exception("自分自身をフォローすることはできません。");
+        }
+
         $ps = $this->connectDb()->prepare("INSERT INTO follows(user_id, following_user_id, follow_datetime) VALUES (?, ?, ?)");
         $ps->bindValue(1, $userId, PDO::PARAM_INT);
         $ps->bindValue(2, $followingUserId, PDO::PARAM_INT);
