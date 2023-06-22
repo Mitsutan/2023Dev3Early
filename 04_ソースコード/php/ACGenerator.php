@@ -2,7 +2,7 @@
 <?php
 class ACGenerator
 {
-    public function createCard(int $id, int $userID, string $userName, string $title, string $date, $tags, int $goods, bool $isFollowing)
+    public function createCard(int $id, int $userID, string $userName, string $title, string $date, $tags, int $goods, bool $isFollowing ,bool $isGoodsIcon)
     {
 
         $userpic = glob("./img/userpics/" . $userID . "/userpic*");
@@ -26,8 +26,13 @@ class ACGenerator
                             <h3 class="text-truncate"><a href="./article?id=' . $id . '">' . $title . '</a></h3>
                             <div class="d-flex justify-content-between articleGoodsContainer' . $id . '">
                                 <p>' . $date . '</p>
-                                <p onclick = "clickGoods(' . $id . ')" class="good-counter"><i class="fa-regular fa-thumbs-up me-1" id="goodsIcon' . $id . '"></i><span id = "goodsCnt' . $id . '">' . $goods . '</span></p>
-                            </div>
+                                <p onclick = "clickGoods(' . $id . ')" class="good-counter">';
+        if($isGoodsIcon) {
+            echo '<i class="fa-thumbs-up me-1 fa-solid" id="goodsIcon' . $id . '"></i><span id = "goodsCnt' . $id . '">' . $goods . '</span></p>';
+        }else {
+            echo '<i class="fa-thumbs-up me-1 fa-regular" id="goodsIcon' . $id . '"></i><span id = "goodsCnt' . $id . '">' . $goods . '</span></p>';
+        }
+        echo '              </div>
                             <div class="tag-area">
             ';
 

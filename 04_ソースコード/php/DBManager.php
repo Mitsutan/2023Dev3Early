@@ -347,7 +347,7 @@ class DBManager
         return $cnt;
     }
     
-    //いいねボタン押下情報の登録と削除
+    //いいねボタン押下情報の登録と削除メソッド
     public function submitGoods(int $user, int $article)
     {
         $look = $this->connectDb()->prepare("SELECT * FROM goods WHERE user_id = ? AND article_id = ?");
@@ -377,5 +377,15 @@ class DBManager
         ];
     }
 
+    //いいねボタンの押下状態を指定するメソッド
+    public function isGoodsIconArticle(int $user , int $article)
+    {
+        $look = $this->connectDb()->prepare("SELECT * FROM goods WHERE user_id = ? AND article_id = ?");
+        $look->bindValue(1, $user, pdo::PARAM_INT);
+        $look->bindValue(2, $article, pdo::PARAM_INT);
+        $look->execute();
+        $result = $look->fetchColumn();
+        return ($result > 0);
+    }
     
 }
