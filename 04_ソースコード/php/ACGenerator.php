@@ -2,12 +2,8 @@
 <?php
 class ACGenerator
 {
-    public function createCard(int $id, int $userID, string $title, string $date, $tags, int $goods)
+    public function createCard(int $id, int $userID, string $userName, string $title, string $date, $tags, int $goods, bool $isFollowing)
     {
-
-        require_once("./php/DBManager.php");
-        $db = new DBManager();
-        $userData = $db->getUser($userID);
 
         $userpic = glob("./img/userpics/" . $userID . "/userpic*");
         if ($userpic) {
@@ -28,9 +24,9 @@ class ACGenerator
                     <div class="row border-start border-end border-dark border-1 p-2 h-100">
                         <div class="col-7">
                             <h3 class="text-truncate"><a href="./article?id=' . $id . '">' . $title . '</a></h3>
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between articleGoodsContainer' . $id . '">
                                 <p>' . $date . '</p>
-                                <p><i class="fa-solid fa-thumbs-up me-1"></i>1234</p>
+                                <p onclick = "clickGoods(' . $id . ')" class="good-counter"><i class="fa-regular fa-thumbs-up me-1" id="goodsIcon' . $id . '"></i><span id = "goodsCnt' . $id . '">' . $goods . '</span></p>
                             </div>
                             <div class="tag-area">
             ';
@@ -41,20 +37,19 @@ class ACGenerator
 
         echo '
                             </div>
-                            <div class="row align-items-end" style="min-height: 10vmax;">
+                            <div class="row align-items-center mt-1">
                                 <div class="col-4">
                                     <img src="' . $userpic . '" class="rounded-circle ratio ratio-1x1">
                                 </div>
                                 <div class="col-8">
                                     <div>
-                                        <div>' . $userData['user_name'] . '</div>
+                                        <div>' . $userName . '</div>
                                             <div class="followButtonContainer-' . $userID . '">
             ';
-        $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $userID);
         if ($isFollowing) {
-            echo '<button onclick="unfollowUser(' . $userID . ')">フォロー解除する</button>';
+            echo '<button class="btn btn-primary btn-sm" onclick="unfollowUser(' . $userID . ')">フォロー解除する</button>';
         } else {
-            echo '<button onclick="followUser(' . $userID . ')">フォローする</button>';
+            echo '<button class="btn btn-outline-primary btn-sm" onclick="followUser(' . $userID . ')">フォローする</button>';
         }
         echo '                          </div>
                                     </div>

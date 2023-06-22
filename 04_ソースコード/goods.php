@@ -39,15 +39,13 @@ $userData = $db->getUser($_GET["id"]);
                         <h3>記事の見出し</h3>
                         <div class="d-flex justify-content-between">
                             <p>2023/xx/xx</p>
-                            <?php
-                                <form action = "./goods.php" method = "post">
+                            
+                                <div class = "articleGoodsContainer">
                                     <input type="hidden" name="article_id" value="<?= $articleData['article_id'] ?>">
                                     <p><i class="fa-solid fa-thumbs-up me-1">
-                                    </i>1234</p>
-                                </form>
-                                <script>
-                                    
-                                </script>
+                                    </i><span id = "goodsCnt">1111</span></p>
+                                </div>
+              
                         </div>
                         <div>
                             <div style="display:inline-block;">#ダイエット</div>
@@ -137,6 +135,7 @@ $userData = $db->getUser($_GET["id"]);
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="./script/script.js"></script>
+        <script src = "./script/script_goods.js"></script>
 </body>
 
 </html>

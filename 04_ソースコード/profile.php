@@ -54,10 +54,10 @@ $userId = $_SESSION['user_id'];
                 }
                 ?>
             </div>
-            <div class="col-3" style="text-align:center;">
+            <div class="col-3 text-center">
                 <div class="row follower-box">
-                    <div class="col-md-6 col-12 follow-count" style="float: left;">フォロー:</div>
-                    <div class="col-md-6 col-12 follower-count">フォロワー:</div>
+                    <div class="col-md-6 col-12 follow-count">フォロー:<?= $db->getFollowingCount($_GET['id']) ?></div>
+                    <div class="col-md-6 col-12 follower-count">フォロワー:<?= $db->getFollowersCount($_GET['id']) ?></div>
                 </div>
             </div>
         </div>
@@ -171,7 +171,9 @@ $userId = $_SESSION['user_id'];
             <?php
             foreach ($db->getArticlesByUserId($_GET["id"]) as $key => $value) {
                 $tags = $db->getTagsByArticleId($value["article_id"]);
-                $card->createCard($value["article_id"], $value["user_id"], $value["title"], $value["update_datetime"], $tags, 0);
+                $user = $db->getUser($value["user_id"]);
+                $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $_GET['id']);
+                $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, 0, $isFollowing);
             }
             ?>
 
@@ -181,6 +183,7 @@ $userId = $_SESSION['user_id'];
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="./script/script.js"></script>
+        <script src = "./script/script_goods.js"></script>
 </body>
 
 </html>

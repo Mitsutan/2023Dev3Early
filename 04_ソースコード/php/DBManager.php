@@ -50,6 +50,16 @@ class DBManager
         return $ps->fetch();
     }
 
+    // ユーザー名からuseridを取得するメソッド
+    public function getUserIds(string $name)
+    {
+        $ps = $this->connectDb()->prepare("SELECT user_id FROM users WHERE user_name LIKE ?");
+        $ps->bindValue(1, "%$name%", pdo::PARAM_STR);
+        $ps->execute();
+
+        return $ps->fetchAll();
+    }
+
     public function editUser(int $id, string $mail, string $name, string $desc)
     {
         $ps = $this->connectDb()->prepare("UPDATE users SET user_mail = ?, user_name = ?, user_about_me = ? WHERE user_id = ?");
@@ -277,6 +287,18 @@ class DBManager
         return $articles;
     }
 
+    // 記事名から記事を検索するメソッド
+    public function getArticlesByTitle(string $title)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM articles WHERE title LIKE ?");
+        $ps->bindValue(1, "%$title%", PDO::PARAM_STR);
+        $ps->execute();
+
+        $articles = $ps->fetchAll();
+
+        return $articles;
+    }
+
     // -----
 
     // tags 取得---
@@ -349,7 +371,10 @@ class DBManager
             }
         }
 
-        return $this->countGoods($article);
+        return [
+            "count" => $this->countGoods($article),
+            "result" => $result > 0 ? false : true
+        ];
     }
 
     

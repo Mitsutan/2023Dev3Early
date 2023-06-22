@@ -48,6 +48,7 @@ ul#nav_ul>li>a>i {
 /* body デザイン */
 h1 {
     border-left: 5px solid #ffc107;
+    padding-left: 5px;
 }
 h2{
     border :5px solid #ffc107;
@@ -78,4 +79,25 @@ h3>a:hover,
 .tag-area>a:hover {
     color: gray;
 }
+
+.good-counter:hover {
+    cursor: pointer;
+}
 /* article card デザインここまで */
+
+/* アニメーション */
+
+.click-good {
+    animation: y-rotation 0.5s ease-out;
+}
+
+@keyframes y-rotation {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+/* アニメーションここまで */
