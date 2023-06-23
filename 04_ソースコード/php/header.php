@@ -10,9 +10,9 @@
                 <li><a href="./ranking.php"><i class="fa-solid fa-ranking-star"></i><span class="d-none d-md-inline">ランキング</span></a></li>
                 <li><a href="./hashtags.php"><i class="fa-solid fa-hashtag"></i><span class="d-none d-md-inline">ハッシュタグ</span></a></li>
                 <?php
-                if (isset($_SESSION['user_id'])) {
+                // if (isset($_SESSION['user_id'])) {
                     echo '<li><a href="./goods.php"><i class="fa-solid fa-thumbs-up"></i><span class="d-none d-md-inline">いいね</span></a></li>';
-                }
+                // }
                 ?>
                 <li><a href="./search.php"><i class="fa-solid fa-magnifying-glass"></i><span class="d-none d-md-inline">検索</span></a></li>
                 <?php
