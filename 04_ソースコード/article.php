@@ -41,6 +41,7 @@ $userData = $db->getUser($articleData['user_id']);
                 <!-- <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5 px-4">編集</button></a> -->
                 <form action="./update.php" method="post">
                     <input type="hidden" name="article_id" value="<?= $articleData['article_id'] ?>">
+                    <input type="hidden" name="edit-type" value="0">
                     <button type="submit" class="btn btn-warning mb-3 fs-5 px-4">編集</button>
                 </form>
                 <img class="img-fluid img-thumbnail mb-3" src="<?php
