@@ -399,22 +399,23 @@ class DBManager
         $ps = $this->connectDb()->prepare("SELECT article_id FROM goods WHERE user_id = ?");
         $ps->bindValue(1, $userId, PDO::PARAM_INT);
         $ps->execute();
+        return $ps->fetchAll();
 
         // 結果を配列に保存
-        $articleIds = [];
-        while ($row = $ps->fetch(PDO::FETCH_COLUMN)) {
-            $articleIds[] = $row;
-        }
+        // $articleIds = [];
+        // while ($row = $ps->fetch(PDO::FETCH_COLUMN)) {
+        //     $articleIds[] = $row;
+        // }
 
-        $placeholders = implode(',', array_fill(0, count($articleIds), '?'));
-        $stmt = $db->prepare("SELECT * FROM articles WHERE article_id IN ($placeholders)");
-        foreach ($articleIds as $index => $articleId) {
-            $stmt->bindValue($index + 1, $articleId, PDO::PARAM_INT);
-        }
-        $stmt->execute();
-        $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // $placeholders = implode(',', array_fill(0, count($articleIds), '?'));
+        // $stmt =  $this->connectDb()->prepare("SELECT * FROM articles WHERE article_id IN ($placeholders)");
+        // foreach ($articleIds as $index => $articleId) {
+        //     $stmt->bindValue($index + 1, $articleId, PDO::PARAM_INT);
+        // }
+        // $stmt->execute();
+        // $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        return $articles;
+        // return $articles;
     }
     
 }

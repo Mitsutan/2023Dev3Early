@@ -31,18 +31,20 @@ $userId = $_SESSION['user_id'];
     <div class="container">
         <h1>いいね記事</h1>
 
-
+        <div class="row g-5 mx-0">
         <?php
-            foreach ($db->getArticlesByUserId($_SESSION['user_id']) as $key => $value) {
+            foreach ($db->getArticlesByGoods($_SESSION['user_id']) as $key => $value) {
+                $article = $db->getArticleById($value['article_id']);
                 $tags = $db->getTagsByArticleId($value["article_id"]);
-                $user = $db->getUser($value["user_id"]);
-                $goods = $db->countGoods($value["article_id"]);
-                $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $_GET['id']);
-                $isGoodsIcon = $db->isGoodsIconArticle($_SESSION['user_id'],$value["article_id"]);
+                $user = $db->getUser($article["user_id"]);
+                $goods = $db->countGoods($article["article_id"]);
+                $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $article['user_id']);
+                $isGoodsIcon = $db->isGoodsIconArticle($_SESSION['user_id'],$article["article_id"]);
 
-                $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, $goods, $isFollowing , $isGoodsIcon);
+                $card->createCard($article["article_id"], $article["user_id"], $user['user_name'], $article["title"], $article["update_datetime"], $tags, $goods, $isFollowing , $isGoodsIcon);
             }
             ?>
+            </div>
 
         </div>
 
