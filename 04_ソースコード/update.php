@@ -5,6 +5,7 @@ require_once "./php/DBManager.php";
 $db = new DBManager;
 
 $oldArticle = $db->getArticleById($_POST['article_id']);
+$usedTags = $db->getTagsByArticleId($_POST["article_id"]);
 $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
 ?>
 <!DOCTYPE html>
@@ -62,7 +63,7 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
                     <?php
                     $tags = $db->getTags();
                     foreach ($tags as $key) {
-                        echo '<label class="d-block"><input type="checkbox" name="tags[]" value="' . $key['tag_id'] . '">' . $key['tag_name'] . '</label>';
+                        echo '<label class="d-block"><input type="checkbox" name="tags[]" value="' . $key['tag_id'] . '" '. ((array_search($key['tag_name'],  array_column($usedTags,0))!==false)? "checked" : "") .'>' . $key['tag_name'] . '</label>';
                     }
                     ?>
                 </div>
