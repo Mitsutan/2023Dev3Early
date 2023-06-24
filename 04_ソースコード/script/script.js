@@ -71,3 +71,19 @@ function unfollowUser(id) {
     };
     xhr.send("unfollowingUserId=" + encodeURIComponent(unfollowingUserId));
 }
+
+// スクロールによってアニメーション発火
+const targetElement = document.querySelectorAll(".fade-in");
+const animation = new IntersectionObserver(animationCallback, { threshold: 1 });
+
+targetElement.forEach(function (el) {
+    animation.observe(el);
+});
+
+function animationCallback(el) {
+    el.forEach(function (e) {
+        if (e.isIntersecting) {
+            e.target.classList.add("fire");
+        }
+    });
+}
