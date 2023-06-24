@@ -209,29 +209,54 @@ class DBManager
     }
 
     //記事更新処理　林田作
-    public function updateArticle(int $articleId, string $title, string $detailText)
+    public function updateArticle(int $articleId, string $title, string $desc, array $tagIds)
     {
         $currentTime = date('Y-m-d H:i:s');
 
         // 記事の更新
-        $ps = $this->connectDb()->prepare("UPDATE articles SET title = ?, update_datetime = ? WHERE article_id = ?");
+        $ps = $this->connectDb()->prepare("UPDATE articles SET title = ?, article_description = ?, update_datetime = ? WHERE article_id = ?");
         $ps->bindValue(1, $title, PDO::PARAM_STR);
-        $ps->bindValue(2, $currentTime, PDO::PARAM_STR);
-        $ps->bindValue(3, $articleId, PDO::PARAM_INT);
+        $ps->bindValue(2, $desc, PDO::PARAM_STR);
+        $ps->bindValue(3, $currentTime, PDO::PARAM_STR);
+        $ps->bindValue(4, $articleId, PDO::PARAM_INT);
 
         if (!$ps->execute()) {
             throw new Exception("記事の更新に失敗しました。");
         }
 
-        // 記事詳細の更新
-        $ps = $this->connectDb()->prepare("UPDATE details SET detail_text = ?, detail_updateday = ? WHERE article_id = ?");
-        $ps->bindValue(1, $detailText, PDO::PARAM_STR);
-        $ps->bindValue(2, $currentTime, PDO::PARAM_STR);
-        $ps->bindValue(3, $articleId, PDO::PARAM_INT);
+        if (is_uploaded_file($_FILES['topimg']['tmp_name'])) {
 
-        if (!$ps->execute()) {
-            throw new Exception("記事の詳細の更新に失敗しました。");
+            array_map('unlink', glob("../img/article/" . $articleId . "/*.*"));
+            mkdir("../img/article/" . $articleId);
+
+            move_uploaded_file($_FILES['topimg']['tmp_name'], "../img/article/" . $articleId . "/topimage" . $_FILES['topimg']['name']);
         }
+
+        // タグ全削除
+        $ps = $this->connectDb()->prepare("DELETE FROM usedtags WHERE article_id = ?");
+        $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+        $ps->execute();
+
+        // タグ付与
+        foreach ($tagIds as $key) {
+            $ps = $this->connectDb()->prepare("INSERT INTO usedtags(article_id, tag_id) VALUES (?, ?)");
+            $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+            $ps->bindValue(2, $key, PDO::PARAM_STR);
+
+            if (!$ps->execute()) {
+                // エラー処理（タグ付与に失敗した場合）
+                throw new Exception("タグ付与に失敗しました。");
+            }
+        }
+        // 記事詳細の更新
+        // $ps = $this->connectDb()->prepare("UPDATE details SET detail_text = ?, detail_updateday = ? WHERE article_id = ?");
+        // $ps->bindValue(1, $detailText, PDO::PARAM_STR);
+        // $ps->bindValue(2, $currentTime, PDO::PARAM_STR);
+        // $ps->bindValue(3, $articleId, PDO::PARAM_INT);
+
+        // if (!$ps->execute()) {
+        //     throw new Exception("記事の詳細の更新に失敗しました。");
+        // }
     }
     //記事取得処理
     // 記事を一件取得するメソッド

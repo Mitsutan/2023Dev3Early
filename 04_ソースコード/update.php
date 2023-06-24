@@ -35,7 +35,8 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
         <div class="mb-3">
             <h1>記事編集</h1>
         </div>
-        <form action="./php/write.php" enctype="multipart/form-data" method="post">
+        <form action="./php/update.php" enctype="multipart/form-data" method="post">
+            <input type="hidden" name="id" value="<?= $_POST['article_id'] ?>">
             <div id="new-field">
                 <div class="mb-3">
                     <label for="articletitle" class="form-label">記事名</label>
