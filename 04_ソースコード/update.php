@@ -1,12 +1,18 @@
 <?php
 session_start();
 
+$_SESSION['edit-type'] = $_POST['edit-type'];
+
 require_once "./php/DBManager.php";
 $db = new DBManager;
 
-$oldArticle = $db->getArticleById($_POST['article_id']);
-$usedTags = $db->getTagsByArticleId($_POST["article_id"]);
-$userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
+if ($_POST['edit-type'] == 0) {
+    $oldArticle = $db->getArticleById($_POST['article_id']);
+    $usedTags = $db->getTagsByArticleId($_POST["article_id"]);
+    $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
+} else {
+    $oldDetail = $db->getDetailById($_POST['detail_id']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -36,17 +42,17 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
             <h1>記事編集</h1>
         </div>
         <form action="./php/update.php" enctype="multipart/form-data" method="post">
-            <input type="hidden" name="id" value="<?= $_POST['article_id'] ?>">
+            <input type="hidden" name="id" value="<?= ($_POST['edit-type'] == 0) ? $_POST['article_id'] : $_POST['detail_id'] ?>">
             <div id="new-field">
-                <div class="mb-3">
+                <div class="mb-3 <?= ($_POST['edit-type'] == 1) ? 'd-none' : "" ?>">
                     <label for="articletitle" class="form-label">記事名</label>
                     <input type="text" class="form-control" id="articletitle" name="title" value="<?= $oldArticle['title'] ?>" required>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 <?= ($_POST['edit-type'] == 1) ? 'd-none' : "" ?>">
                     <label for="articleoverview" class="form-label">記事概要</label>
                     <input type="text" class="form-control" id="articleoverview" name="overview" value="<?= $oldArticle['article_description'] ?>" required>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 <?= ($_POST['edit-type'] == 1) ? 'd-none' : "" ?>">
                     <label for="article_image" class="form-label">現在の表紙画像</label><br>
                     <img class="img-fluid img-thumbnail mb-3 w-50" src="<?php
                                                                         $topimg = glob("./img/article/" . $oldArticle['article_id'] . "/topimage*");
@@ -58,13 +64,17 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
                                                                         ?>" /><br />
                     <input type="file" name="topimg">
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 <?= ($_POST['edit-type'] == 1) ? 'd-none' : "" ?>">
                     <label for="article_tags" class="form-label">タグ</label><br />
                     <!-- <input type="text" class="form-control" id="articletag" name="tag" required> -->
                     <?php
                     $tags = $db->getTags();
-                    foreach ($tags as $key) {
-                        echo '<label class="d-block"><input type="checkbox" name="tags[]" value="' . $key['tag_id'] . '" '. ((array_search($key['tag_name'],  array_column($usedTags,0))!==false)? "checked" : "") .'>' . $key['tag_name'] . '</label>';
+                    try {
+                        foreach ($tags as $key) {
+                            echo '<label class="d-block"><input type="checkbox" name="tags[]" value="' . $key['tag_id'] . '" ' . ((array_search($key['tag_name'],  array_column($usedTags, 0)) !== false) ? "checked" : "") . '>' . $key['tag_name'] . '</label>';
+                        }
+                    } catch (Error $e) {
+                        
                     }
                     ?>
                 </div>
@@ -72,7 +82,7 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
 
             <div class="mb-3 <?= ($_POST['edit-type'] == 0) ? 'd-none' : "" ?>">
                 <label><span id="detail-date">1</span>日目</label><br />
-                <input id="x" type="hidden" name="content">
+                <input id="x" type="hidden" name="content" value="<?= htmlspecialchars($oldDetail['detail_text'], ENT_QUOTES) ?>">
                 <trix-editor input="x"></trix-editor>
             </div>
             <button type="submit" class="btn-lg btn-warning">更新</button>

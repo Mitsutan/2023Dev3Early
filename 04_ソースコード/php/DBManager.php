@@ -248,15 +248,23 @@ class DBManager
                 throw new Exception("タグ付与に失敗しました。");
             }
         }
-        // 記事詳細の更新
-        // $ps = $this->connectDb()->prepare("UPDATE details SET detail_text = ?, detail_updateday = ? WHERE article_id = ?");
-        // $ps->bindValue(1, $detailText, PDO::PARAM_STR);
-        // $ps->bindValue(2, $currentTime, PDO::PARAM_STR);
-        // $ps->bindValue(3, $articleId, PDO::PARAM_INT);
+        
+    }
 
-        // if (!$ps->execute()) {
-        //     throw new Exception("記事の詳細の更新に失敗しました。");
-        // }
+    // 記事詳細更新処理
+    public function updateDetail(int $detailid, string $detailText)
+    {
+        $currentTime = date('Y-m-d H:i:s');
+
+        // 記事詳細の更新
+        $ps = $this->connectDb()->prepare("UPDATE details SET detail_text = ?, detail_updateday = ? WHERE detail_id = ?");
+        $ps->bindValue(1, $detailText, PDO::PARAM_STR);
+        $ps->bindValue(2, $currentTime, PDO::PARAM_STR);
+        $ps->bindValue(3, $detailid, PDO::PARAM_INT);
+
+        if (!$ps->execute()) {
+            throw new Exception("記事の詳細の更新に失敗しました。");
+        }
     }
     //記事取得処理
     // 記事を一件取得するメソッド
