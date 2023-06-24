@@ -48,7 +48,7 @@ class ACGenerator
                                 </div>
                                 <div class="col-8">
                                     <div>
-                                        <div>' . $userName . '</div>
+                                        <div><a href="./profile?id='.$userID.'">' . $userName . '</a></div>
                                             <div class="followButtonContainer-' . $userID . '">
             ';
         if ($isFollowing) {
