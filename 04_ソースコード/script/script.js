@@ -74,7 +74,7 @@ function unfollowUser(id) {
 
 // スクロールによってアニメーション発火
 const targetElement = document.querySelectorAll(".fade-in");
-const animation = new IntersectionObserver(animationCallback, { threshold: 1 });
+const animation = new IntersectionObserver(animationCallback, { threshold: 0.8 });
 
 targetElement.forEach(function (el) {
     animation.observe(el);
