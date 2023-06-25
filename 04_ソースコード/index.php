@@ -21,7 +21,7 @@ session_start()
 <body>
     <?php require_once "./php/header.php" ?>
 
-    <div class="container-fluid">
+    <div class="container">
         <h1>今日の注目記事</h1>
         <h1>新着記事</h1>
         <?php
