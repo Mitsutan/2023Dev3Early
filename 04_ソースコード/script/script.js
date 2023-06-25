@@ -35,7 +35,7 @@ function followUser(id) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function () {
         if (xhr.status === 200) {
-            alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
+            // alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
             // ボタンの表示を切り替える
             // document.getElementById("followButtonContainer").innerHTML = '<button onclick="unfollowUser()">フォロー解除する</button>';
             const fbc = document.getElementsByClassName("followButtonContainer-" + id);
@@ -58,7 +58,7 @@ function unfollowUser(id) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function () {
         if (xhr.status === 200) {
-            alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
+            // alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
             // ボタンの表示を切り替える
             // document.getElementById("followButtonContainer").innerHTML = '<button onclick="followUser()">フォローする</button>';
             const fbc = document.getElementsByClassName("followButtonContainer-" + id);
