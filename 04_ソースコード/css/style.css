@@ -69,13 +69,13 @@ img {
     content: "#";
 }
 
-h3>a,
+h4>a,
 .tag-area>a {
     text-decoration: none;
     color: black;
 }
 
-h3>a:hover,
+h4>a:hover,
 .tag-area>a:hover {
     color: gray;
 }
