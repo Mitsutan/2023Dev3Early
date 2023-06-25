@@ -91,6 +91,10 @@ h3>a:hover,
     animation: y-rotation 0.5s ease-out;
 }
 
+.click-follow {
+    animation: x-rotation 0.3s ease-out;
+}
+
 .fade-in {
     opacity: 0;
 }
@@ -107,6 +111,16 @@ h3>a:hover,
 
     100% {
         transform: rotateY(360deg);
+    }
+}
+
+@keyframes x-rotation {
+    0% {
+        transform: rotateX(0deg);
+    }
+
+    100% {
+        transform: rotateX(360deg);
     }
 }
 

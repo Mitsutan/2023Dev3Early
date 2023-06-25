@@ -40,7 +40,7 @@ function followUser(id) {
             // document.getElementById("followButtonContainer").innerHTML = '<button onclick="unfollowUser()">フォロー解除する</button>';
             const fbc = document.getElementsByClassName("followButtonContainer-" + id);
             for (let i = 0; i < fbc.length; i++) {
-                fbc[i].innerHTML = '<button class="btn btn-primary btn-sm" onclick="unfollowUser(' + id + ')">フォロー解除する</button>';
+                fbc[i].innerHTML = '<button class="btn btn-primary btn-sm click-follow" onclick="unfollowUser(' + id + ')">フォロー解除する</button>';
             }
         } else {
             alert("フォローに失敗しました");
