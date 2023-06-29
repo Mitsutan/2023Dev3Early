@@ -21,17 +21,18 @@ session_start()
 <body>
     <?php require_once "./php/header.php" ?>
 
-    <div class="container-fluid">
-    <h1>登録完了</h1>
+    <div class="container">
+        <h1>登録完了</h1>
 
-<div class="col-sm-2 col-form-label col-form-label-lg">
-    <a href="./login.php">ログインへ</a>
-</div>
+        <div class="col-sm-2 col-form-label col-form-label-lg">
+            <a href="./login.php">ログインへ</a>
+        </div>
+    </div>
 
+    <?php require_once "./php/footer.php" ?>
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="./script/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="./script/script.js"></script>
 </body>
 
 </html>
