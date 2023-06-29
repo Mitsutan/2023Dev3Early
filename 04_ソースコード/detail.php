@@ -5,6 +5,10 @@ require_once "./php/DBManager.php";
 $db = new DBManager;
 
 $detailData = $db->getDetailById($_GET['id']);
+$articleData = $db->getArticleById($detailData['article_id']);
+$articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -29,15 +33,20 @@ $detailData = $db->getDetailById($_GET['id']);
     <?php require_once "./php/header.php" ?>
 
     <div class="container">
-        <h1 class="mb-3">記事の見出し-1日目-</h1>
+        <h1 class="mb-3"><?= $articleData['title'] ?>-<?= array_search($_GET['id'], array_column($articleDetails, 'detail_id')) + 1 ?>日目-</h1>
 
         <div class="row">
             <div class="col-8">
-                <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5">　編集　</button></a>
+                <form action="./update.php" method="post">
+                    <input type="hidden" name="detail_id" value="<?= $detailData['detail_id'] ?>">
+                    <input type="hidden" name="edit-type" value="1">
+                    <button type="submit" class="btn btn-warning mb-3 fs-5 px-4">編集</button>
+                </form>
                 <p>説明</p>
                 <div class="rounded p-2 mb-3">
                     <!-- <p>
-                        <?php //echo "本文を表示----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" ?>
+                        <?php //echo "本文を表示----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" 
+                        ?>
                     </p> -->
                     <div class="trix-content"><?php echo $detailData['detail_text'] ?></div>
                 </div>
@@ -45,7 +54,7 @@ $detailData = $db->getDetailById($_GET['id']);
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
                     <div class="row h3">
                         <div class="col-6">
-                            <?php echo "　コメント"?>
+                            <?php echo "　コメント" ?>
                         </div>
                         <div class="col-6 text-center">
                             <?php echo "××" ?>
@@ -54,22 +63,22 @@ $detailData = $db->getDetailById($_GET['id']);
                     </div>
                 </div>
                 <script language=javascript>
-                function show(inputData){
-                    var objID=document.getElementById( "layer_" + inputData );
-                    var buttonID=document.getElementById( "category_" + inputData );
-                    if(objID.className=='close') {
-                        objID.style.display='block';
-                        objID.className='open';
-                    }else{
-                        objID.style.display='none';
-                        objID.className='close';
+                    function show(inputData) {
+                        var objID = document.getElementById("layer_" + inputData);
+                        var buttonID = document.getElementById("category_" + inputData);
+                        if (objID.className == 'close') {
+                            objID.style.display = 'block';
+                            objID.className = 'open';
+                        } else {
+                            objID.style.display = 'none';
+                            objID.className = 'close';
+                        }
                     }
-                }
                 </script>
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
-                <p>　コメント一件目</p>
+                    <p>　コメント一件目</p>
                     <div class="text-center">
-                    <a href="javascript:void(0)" id="category_折りたたみ" onclick="show('折りたたみ');">続きを表示</a>
+                        <a href="javascript:void(0)" id="category_折りたたみ" onclick="show('折りたたみ');">続きを表示</a>
                     </div>
                     <div id="layer_折りたたみ" style="display: none;position:relative;margin-left:15pt" class="close">
                         二件目<br>
@@ -78,7 +87,7 @@ $detailData = $db->getDetailById($_GET['id']);
                     </div>
                 </div>
                 <div class="text-center">
-                <a href=""><button type="submit" class="btn btn-warning mb-3 fs-5">　コメントを投稿　</button></a>
+                    <a href=""><button type="submit" class="btn btn-warning mb-3 fs-5">　コメントを投稿　</button></a>
                 </div>
             </div>
             <!-- <div class="col-2">
@@ -87,8 +96,14 @@ $detailData = $db->getDetailById($_GET['id']);
                 <div class="mb-3">
                     <h2>同じシリーズの記事</h2>
                 </div>
-                <div class="h2 text-center alert-secondary border border-1 border-dark rounded p-2 mb-2" >
-                    <a href="./signup.php" class="mb-2 text-dark"> <?php echo "関連記事1日目" ?> </a> 
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        <?php
+                        for ($i = 0; $i < count($articleDetails); $i++) {
+                            echo '<a href="./detail.php?id=' . $articleDetails[$i]['detail_id'] . '"><li class="list-group-item">関連記事' . $i + 1 . '日目</li></a>';
+                        }
+                        ?>
+                    </ul>
                 </div>
             </div>
         </div>

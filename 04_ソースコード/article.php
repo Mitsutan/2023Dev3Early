@@ -41,6 +41,7 @@ $userData = $db->getUser($articleData['user_id']);
                 <!-- <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5 px-4">編集</button></a> -->
                 <form action="./update.php" method="post">
                     <input type="hidden" name="article_id" value="<?= $articleData['article_id'] ?>">
+                    <input type="hidden" name="edit-type" value="0">
                     <button type="submit" class="btn btn-warning mb-3 fs-5 px-4">編集</button>
                 </form>
                 <img class="img-fluid img-thumbnail mb-3" src="<?php
@@ -104,13 +105,18 @@ $userData = $db->getUser($articleData['user_id']);
                 <div class="mb-3">
                     <h2>同じシリーズの記事</h2>
                 </div>
+                <div class="card">
+                    <ul class="list-group list-group-flush">
                 <?php
                 for ($i=0; $i < count($articleDetails); $i++) { 
-                    echo '<div class="h2 text-center alert-secondary border border-1 border-dark rounded p-5 mb-5" >';
-                    echo '<a href="./detail.php?id=' . $articleDetails[$i]['detail_id'] . '" class="mb-2 text-dark" style="font-size: 45px;">関連記事' . $i+1 . '日目</a>';
-                    echo '</div>';
+                    // echo '<div class="h2 text-center alert-secondary border border-1 border-dark rounded p-5 mb-5" >';
+                    // echo '<a href="./detail.php?id=' . $articleDetails[$i]['detail_id'] . '" class="mb-2 text-dark" style="font-size: 45px;">関連記事' . $i+1 . '日目</a>';
+                    // echo '</div>';
+                    echo '<a href="./detail.php?id=' . $articleDetails[$i]['detail_id'] . '"><li class="list-group-item">関連記事' . $i+1 . '日目</li></a>';
                 }
                 ?>
+                    </ul>
+                </div>
                 <!-- <div class="h2 text-center alert-secondary border border-1 border-dark rounded p-5 mb-5" >
                     <a href="./detail.php?id=" class="mb-2 text-dark" style="font-size: 45px;"> <?php //echo "関連記事1日目" ?> </a> 
                 </div> -->

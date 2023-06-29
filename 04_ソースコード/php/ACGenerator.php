@@ -20,10 +20,10 @@ class ACGenerator
         }
 
         echo '
-            <div class="col-md-6 col-12">
+            <div class="col-md-6 col-12 fade-in">
                     <div class="row border-start border-end border-dark border-1 p-2 h-100">
                         <div class="col-7">
-                            <h3 class="text-truncate"><a href="./article?id=' . $id . '">' . $title . '</a></h3>
+                            <h4 class="text-truncate"><a href="./article?id=' . $id . '">' . $title . '</a></h4>
                             <div class="d-flex justify-content-between articleGoodsContainer' . $id . '">
                                 <p>' . $date . '</p>
                                 <p onclick = "clickGoods(' . $id . ')" class="good-counter">';
@@ -48,7 +48,7 @@ class ACGenerator
                                 </div>
                                 <div class="col-8">
                                     <div>
-                                        <div>' . $userName . '</div>
+                                        <div><a href="./profile?id='.$userID.'">' . $userName . '</a></div>
                                             <div class="followButtonContainer-' . $userID . '">
             ';
         if ($isFollowing) {

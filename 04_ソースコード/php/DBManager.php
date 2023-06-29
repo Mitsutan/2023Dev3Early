@@ -209,25 +209,58 @@ class DBManager
     }
 
     //記事更新処理　林田作
-    public function updateArticle(int $articleId, string $title, string $detailText)
+    public function updateArticle(int $articleId, string $title, string $desc, array $tagIds)
     {
         $currentTime = date('Y-m-d H:i:s');
 
         // 記事の更新
-        $ps = $this->connectDb()->prepare("UPDATE articles SET title = ?, update_datetime = ? WHERE article_id = ?");
+        $ps = $this->connectDb()->prepare("UPDATE articles SET title = ?, article_description = ?, update_datetime = ? WHERE article_id = ?");
         $ps->bindValue(1, $title, PDO::PARAM_STR);
-        $ps->bindValue(2, $currentTime, PDO::PARAM_STR);
-        $ps->bindValue(3, $articleId, PDO::PARAM_INT);
+        $ps->bindValue(2, $desc, PDO::PARAM_STR);
+        $ps->bindValue(3, $currentTime, PDO::PARAM_STR);
+        $ps->bindValue(4, $articleId, PDO::PARAM_INT);
 
         if (!$ps->execute()) {
             throw new Exception("記事の更新に失敗しました。");
         }
 
+        if (is_uploaded_file($_FILES['topimg']['tmp_name'])) {
+
+            array_map('unlink', glob("../img/article/" . $articleId . "/*.*"));
+            mkdir("../img/article/" . $articleId);
+
+            move_uploaded_file($_FILES['topimg']['tmp_name'], "../img/article/" . $articleId . "/topimage" . $_FILES['topimg']['name']);
+        }
+
+        // タグ全削除
+        $ps = $this->connectDb()->prepare("DELETE FROM usedtags WHERE article_id = ?");
+        $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+        $ps->execute();
+
+        // タグ付与
+        foreach ($tagIds as $key) {
+            $ps = $this->connectDb()->prepare("INSERT INTO usedtags(article_id, tag_id) VALUES (?, ?)");
+            $ps->bindValue(1, $articleId, PDO::PARAM_INT);
+            $ps->bindValue(2, $key, PDO::PARAM_STR);
+
+            if (!$ps->execute()) {
+                // エラー処理（タグ付与に失敗した場合）
+                throw new Exception("タグ付与に失敗しました。");
+            }
+        }
+        
+    }
+
+    // 記事詳細更新処理
+    public function updateDetail(int $detailid, string $detailText)
+    {
+        $currentTime = date('Y-m-d H:i:s');
+
         // 記事詳細の更新
-        $ps = $this->connectDb()->prepare("UPDATE details SET detail_text = ?, detail_updateday = ? WHERE article_id = ?");
+        $ps = $this->connectDb()->prepare("UPDATE details SET detail_text = ?, detail_updateday = ? WHERE detail_id = ?");
         $ps->bindValue(1, $detailText, PDO::PARAM_STR);
         $ps->bindValue(2, $currentTime, PDO::PARAM_STR);
-        $ps->bindValue(3, $articleId, PDO::PARAM_INT);
+        $ps->bindValue(3, $detailid, PDO::PARAM_INT);
 
         if (!$ps->execute()) {
             throw new Exception("記事の詳細の更新に失敗しました。");
@@ -391,6 +424,31 @@ class DBManager
         $look->execute();
         $result = $look->fetchColumn();
         return ($result > 0);
+    }
+
+    //いいね記事の全件表示
+    public function getArticlesByGoods(int $userId)
+    {
+        $ps = $this->connectDb()->prepare("SELECT article_id FROM goods WHERE user_id = ?");
+        $ps->bindValue(1, $userId, PDO::PARAM_INT);
+        $ps->execute();
+        return $ps->fetchAll();
+
+        // 結果を配列に保存
+        // $articleIds = [];
+        // while ($row = $ps->fetch(PDO::FETCH_COLUMN)) {
+        //     $articleIds[] = $row;
+        // }
+
+        // $placeholders = implode(',', array_fill(0, count($articleIds), '?'));
+        // $stmt =  $this->connectDb()->prepare("SELECT * FROM articles WHERE article_id IN ($placeholders)");
+        // foreach ($articleIds as $index => $articleId) {
+        //     $stmt->bindValue($index + 1, $articleId, PDO::PARAM_INT);
+        // }
+        // $stmt->execute();
+        // $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // return $articles;
     }
     
 }
