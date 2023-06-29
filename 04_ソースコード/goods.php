@@ -32,30 +32,32 @@ $userId = $_SESSION['user_id'];
         <h1>いいね記事</h1>
 
         <div class="row g-5 mx-0">
-        <?php
+            <?php
             foreach ($db->getArticlesByGoods($_SESSION['user_id']) as $key => $value) {
                 $article = $db->getArticleById($value['article_id']);
                 $tags = $db->getTagsByArticleId($value["article_id"]);
                 $user = $db->getUser($article["user_id"]);
                 $goods = $db->countGoods($article["article_id"]);
                 $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $article['user_id']);
-                $isGoodsIcon = $db->isGoodsIconArticle($_SESSION['user_id'],$article["article_id"]);
+                $isGoodsIcon = $db->isGoodsIconArticle($_SESSION['user_id'], $article["article_id"]);
 
-                $card->createCard($article["article_id"], $article["user_id"], $user['user_name'], $article["title"], $article["update_datetime"], $tags, $goods, $isFollowing , $isGoodsIcon);
+                $card->createCard($article["article_id"], $article["user_id"], $user['user_name'], $article["title"], $article["update_datetime"], $tags, $goods, $isFollowing, $isGoodsIcon);
             }
             ?>
-            </div>
-
         </div>
 
-        <p>いいね機能を使用する場合はログインが必要です</p>
-        <p>ログインはこちら</p>
+    </div>
 
-        <!-- </div> -->
+    <p>いいね機能を使用する場合はログインが必要です</p>
+    <p>ログインはこちら</p>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script src="./script/script.js"></script>
-        <script src = "./script/script_goods.js"></script>
+    <!-- </div> -->
+
+    <?php require_once "./php/footer.php" ?>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="./script/script.js"></script>
+    <script src="./script/script_goods.js"></script>
 </body>
 
 </html>

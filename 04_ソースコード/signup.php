@@ -21,7 +21,7 @@ session_start();
 <body>
     <?php require_once "./php/header.php" ?>
 
-    <div class="container-fluid">
+    <div class="container">
         <h1>新規登録</h1>
 
         <div class="mb-2">
@@ -60,6 +60,7 @@ session_start();
         </form>
     </div>
 
+    <?php require_once "./php/footer.php" ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./script/script.js"></script>
