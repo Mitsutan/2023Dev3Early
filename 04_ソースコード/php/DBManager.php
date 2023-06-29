@@ -451,4 +451,16 @@ class DBManager
         // return $articles;
     }
     
+    //人気記事選出　数値の多い順（人気順)に4件取得
+    public function getPopularArtcles() 
+    {
+        $ps = $this->connectDb()->prepare("SELECT T1.article_id, POWER(T2.count / (1 + 0.05 * TIMESTAMPDIFF(DAY, T1.post_datetime, CURDATE())) * (1 + 0.2 * TIMESTAMPDIFF(DAY, T1.post_datetime, CURRENT_TIMESTAMP())), 1.8) AS popular
+                                            FROM articles AS T1 LEFT OUTER JOIN (SELECT article_id, COUNT(*) AS count FROM goods) AS T2 
+                                            ON T1.article_id = T2.article_id 
+                                            ORDER BY popular DESC
+                                            LIMIT 4");
+        $ps->execute();
+        return $ps->fetchAll();
+    }
+    
 }
