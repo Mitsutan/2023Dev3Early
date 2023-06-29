@@ -2,7 +2,7 @@
 <?php
 class ACGenerator
 {
-    public function createCard(int $id, int $userID, string $userName, string $title, string $date, $tags, int $goods, bool $isFollowing)
+    public function createCard(int $id, int $userID, string $userName, string $title, string $date, $tags, int $goods, bool $isFollowing ,bool $isGoodsIcon)
     {
 
         $userpic = glob("./img/userpics/" . $userID . "/userpic*");
@@ -20,14 +20,19 @@ class ACGenerator
         }
 
         echo '
-            <div class="col-md-6 col-12">
+            <div class="col-md-6 col-12 fade-in">
                     <div class="row border-start border-end border-dark border-1 p-2 h-100">
                         <div class="col-7">
-                            <h3 class="text-truncate"><a href="./article?id=' . $id . '">' . $title . '</a></h3>
+                            <h4 class="text-truncate"><a href="./article?id=' . $id . '">' . $title . '</a></h4>
                             <div class="d-flex justify-content-between articleGoodsContainer' . $id . '">
                                 <p>' . $date . '</p>
-                                <p onclick = "clickGoods(' . $id . ')" class="good-counter"><i class="fa-regular fa-thumbs-up me-1" id="goodsIcon' . $id . '"></i><span id = "goodsCnt' . $id . '">' . $goods . '</span></p>
-                            </div>
+                                <p onclick = "clickGoods(' . $id . ')" class="good-counter">';
+        if($isGoodsIcon) {
+            echo '<i class="fa-thumbs-up me-1 fa-solid" id="goodsIcon' . $id . '"></i><span id = "goodsCnt' . $id . '">' . $goods . '</span></p>';
+        }else {
+            echo '<i class="fa-thumbs-up me-1 fa-regular" id="goodsIcon' . $id . '"></i><span id = "goodsCnt' . $id . '">' . $goods . '</span></p>';
+        }
+        echo '              </div>
                             <div class="tag-area">
             ';
 
@@ -43,13 +48,13 @@ class ACGenerator
                                 </div>
                                 <div class="col-8">
                                     <div>
-                                        <div>' . $userName . '</div>
+                                        <div><a href="./profile?id='.$userID.'">' . $userName . '</a></div>
                                             <div class="followButtonContainer-' . $userID . '">
             ';
         if ($isFollowing) {
             echo '<button class="btn btn-primary btn-sm" onclick="unfollowUser(' . $userID . ')">フォロー解除する</button>';
         } else {
-            echo '<button class="btn btn-outline-primary btn-sm" onclick="followUser(' . $userID . ')">フォローする</button>';
+            echo '<button class="btn btn-outline-primary btn-sm" onclick="followUser(' . $userID . ')" '. (($userID == $_SESSION['user_id'])? "disabled" : "") .'>フォローする</button>';
         }
         echo '                          </div>
                                     </div>

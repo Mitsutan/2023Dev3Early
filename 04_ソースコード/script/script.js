@@ -35,12 +35,12 @@ function followUser(id) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function () {
         if (xhr.status === 200) {
-            alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
+            // alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
             // ボタンの表示を切り替える
             // document.getElementById("followButtonContainer").innerHTML = '<button onclick="unfollowUser()">フォロー解除する</button>';
             const fbc = document.getElementsByClassName("followButtonContainer-" + id);
             for (let i = 0; i < fbc.length; i++) {
-                fbc[i].innerHTML = '<button class="btn btn-primary btn-sm" onclick="unfollowUser(' + id + ')">フォロー解除する</button>';
+                fbc[i].innerHTML = '<button class="btn btn-primary btn-sm click-follow" onclick="unfollowUser(' + id + ')">フォロー解除する</button>';
             }
         } else {
             alert("フォローに失敗しました");
@@ -58,7 +58,7 @@ function unfollowUser(id) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function () {
         if (xhr.status === 200) {
-            alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
+            // alert(xhr.responseText); // レスポンスの表示（成功メッセージなど）
             // ボタンの表示を切り替える
             // document.getElementById("followButtonContainer").innerHTML = '<button onclick="followUser()">フォローする</button>';
             const fbc = document.getElementsByClassName("followButtonContainer-" + id);
@@ -70,4 +70,20 @@ function unfollowUser(id) {
         }
     };
     xhr.send("unfollowingUserId=" + encodeURIComponent(unfollowingUserId));
+}
+
+// スクロールによってアニメーション発火
+const targetElement = document.querySelectorAll(".fade-in");
+const animation = new IntersectionObserver(animationCallback, { threshold: 0.8 });
+
+targetElement.forEach(function (el) {
+    animation.observe(el);
+});
+
+function animationCallback(el) {
+    el.forEach(function (e) {
+        if (e.isIntersecting) {
+            e.target.classList.add("fire");
+        }
+    });
 }
