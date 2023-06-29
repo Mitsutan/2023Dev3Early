@@ -11,4 +11,4 @@ RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^(.*)$ $1.php
 
 RewriteCond %{THE_REQUEST} \.(php)\ HTTP
-RewriteRule ^(.*)\.(php)$ /Web/github/2023Dev3Early/04_ソースコード/$1 [R=307,L]
+RewriteRule ^(.*)\.(php)$ /Web/2023Dev3Early/04_ソースコード/$1 [R=307,L]
