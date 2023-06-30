@@ -371,6 +371,27 @@ class DBManager
     }
     // -----
 
+    // コメント関連 ---
+    // コメント投稿
+    public function submitComment(int $userId, int $detailId, string $commentText)
+    {
+        $currentTime = date('Y-m-d H:i:s');
+
+        $ps = $this->connectDb()->prepare("INSERT INTO comments(user_id, detail_id, comment, post_datetime) VALUES (?, ?, ?, ?)");
+        $ps->bindValue(1, $userId, PDO::PARAM_INT);
+        $ps->bindValue(2, $detailId, PDO::PARAM_INT);
+        $ps->bindValue(3, $commentText, PDO::PARAM_STR);
+        $ps->bindValue(4, $currentTime, PDO::PARAM_STR);
+
+        if (!$ps->execute()) {
+            return ['status' => false, 'message' => 'コメントの投稿に失敗しました。'];
+            // throw new Exception("コメントの投稿に失敗しました。");
+        } else {
+            return ['status' => true, 'message' => 'コメントの投稿に成功しました。'];
+        }
+    }
+    // ----
+
     // goods crud関連 今泉---
 
     //いいね数表示のメソッド
