@@ -169,15 +169,24 @@ $userId = $_SESSION['user_id'];
                 「記事を投稿してもここに反映されない」等不具合あればリーダーに連絡してください。
              -->
             <?php
-            foreach ($db->getArticlesByUserId($_GET["id"]) as $key => $value) {
+           
+            $sort = function ($a, $b) {
+                return strtotime($b["update_datetime"]) - strtotime($a["update_datetime"]);
+            };
+            
+            $articles = $db->getArticlesByUserId($_GET["id"]);
+            usort($articles, $sort);
+                
+            //foreach ($db->getArticlesByUserId($_GET["id"]) as $key => $value) {
+                foreach ($articles as $key => $value){
                 $tags = $db->getTagsByArticleId($value["article_id"]);
                 $user = $db->getUser($value["user_id"]);
                 $goods = $db->countGoods($value["article_id"]);
                 $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $_GET['id']);
                 $isGoodsIcon = $db->isGoodsIconArticle($_SESSION['user_id'], $value["article_id"]);
-
                 $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, $goods, $isFollowing, $isGoodsIcon);
             }
+             
             ?>
 
         </div>
