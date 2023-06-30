@@ -371,6 +371,27 @@ class DBManager
     }
     // -----
 
+    // コメント関連 ---
+    // コメント投稿
+    public function submitComment(int $userId, int $detailId, string $commentText)
+    {
+        $currentTime = date('Y-m-d H:i:s');
+
+        $ps = $this->connectDb()->prepare("INSERT INTO comments(user_id, detail_id, comment, post_datetime) VALUES (?, ?, ?, ?)");
+        $ps->bindValue(1, $userId, PDO::PARAM_INT);
+        $ps->bindValue(2, $detailId, PDO::PARAM_INT);
+        $ps->bindValue(3, $commentText, PDO::PARAM_STR);
+        $ps->bindValue(4, $currentTime, PDO::PARAM_STR);
+
+        if (!$ps->execute()) {
+            return ['status' => false, 'message' => 'コメントの投稿に失敗しました。'];
+            // throw new Exception("コメントの投稿に失敗しました。");
+        } else {
+            return ['status' => true, 'message' => 'コメントの投稿に成功しました。'];
+        }
+    }
+    // ----
+
     // goods crud関連 今泉---
 
     //いいね数表示のメソッド
@@ -449,6 +470,18 @@ class DBManager
         // $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         // return $articles;
+    }
+    
+    //人気記事選出　数値の多い順（人気順)に4件取得
+    public function getPopularArtcles() 
+    {
+        $ps = $this->connectDb()->prepare("SELECT T1.article_id, POWER(T2.count / (1 + 0.05 * TIMESTAMPDIFF(DAY, T1.post_datetime, CURRENT_TIMESTAMP())) * (1 + 0.2 * TIMESTAMPDIFF(DAY, T1.post_datetime, CURRENT_TIMESTAMP())), 1.8) AS popular
+                                            FROM articles AS T1 LEFT OUTER JOIN (SELECT article_id, COUNT(*) AS count FROM goods) AS T2 
+                                            ON T1.article_id = T2.article_id 
+                                            ORDER BY popular DESC
+                                            LIMIT 4");
+        $ps->execute();
+        return $ps->fetchAll();
     }
     
 }

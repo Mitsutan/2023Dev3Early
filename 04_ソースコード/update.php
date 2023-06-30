@@ -74,7 +74,6 @@ if ($_POST['edit-type'] == 0) {
                             echo '<label class="d-block"><input type="checkbox" name="tags[]" value="' . $key['tag_id'] . '" ' . ((array_search($key['tag_name'],  array_column($usedTags, 0)) !== false) ? "checked" : "") . '>' . $key['tag_name'] . '</label>';
                         }
                     } catch (Error $e) {
-                        
                     }
                     ?>
                 </div>
@@ -93,6 +92,35 @@ if ($_POST['edit-type'] == 0) {
                     echo $_SESSION['errorMsg'];
                     unset($_SESSION['errorMsg']);
                     ?>
+                </div>
+            </div>
+        </form>
+
+        <div class="mb-3">
+            <h1>記事削除</h1>
+        </div>
+        <form action="./php/delete.php" method="post">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                削除
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">最終確認</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            記事を削除します。元には戻せません。よろしいですか？
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="submit" class="btn btn-primary">削除</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

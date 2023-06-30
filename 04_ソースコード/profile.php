@@ -174,19 +174,22 @@ $userId = $_SESSION['user_id'];
                 $user = $db->getUser($value["user_id"]);
                 $goods = $db->countGoods($value["article_id"]);
                 $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $_GET['id']);
-                $isGoodsIcon = $db->isGoodsIconArticle($_SESSION['user_id'],$value["article_id"]);
+                $isGoodsIcon = $db->isGoodsIconArticle($_SESSION['user_id'], $value["article_id"]);
 
-                $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, $goods, $isFollowing , $isGoodsIcon);
+                $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, $goods, $isFollowing, $isGoodsIcon);
             }
             ?>
 
         </div>
 
-        <!-- </div> -->
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script src="./script/script.js"></script>
-        <script src = "./script/script_goods.js"></script>
+
+    <?php require_once("./php/footer.php"); ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="./script/script.js"></script>
+    <script src="./script/script_goods.js"></script>
 </body>
 
 </html>

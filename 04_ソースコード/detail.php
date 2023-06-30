@@ -44,14 +44,10 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                 </form>
                 <p>説明</p>
                 <div class="rounded p-2 mb-3">
-                    <!-- <p>
-                        <?php //echo "本文を表示----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------" 
-                        ?>
-                    </p> -->
                     <div class="trix-content"><?php echo $detailData['detail_text'] ?></div>
                 </div>
                 <hr aline="center" size="5" class="bg-primary mb-3">
-                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
+                <div class="border border-1 border-dark rounded p-2 mb-3">
                     <div class="row h3">
                         <div class="col-6">
                             <?php echo "　コメント" ?>
@@ -60,6 +56,9 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                             <?php echo "××" ?>
                             <?php echo "件" ?>
                         </div>
+                    </div>
+                    <div>
+                        <!-- comment field -->
                     </div>
                 </div>
                 <script language=javascript>
@@ -75,7 +74,7 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                         }
                     }
                 </script>
-                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
+                <!-- <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
                     <p>　コメント一件目</p>
                     <div class="text-center">
                         <a href="javascript:void(0)" id="category_折りたたみ" onclick="show('折りたたみ');">続きを表示</a>
@@ -85,9 +84,17 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                         三件目<br>
                         四件目
                     </div>
-                </div>
+
+                </div> -->
                 <div class="text-center">
-                    <a href=""><button type="submit" class="btn btn-warning mb-3 fs-5">　コメントを投稿　</button></a>
+                    <form action="./php/comment.php" method="post">
+                        <div class="input-group mb-3">
+                            <!-- <span class="input-group-text">With textarea</span> -->
+                            <textarea class="form-control" aria-label="With textarea" name="comment"></textarea>
+                        </div>
+                        <input type="hidden" name="detailId" value="<?= $_GET['id'] ?>">
+                        <button type="submit" class="btn btn-warning mb-3">投稿</button>
+                    </form>
                 </div>
             </div>
             <!-- <div class="col-2">
@@ -108,6 +115,9 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
             </div>
         </div>
     </div>
+
+    <?php require_once "./php/footer.php" ?>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./script/script.js"></script>
 </body>
