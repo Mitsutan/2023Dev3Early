@@ -50,18 +50,25 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                 <div class="border border-1 border-dark rounded p-2 mb-3">
                     <div class="row h3">
                         <div class="col-6">
-                            <?php echo "　コメント" ?>
+                            <?php echo "コメント" ?>
                         </div>
                         <div class="col-6 text-center">
-                            <?php echo "××" ?>
-                            <?php echo "件" ?>
+                            <?php
+                            $comments = $db->getCommentsByDetailId($_GET['id']);
+                            echo count($comments) . "件";
+                            ?>
                         </div>
                     </div>
                     <div>
                         <!-- comment field -->
+                        <?php
+                        foreach ($comments as $c) {
+                            echo $c['comment'] . "<br />";
+                        }
+                        ?>
                     </div>
                 </div>
-                <script language=javascript>
+                <!-- <script language=javascript>
                     function show(inputData) {
                         var objID = document.getElementById("layer_" + inputData);
                         var buttonID = document.getElementById("category_" + inputData);
@@ -73,7 +80,7 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                             objID.className = 'close';
                         }
                     }
-                </script>
+                </script> -->
                 <!-- <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
                     <p>　コメント一件目</p>
                     <div class="text-center">

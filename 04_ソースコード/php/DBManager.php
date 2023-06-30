@@ -390,6 +390,18 @@ class DBManager
             return ['status' => true, 'message' => 'コメントの投稿に成功しました。'];
         }
     }
+
+    // コメント取得
+    public function getCommentsByDetailId(int $detailId)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM comments WHERE detail_id = ?");
+        $ps->bindValue(1, $detailId, PDO::PARAM_INT);
+        $ps->execute();
+
+        $comments = $ps->fetchAll();
+
+        return $comments;
+    }
     // ----
 
     // goods crud関連 今泉---
