@@ -176,11 +176,6 @@ $userId = $_SESSION['user_id'];
             
             $articles = $db->getArticlesByUserId($_GET["id"]);
             usort($articles, $sort);
-            
-            //$articles = $db->getArticlesByUserId($_GET["id"]);
-            //usort($articles, function($a, $b) {
-             //   return strtotime($a["update_datetime"]) - strtotime($b["update_datetime"]);
-            //});
                 
             //foreach ($db->getArticlesByUserId($_GET["id"]) as $key => $value) {
                 foreach ($articles as $key => $value){
