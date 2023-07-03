@@ -28,7 +28,7 @@ $card = new ACGenerator;
 
     <div class="container">
         <h1>注目記事</h1>
-        <div class="row g-5 mx-0">
+        <div class="row g-5 mx-0" id="popularArticle">
             <?php
             $datas = $db->getPopularArtcles(0, 4);
             foreach ($datas as $key) {
@@ -41,6 +41,7 @@ $card = new ACGenerator;
             }
             ?>
         </div>
+        <button id="popularArticle-btn" onclick="getMore(4,8,'popularArticle')">もっとみる ></button>
         <h1>新着記事</h1>
         <?= (isset($_SESSION['user_id']) ? '<h1>フォローユーザーの記事</h1>' : "") ?>
     </div>
