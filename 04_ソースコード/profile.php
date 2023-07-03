@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once "./php/DBManager.php";
 require_once "./php/ACGenerator.php";
 $db = new DBManager;

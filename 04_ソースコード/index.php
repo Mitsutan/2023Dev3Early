@@ -1,5 +1,12 @@
 <?php
 session_start()
+require_once "./php/DBManager.php";
+require_once "./php/ACGenerator.php";
+$db = new DBManager;
+$card = new ACGenerator;
+
+$userData = $db->getUser($_GET["id"]);
+$userId = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -24,6 +31,28 @@ session_start()
     <div class="container">
         <h1>今日の注目記事</h1>
         <h1>新着記事</h1>
+        <?php
+        $sort = function ($a, $b) {
+            return strtotime($b["update_datetime"]) - strtotime($a["update_datetime"]);
+        };
+        
+        $articles = $db->getAllArticles(); // 全体の記事を取得
+        
+        usort($articles, $sort);
+        
+        foreach ($articles as $key => $value) {
+            $tags = $db->getTagsByArticleId($value["article_id"]);
+            $user = $db->getUser($value["user_id"]);
+            $goods = $db->countGoods($value["article_id"]);
+            $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $_GET['id']);
+            $isGoodsIcon = $db->isGoodsIconArticle($_SESSION['user_id'], $value["article_id"]);
+            $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, $goods, $isFollowing, $isGoodsIcon);
+        }
+        ?>
+        
+
+        
+   
         <?= (isset($_SESSION['user_id'])? '<h1>フォローユーザーの記事</h1>' : "") ?>
     </div>
 
