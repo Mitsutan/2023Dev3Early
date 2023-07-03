@@ -485,7 +485,7 @@ class DBManager
     }
     
     //人気記事選出　数値の多い順（人気順)に4件取得
-    public function getPopularArtcles() 
+    public function getPopularArtcles(int $index, int $lastIndex) 
     {
         $ps = $this->connectDb()->prepare("SELECT T1.article_id, 
                                             POWER(T2.count / (1 + 0.1 * TIMESTAMPDIFF(DAY, T1.post_datetime, CURRENT_TIMESTAMP())) * (1 + 0.01 * TIMESTAMPDIFF(DAY, T1.post_datetime, CURRENT_TIMESTAMP())), 1.8) AS popular
@@ -493,7 +493,11 @@ class DBManager
                                             LEFT OUTER JOIN (SELECT article_id, COUNT(*) AS count FROM goodsGROUP BY article_id) AS T2
                                             ON T1.article_id = T2.article_id
                                             ORDER BY popular * POWER(1.5, -TIMESTAMPDIFF(WEEK, T1.post_datetime, CURRENT_TIMESTAMP())) DESC
-                                            LIMIT 4;");
+                                            LIMIT ?,?;");
+
+        $ps->bindValue(1, $index, PDO::PARAM_INT);
+        $ps->bindValue(2, $lastIndex, PDO::PARAM_INT);
+
         $ps->execute();                       
         return $ps->fetchAll();
     }
