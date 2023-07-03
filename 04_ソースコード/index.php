@@ -1,12 +1,10 @@
 <?php
-session_start()
+session_start();
 require_once "./php/DBManager.php";
 require_once "./php/ACGenerator.php";
 $db = new DBManager;
 $card = new ACGenerator;
-
-$userData = $db->getUser($_GET["id"]);
-$userId = $_SESSION['user_id'];
+ 
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -37,19 +35,20 @@ $userId = $_SESSION['user_id'];
                 $tags = $db->getTagsByArticleId($key["article_id"]);
                 $user = $db->getUser($key["user_id"]);
                 $goods = $db->countGoods($key["article_id"]);
-                $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $key['user_id']);
+                $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $key["user_id"]);
                 $isGoodsIcon = $db->isGoodsIconArticle($_SESSION['user_id'], $key["article_id"]);
                 $card->createCard($key['article_id'], $key['user_id'], $user['user_name'], $key['title'], $key['update_datetime'], $tags, $goods, $isFollowing, $isGoodsIcon);
             }
             ?>
         </div>
         <h1>新着記事</h1>
+        <div class="row g-5 mx-0">
         <?php
         $sort = function ($a, $b) {
             return strtotime($b["update_datetime"]) - strtotime($a["update_datetime"]);
         };
         
-        $articles = $db->getAllArticles(); // 全体の記事を取得
+        $articles = $db->getAllArticles(); 
         
         usort($articles, $sort);
         
@@ -57,12 +56,12 @@ $userId = $_SESSION['user_id'];
             $tags = $db->getTagsByArticleId($value["article_id"]);
             $user = $db->getUser($value["user_id"]);
             $goods = $db->countGoods($value["article_id"]);
-            $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $_GET['id']);
+            $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $value["user_id"]);
             $isGoodsIcon = $db->isGoodsIconArticle($_SESSION['user_id'], $value["article_id"]);
             $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, $goods, $isFollowing, $isGoodsIcon);
         }
         ?>
-        
+        </div>
 
         
    

@@ -312,7 +312,16 @@ class DBManager
 
         return $detail;
     }
+        public function getAllArticles()
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM articles ");
+        $ps->execute();
 
+        $articles = $ps->fetchAll();
+
+        return $articles;
+    }
+    
     // ユーザーIDから記事を全件取得するメソッド
     public function getArticlesByUserId(int $userId)
     {
