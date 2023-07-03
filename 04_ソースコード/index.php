@@ -1,5 +1,10 @@
 <?php
-session_start()
+session_start();
+
+require_once "./php/DBManager.php";
+require_once "./php/ACGenerator.php";
+$db = new DBManager;
+$card = new ACGenerator;
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -22,9 +27,22 @@ session_start()
     <?php require_once "./php/header.php" ?>
 
     <div class="container">
-        <h1>今日の注目記事</h1>
+        <h1>注目記事</h1>
+        <div class="row g-5 mx-0">
+            <?php
+            $datas = $db->getPopularArtcles(0, 4);
+            foreach ($datas as $key) {
+                $tags = $db->getTagsByArticleId($key["article_id"]);
+                $user = $db->getUser($key["user_id"]);
+                $goods = $db->countGoods($key["article_id"]);
+                $isFollowing = $db->isFollowingUser($_SESSION['user_id'], $key['user_id']);
+                $isGoodsIcon = $db->isGoodsIconArticle($_SESSION['user_id'], $key["article_id"]);
+                $card->createCard($key['article_id'], $key['user_id'], $user['user_name'], $key['title'], $key['update_datetime'], $tags, $goods, $isFollowing, $isGoodsIcon);
+            }
+            ?>
+        </div>
         <h1>新着記事</h1>
-        <?= (isset($_SESSION['user_id'])? '<h1>フォローユーザーの記事</h1>' : "") ?>
+        <?= (isset($_SESSION['user_id']) ? '<h1>フォローユーザーの記事</h1>' : "") ?>
     </div>
 
     <?php require_once "./php/footer.php" ?>
