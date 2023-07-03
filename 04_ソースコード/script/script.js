@@ -73,17 +73,81 @@ function unfollowUser(id) {
 }
 
 // スクロールによってアニメーション発火
-const targetElement = document.querySelectorAll(".fade-in");
-const animation = new IntersectionObserver(animationCallback, { threshold: 0.8 });
+function observeAnimation() {
+    const targetElement = document.querySelectorAll(".fade-in");
+    const animation = new IntersectionObserver(animationCallback, { threshold: 0.8 });
 
-targetElement.forEach(function (el) {
-    animation.observe(el);
-});
-
-function animationCallback(el) {
-    el.forEach(function (e) {
-        if (e.isIntersecting) {
-            e.target.classList.add("fire");
-        }
+    targetElement.forEach(function (el) {
+        animation.observe(el);
     });
+
+    function animationCallback(el) {
+        el.forEach(function (e) {
+            if (e.isIntersecting) {
+                e.target.classList.add("fire");
+            }
+        });
+    }
+}
+observeAnimation();
+
+// フォローボタンをクリックした時の処理
+function clickGoods(article) {
+    var articleId = article;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "./php/goods.php");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // alert(xhr.response); // レスポンスの表示（成功メッセージなど）
+            data = JSON.parse(xhr.response);
+            document.getElementById("goodsCnt" + article).innerHTML = data['count'];
+            if (data['result']) {
+                document.getElementById("goodsIcon" + article).classList.remove('fa-regular');
+                document.getElementById("goodsIcon" + article).classList.add('fa-solid', 'click-good');
+            } else {
+                document.getElementById("goodsIcon" + article).classList.remove('fa-solid', 'click-good');
+                document.getElementById("goodsIcon" + article).classList.add('fa-regular');
+            }
+            // ボタンの表示を切り替える
+            // document.getElementById("followButtonContainer").innerHTML = '<button onclick="unfollowUser()">フォロー解除する</button>';
+            //const fbc = document.getElementsByClassName("followButtonContainer-" + id);
+            const articles = document.getElementsByClassName("articleGoodsContainer" + article);
+            for (let i = 0; i < articles.length; i++) {
+                // articles[i].innerHTML = 'a';
+            }
+        } else {
+            alert("フォローに失敗しました");
+        }
+    };
+    xhr.send("articleNum=" + encodeURIComponent(articleId));
+}
+
+
+// fetchで記事データを取得する
+function getMore(index, lastIndex, addFieldId) {
+    const url = "./getMore.php";
+    const data = {
+        index: index,
+        lastIndex: lastIndex
+    };
+    // console.log(data);
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams(data).toString()
+    };
+    fetch(url, options)
+        .then(response => response.text())
+        .then(rtn => {
+            // console.log(rtn);
+            // const detailCnt = json.detailCnt;
+            document.getElementById(addFieldId).innerHTML += rtn;
+            document.getElementById(addFieldId + "-btn").onclick = "getMore(" + (lastIndex) + ", " + (lastIndex + 4) + ", " + addFieldId + ")";
+            observeAnimation();
+        })
+        .catch(error => console.error(error));
 }
