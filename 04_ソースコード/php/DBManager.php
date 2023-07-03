@@ -312,7 +312,8 @@ class DBManager
 
         return $detail;
     }
-        public function getAllArticles()
+    //記事をすべて取得するメソッド
+    public function getAllArticles()
     {
         $ps = $this->connectDb()->prepare("SELECT * FROM articles ");
         $ps->execute();
