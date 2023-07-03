@@ -63,7 +63,12 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                         <!-- comment field -->
                         <?php
                         foreach ($comments as $c) {
-                            echo $c['comment'] . "<br />";
+                            $u = $db->getUser($c['user_id']);
+
+                            echo "<hr />";
+                            echo "<p class='h5'>" . $u['user_name'] . "</p>";
+                            echo "<p>".nl2br($c['comment']) . "</p>";
+                            echo "<p class='text-secondary'>".$c['post_datetime']."</p>";
                         }
                         ?>
                     </div>
