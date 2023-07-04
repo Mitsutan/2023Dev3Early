@@ -41,7 +41,10 @@ $card = new ACGenerator;
             }
             ?>
         </div>
-        <button id="popularArticle-btn" onclick="getMore(4,8,'popularArticle')">もっとみる ></button>
+        <div class="text-center mt-2">
+            <button class="see-more-btn" id="popularArticle-btn" onclick="getMore(4,4,'popularArticle')">もっとみる ></button>
+        </div>
+
         <h1>新着記事</h1>
         <div class="row g-5 mx-0" id="newArticle">
         <?php
@@ -64,7 +67,9 @@ $card = new ACGenerator;
         }
         ?>
         </div>
-        <button id="newArticle-btn" onclick="getMore(4,8,'newArticle')">もっとみる ></button>
+        <div class="text-center mt-2">
+            <button class="see-more-btn" id="newArticle-btn" onclick="getMore(4,4,'newArticle')">もっとみる ></button>
+        </div>
    
         <?= (isset($_SESSION['user_id'])? '<h1>フォローユーザーの記事</h1>' : "") ?>
     </div>

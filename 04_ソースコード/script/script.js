@@ -147,7 +147,7 @@ function getMore(index, lastIndex, addFieldId) {
             // console.log(rtn);
             // const detailCnt = json.detailCnt;
             document.getElementById(addFieldId).innerHTML += rtn;
-            document.getElementById(addFieldId + "-btn").onclick = "getMore(" + (lastIndex) + ", " + (lastIndex + 4) + ", " + addFieldId + ")";
+            document.getElementById(addFieldId + "-btn").onclick = function(){getMore( (index + lastIndex), (lastIndex), addFieldId)};
             observeAnimation();
         })
         .catch(error => console.error(error));
