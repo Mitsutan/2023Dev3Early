@@ -381,6 +381,16 @@ class DBManager
         return $ps->fetch();
     }
 
+    // タグ利用数
+    public function getTagCount(int $tagId)
+    {
+        $ps = $this->connectDb()->prepare("SELECT COUNT(*) FROM usedtags WHERE tag_id = ?");
+        $ps->bindValue(1, $tagId, PDO::PARAM_INT);
+        $ps->execute();
+
+        return $ps->fetchColumn();
+    }
+
     // article_idから使用タグのタグ名を取得するメソッド
     public function getTagsByArticleId(int $articleId)
     {
