@@ -74,7 +74,7 @@ function unfollowUser(id) {
 
 // スクロールによってアニメーション発火
 function observeAnimation() {
-    const targetElement = document.querySelectorAll(".fade-in");
+    const targetElement = document.querySelectorAll(".fade-in:not(.fire)");
     const animation = new IntersectionObserver(animationCallback, { threshold: 0.8 });
 
     targetElement.forEach(function (el) {
@@ -85,6 +85,11 @@ function observeAnimation() {
         el.forEach(function (e) {
             if (e.isIntersecting) {
                 e.target.classList.add("fire");
+                animation.unobserve(e.target);
+                // アニメーション終了時にクラスを削除
+                e.target.addEventListener("animationend", function () {
+                    e.target.classList.remove("fade-in");
+                });
             }
         });
     }
