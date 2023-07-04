@@ -1,5 +1,5 @@
-<!-- Article Card Generator -->
 <?php
+// Article Card Generator
 class ACGenerator
 {
     public function createCard(int $id, int $userID, string $userName, string $title, string $date, $tags, int $goods, bool $isFollowing ,bool $isGoodsIcon)
