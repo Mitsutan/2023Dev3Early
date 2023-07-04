@@ -6,7 +6,19 @@ require_once "./php/ACGenerator.php";
 $db = new DBManager;
 $card = new ACGenerator;
 
-$datas = $db->getPopularArtcles($_POST['index'], $_POST['lastIndex']);
+switch ($_POST['fieldId']) {
+    case 'popularArticle':
+        $datas = $db->getPopularArtcles($_POST['index'], $_POST['lastIndex']);
+        break;
+    
+    case 'newArticle':
+        $datas = $db->getAllArticlesOrderByUpdate($_POST['index'], $_POST['lastIndex']);
+        break;
+        
+    default:
+        exit;
+        break;
+}
 
 foreach ($datas as $key) {
     $tags = $db->getTagsByArticleId($key["article_id"]);

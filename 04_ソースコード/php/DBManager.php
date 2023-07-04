@@ -322,6 +322,19 @@ class DBManager
 
         return $articles;
     }
+
+    // 記事を更新日時順に全件取得するメソッド
+    public function getAllArticlesOrderByUpdate(int $index, int $lastIndex)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM articles ORDER BY update_datetime DESC LIMIT ?, ?");
+        $ps->bindValue(1, $index, PDO::PARAM_INT);
+        $ps->bindValue(2, $lastIndex, PDO::PARAM_INT);
+        $ps->execute();
+
+        $articles = $ps->fetchAll();
+
+        return $articles;
+    }
     
     // ユーザーIDから記事を全件取得するメソッド
     public function getArticlesByUserId(int $userId)

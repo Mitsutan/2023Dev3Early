@@ -43,13 +43,14 @@ $card = new ACGenerator;
         </div>
         <button id="popularArticle-btn" onclick="getMore(4,8,'popularArticle')">もっとみる ></button>
         <h1>新着記事</h1>
-        <div class="row g-5 mx-0">
+        <div class="row g-5 mx-0" id="newArticle">
         <?php
         $sort = function ($a, $b) {
             return strtotime($b["update_datetime"]) - strtotime($a["update_datetime"]);
         };
         
-        $articles = $db->getAllArticles(); 
+        // $articles = $db->getAllArticles(); 
+        $articles = $db->getAllArticlesOrderByUpdate(0, 4);
         
         usort($articles, $sort);
         
@@ -63,8 +64,7 @@ $card = new ACGenerator;
         }
         ?>
         </div>
-
-        
+        <button id="newArticle-btn" onclick="getMore(4,8,'newArticle')">もっとみる ></button>
    
         <?= (isset($_SESSION['user_id'])? '<h1>フォローユーザーの記事</h1>' : "") ?>
     </div>

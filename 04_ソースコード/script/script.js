@@ -130,7 +130,8 @@ function getMore(index, lastIndex, addFieldId) {
     const url = "./getMore.php";
     const data = {
         index: index,
-        lastIndex: lastIndex
+        lastIndex: lastIndex,
+        fieldId: addFieldId
     };
     // console.log(data);
     const options = {
