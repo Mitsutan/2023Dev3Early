@@ -8,11 +8,11 @@ $card = new ACGenerator;
 
 switch ($_POST['fieldId']) {
     case 'popularArticle':
-        $datas = $db->getPopularArtcles($_POST['index'], $_POST['lastIndex']);
+        $datas = $db->getPopularArtcles($_POST['index'], $_POST['count']);
         break;
     
     case 'newArticle':
-        $datas = $db->getAllArticlesOrderByUpdate($_POST['index'], $_POST['lastIndex']);
+        $datas = $db->getAllArticlesOrderByUpdate($_POST['index'], $_POST['count']);
         break;
 
     default:
@@ -20,6 +20,7 @@ switch ($_POST['fieldId']) {
         break;
 }
 
+echo "<!-- article cnt is ".count($datas)." -->\n";
 foreach ($datas as $key) {
     $tags = $db->getTagsByArticleId($key["article_id"]);
     $user = $db->getUser($key["user_id"]);

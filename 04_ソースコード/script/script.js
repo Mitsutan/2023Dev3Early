@@ -131,11 +131,11 @@ function clickGoods(article) {
 
 
 // fetchで記事データを取得する
-function getMore(index, lastIndex, addFieldId) {
+function getMore(index, count, addFieldId) {
     const url = "./getMore.php";
     const data = {
         index: index,
-        lastIndex: lastIndex,
+        count: count,
         fieldId: addFieldId
     };
     // console.log(data);
@@ -149,10 +149,13 @@ function getMore(index, lastIndex, addFieldId) {
     fetch(url, options)
         .then(response => response.text())
         .then(rtn => {
-            // console.log(rtn);
+            // console.log(rtn.substring(20, 21));
             // const detailCnt = json.detailCnt;
+            if (rtn.substring(20, 21) < count) {
+                document.getElementById(addFieldId + "-btn").style.display = "none";
+            }
             document.getElementById(addFieldId).innerHTML += rtn;
-            document.getElementById(addFieldId + "-btn").onclick = function(){getMore( (index + lastIndex), (lastIndex), addFieldId)};
+            document.getElementById(addFieldId + "-btn").onclick = function(){getMore( (index + count), (count), addFieldId)};
             observeAnimation();
         })
         .catch(error => console.error(error));
