@@ -132,6 +132,8 @@ function clickGoods(article) {
 
 // fetchで記事データを取得する
 function getMore(index, count, addFieldId) {
+    const btn = document.getElementById(addFieldId + "-btn");
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>読み込み中...';
     const url = "./getMore.php";
     const data = {
         index: index,
@@ -151,11 +153,12 @@ function getMore(index, count, addFieldId) {
         .then(rtn => {
             // console.log(rtn.substring(20, 21));
             // const detailCnt = json.detailCnt;
+            btn.innerHTML = 'もっと見る >';
             if (rtn.substring(20, 21) < count) {
-                document.getElementById(addFieldId + "-btn").style.display = "none";
+                btn.classList.add('d-none');
             }
             document.getElementById(addFieldId).innerHTML += rtn;
-            document.getElementById(addFieldId + "-btn").onclick = function(){getMore( (index + count), (count), addFieldId)};
+            btn.onclick = function(){getMore( (index + count), (count), addFieldId)};
             observeAnimation();
         })
         .catch(error => console.error(error));
