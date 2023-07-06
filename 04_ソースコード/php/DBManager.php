@@ -535,7 +535,7 @@ class DBManager
         return $ps->fetchAll();
     }
     
-    //フォローしているユーザーの投稿表示
+    //フォローしているユーザー検索
     public function getFollowUserid(int $userid) 
     {
         $ps = $this->connectDb()->prepare("SELECT * FROM follows WHERE user_id = ?");
@@ -546,7 +546,7 @@ class DBManager
 
         return $articles;
     }
-
+    //フォローしているユーザーの記事表示
     public function getFollowArticles(int $followinguserid)
     {
         $ps = $this->connectDb()->prepare("SELECT * FROM articles WHERE user_id = ?");
