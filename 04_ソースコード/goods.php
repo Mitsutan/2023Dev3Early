@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ./login");
+}
+
 require_once "./php/DBManager.php";
 require_once "./php/ACGenerator.php";
 $db = new DBManager;
@@ -48,8 +52,8 @@ $userId = $_SESSION['user_id'];
 
     </div>
 
-    <p>いいね機能を使用する場合はログインが必要です</p>
-    <p>ログインはこちら</p>
+    <!-- <p>いいね機能を使用する場合はログインが必要です</p>
+    <p>ログインはこちら</p> -->
 
     <!-- </div> -->
 
