@@ -51,7 +51,7 @@ $userId = $_SESSION['user_id'];
 
     <div class="input-group">
         <input type="text" class="form-control" placeholder="キーワードを入力">
-        <button class="btn btn-outline-success" type="button" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
+        <button class="btn2 btn-outline-success" type="button" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
     </div>
 
         <h1>検索結果</h1>
