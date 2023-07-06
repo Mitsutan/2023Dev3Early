@@ -5,7 +5,7 @@ require_once "./php/ACGenerator.php";
 $db = new DBManager;
 $card = new ACGenerator;
 // $userData = $db->getUser($_GET["id"]);
-$userId = $_SESSION['user_id'];
+// $userId = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -36,8 +36,8 @@ $userId = $_SESSION['user_id'];
                 $tags = $db->getTagsByArticleId($key["article_id"]);
                 $user = $db->getUser($key["user_id"]);
                 $goods = $db->countGoods($key["article_id"]);
-                $isFollowing = (isset($_SESSION['user_id'])? $db->isFollowingUser($_SESSION['user_id'], $key["user_id"]) : false);
-                $isGoodsIcon = (isset($_SESSION['user_id'])? $db->isGoodsIconArticle($_SESSION['user_id'], $key["article_id"]) : false);
+                $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $key["user_id"]) : false);
+                $isGoodsIcon = (isset($_SESSION['user_id']) ? $db->isGoodsIconArticle($_SESSION['user_id'], $key["article_id"]) : false);
                 $card->createCard($key['article_id'], $key['user_id'], $user['user_name'], $key['title'], $key['update_datetime'], $tags, $goods, $isFollowing, $isGoodsIcon);
             }
             ?>
@@ -48,32 +48,32 @@ $userId = $_SESSION['user_id'];
 
         <h1>新着記事</h1>
         <div class="row g-5 mx-0" id="newArticle">
-        <?php
-        $sort = function ($a, $b) {
-            return strtotime($b["update_datetime"]) - strtotime($a["update_datetime"]);
-        };
-        
-        // $articles = $db->getAllArticles(); 
-        $articles = $db->getAllArticlesOrderByUpdate(0, 4);
-        
-        usort($articles, $sort);
-        
-        foreach ($articles as $key => $value) {
-            $tags = $db->getTagsByArticleId($value["article_id"]);
-            $user = $db->getUser($value["user_id"]);
-            $goods = $db->countGoods($value["article_id"]);
-            $isFollowing = (isset($_SESSION['user_id'])? $db->isFollowingUser($_SESSION['user_id'], $value["user_id"]) : false);
-            $isGoodsIcon = (isset($_SESSION['user_id'])? $db->isGoodsIconArticle($_SESSION['user_id'], $value["article_id"]) : false);
-            $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, $goods, $isFollowing, $isGoodsIcon);
-        }
-        ?>
+            <?php
+            $sort = function ($a, $b) {
+                return strtotime($b["update_datetime"]) - strtotime($a["update_datetime"]);
+            };
+
+            // $articles = $db->getAllArticles(); 
+            $articles = $db->getAllArticlesOrderByUpdate(0, 4);
+
+            usort($articles, $sort);
+
+            foreach ($articles as $key => $value) {
+                $tags = $db->getTagsByArticleId($value["article_id"]);
+                $user = $db->getUser($value["user_id"]);
+                $goods = $db->countGoods($value["article_id"]);
+                $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $value["user_id"]) : false);
+                $isGoodsIcon = (isset($_SESSION['user_id']) ? $db->isGoodsIconArticle($_SESSION['user_id'], $value["article_id"]) : false);
+                $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, $goods, $isFollowing, $isGoodsIcon);
+            }
+            ?>
         </div>
         <div class="text-center mt-2">
             <button class="see-more-btn" id="newArticle-btn" onclick="getMore(4,4,'newArticle')">もっとみる ></button>
         </div>
-   
-        <?= (isset($_SESSION['user_id'])? '<h1>フォローユーザーの記事</h1>' : "") ?>
-        <div class="row g-5 mx-0" id="followingArticle">
+
+        <?= (isset($_SESSION['user_id']) ? '<h1>フォローユーザーの記事</h1>' : "") ?>
+        <div class="row g-5 mx-0 <?= (isset($_SESSION['user_id']) ? '' : 'd-none') ?>" id="followingArticle">
             <?php
             // foreach($db->getFollowUserid($_SESSION['user_id']) as $hi => $jk){
             //     foreach ( $db->getFollowArticles($jk['following_user_id']) as $key => $value) {
@@ -87,19 +87,23 @@ $userId = $_SESSION['user_id'];
             //         $card->createCard($article["article_id"], $article["user_id"], $user['user_name'], $article["title"], $article["update_datetime"], $tags, $goods, $isFollowing, $isGoodsIcon);
             //     }
             // }
-            $articles = $db->getFollowArticles($_SESSION['user_id'], 0, 4);
+            if (isset($_SESSION['user_id'])) {
 
-            foreach ($articles as $key => $value) {
-                $tags = $db->getTagsByArticleId($value["article_id"]);
-                $user = $db->getUser($value["user_id"]);
-                $goods = $db->countGoods($value["article_id"]);
-                $isFollowing = (isset($_SESSION['user_id'])? $db->isFollowingUser($_SESSION['user_id'], $value["user_id"]) : false);
-                $isGoodsIcon = (isset($_SESSION['user_id'])? $db->isGoodsIconArticle($_SESSION['user_id'], $value["article_id"]) : false);
-                $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, $goods, $isFollowing, $isGoodsIcon);
+
+                $articles = $db->getFollowArticles($_SESSION['user_id'], 0, 4);
+
+                foreach ($articles as $key => $value) {
+                    $tags = $db->getTagsByArticleId($value["article_id"]);
+                    $user = $db->getUser($value["user_id"]);
+                    $goods = $db->countGoods($value["article_id"]);
+                    $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $value["user_id"]) : false);
+                    $isGoodsIcon = (isset($_SESSION['user_id']) ? $db->isGoodsIconArticle($_SESSION['user_id'], $value["article_id"]) : false);
+                    $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, $goods, $isFollowing, $isGoodsIcon);
+                }
             }
             ?>
         </div>
-        <div class="text-center mt-2">
+        <div class="text-center mt-2 <?= (isset($_SESSION['user_id']) ? '' : 'd-none') ?>">
             <button class="see-more-btn" id="followingArticle-btn" onclick="getMore(4,4,'followingArticle')">もっとみる ></button>
         </div>
     </div>
