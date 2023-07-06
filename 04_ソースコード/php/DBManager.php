@@ -535,4 +535,19 @@ class DBManager
         return $ps->fetchAll();
     }
     
+    //フォローしているユーザーの投稿表示
+    public function getFollowArticles(int $userid) 
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM follows WHERE user_id = ?");
+        $ps->bindValue(1, $userid, PDO::PARAM_INT);
+        $ps->execute();
+
+        $articles = $ps->fetchAll();
+
+        $sql = $this->connectDb()->prepare("SELECT * FROM articles WHERE user_id = ?");
+        $sql->bindValue(1, $userid, PDO::PARAM_INT);
+        $sql->execute();
+
+        return $articles;
+    }
 }
