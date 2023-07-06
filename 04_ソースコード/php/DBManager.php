@@ -194,7 +194,8 @@ class DBManager
         }
     }
 
-    function submitDetail(int $articleId, string $detail) {
+    function submitDetail(int $articleId, string $detail)
+    {
         // 記事詳細の追加
         $ps = $this->connectDb()->prepare("INSERT INTO details(article_id, detail_submitday, detail_updateday, detail_text) VALUES (?, ?, ?, ?)");
         $ps->bindValue(1, $articleId, PDO::PARAM_INT);
@@ -248,7 +249,6 @@ class DBManager
                 throw new Exception("タグ付与に失敗しました。");
             }
         }
-        
     }
 
     // 記事詳細更新処理
@@ -335,7 +335,7 @@ class DBManager
 
         return $articles;
     }
-    
+
     // ユーザーIDから記事を全件取得するメソッド
     public function getArticlesByUserId(int $userId)
     {
@@ -450,7 +450,7 @@ class DBManager
 
         return $cnt;
     }
-    
+
     //いいねボタン押下情報の登録と削除メソッド
     public function submitGoods(int $user, int $article)
     {
@@ -459,13 +459,12 @@ class DBManager
         $look->bindValue(2, $article, pdo::PARAM_INT);
         $look->execute();
         $result = $look->fetchColumn();
-        if($result > 0) {
+        if ($result > 0) {
             $delete = $this->connectDb()->prepare("DELETE FROM goods WHERE user_id = ? AND article_id = ?");
             $delete->bindValue(1, $user, pdo::PARAM_INT);
             $delete->bindValue(2, $article, pdo::PARAM_INT);
             $delete->execute();
-
-        }else {
+        } else {
             $ps = $this->connectDb()->prepare("INSERT INTO goods(user_id,article_id,good_datetime) VALUES (?,?,?)");
             $ps->bindValue(1, $user, pdo::PARAM_INT);
             $ps->bindValue(2, $article, pdo::PARAM_INT);
@@ -482,7 +481,7 @@ class DBManager
     }
 
     //いいねボタンの押下状態を指定するメソッド
-    public function isGoodsIconArticle(int $user , int $article)
+    public function isGoodsIconArticle(int $user, int $article)
     {
         $look = $this->connectDb()->prepare("SELECT * FROM goods WHERE user_id = ? AND article_id = ?");
         $look->bindValue(1, $user, pdo::PARAM_INT);
@@ -513,12 +512,12 @@ class DBManager
         // }
         // $stmt->execute();
         // $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         // return $articles;
     }
-    
+
     //人気記事選出　数値の多い順（人気順)に4件取得
-    public function getPopularArtcles(int $index, int $lastIndex) 
+    public function getPopularArtcles(int $index, int $lastIndex)
     {
         $ps = $this->connectDb()->prepare("SELECT T1.article_id, user_id, title, post_datetime, update_datetime,
                                             POWER(T2.count / (1 + 0.1 * TIMESTAMPDIFF(DAY, T1.post_datetime, CURRENT_TIMESTAMP())) * (1 + 0.01 * TIMESTAMPDIFF(DAY, T1.post_datetime, CURRENT_TIMESTAMP())), 1.8) AS popular
@@ -531,31 +530,54 @@ class DBManager
         $ps->bindValue(1, $index, PDO::PARAM_INT);
         $ps->bindValue(2, $lastIndex, PDO::PARAM_INT);
 
-        $ps->execute();                       
+        $ps->execute();
         return $ps->fetchAll();
     }
-    
+
     //フォローしているユーザー検索
-    public function getFollowUserid(int $userid) 
+    // public function getFollowUserid(int $userid)
+    // {
+    //     $ps = $this->connectDb()->prepare("SELECT * FROM follows WHERE user_id = ?");
+    //     $ps->bindValue(1, $userid, PDO::PARAM_INT);
+    //     $ps->execute();
+
+    //     $articles = $ps->fetchAll();
+
+    //     return $articles;
+    // }
+    //フォローしているユーザーの記事表示
+    // public function getFollowArticles(int $followinguserid)
+    // {
+    //     $ps = $this->connectDb()->prepare("SELECT * FROM articles WHERE user_id = ?");
+    //     $ps->bindValue(1, $followinguserid, PDO::PARAM_INT);
+    //     $ps->execute();
+
+    //     $article = $ps->fetchAll();
+
+    //     return $article;
+    // }
+
+    public function getFollowArticles(int $userId, int $index, int $count)
     {
         $ps = $this->connectDb()->prepare("SELECT * FROM follows WHERE user_id = ?");
-        $ps->bindValue(1, $userid, PDO::PARAM_INT);
+        $ps->bindValue(1, $userId, PDO::PARAM_INT);
         $ps->execute();
 
-        $articles = $ps->fetchAll();
-
-        return $articles;
-    }
-    //フォローしているユーザーの記事表示
-    public function getFollowArticles(int $followinguserid)
-    {
-        $ps = $this->connectDb()->prepare("SELECT * FROM articles WHERE user_id = ?");
-        $ps->bindValue(1, $followinguserid, PDO::PARAM_INT);
-        $ps->execute();
-
-        $article = $ps->fetchAll();
-
-        return $article;
+        $followUsers = $ps->fetchAll();
+        // ---
+        $ids = array_column($followUsers, 'following_user_id');
+        if (count($ids) === 0) {
+            return [];
+        }
+        $stmt = $this->connectDb()->prepare("SELECT * FROM articles WHERE user_id IN (" . implode(',', array_fill(0, count($ids), '?')) . ") ORDER BY update_datetime DESC LIMIT ?, ?;");
+        foreach ($ids as $i => $id) {
+            $stmt->bindValue($i + 1, $id, PDO::PARAM_INT);
+        }
+        $stmt->bindValue(count($ids) + 1, $index, PDO::PARAM_INT);
+        $stmt->bindValue(count($ids) + 2, $count, PDO::PARAM_INT);
+        
+        $stmt->execute();
+        $res = $stmt->fetchAll();
+        return $res;
     }
 }
-

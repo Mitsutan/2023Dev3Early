@@ -15,6 +15,10 @@ switch ($_POST['fieldId']) {
         $datas = $db->getAllArticlesOrderByUpdate($_POST['index'], $_POST['count']);
         break;
 
+    case 'followingArticle':
+        $datas = $db->getFollowArticles($_SESSION['user_id'], $_POST['index'], $_POST['count']);
+        break;
+
     default:
         exit;
         break;
