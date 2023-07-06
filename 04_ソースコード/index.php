@@ -92,6 +92,12 @@ $card = new ACGenerator;
 
                 $articles = $db->getFollowArticles($_SESSION['user_id'], 0, 4);
 
+                if (count($articles) == 0) {
+                    echo '<p class="text-center">フォローしているユーザーがいません
+                    <br />気になるユーザーをフォローしてみましょう！
+                    </p>';
+                }
+
                 foreach ($articles as $key => $value) {
                     $tags = $db->getTagsByArticleId($value["article_id"]);
                     $user = $db->getUser($value["user_id"]);
@@ -103,7 +109,7 @@ $card = new ACGenerator;
             }
             ?>
         </div>
-        <div class="text-center mt-2 <?= (isset($_SESSION['user_id']) ? '' : 'd-none') ?>">
+        <div class="text-center mt-2 <?= ((isset($_SESSION['user_id']) && count($articles) != 0) ? '' : 'd-none') ?>">
             <button class="see-more-btn" id="followingArticle-btn" onclick="getMore(4,4,'followingArticle')">もっとみる ></button>
         </div>
     </div>
