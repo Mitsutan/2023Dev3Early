@@ -1,5 +1,5 @@
-<!-- Article Card Generator -->
 <?php
+// Article Card Generator
 class ACGenerator
 {
     public function createCard(int $id, int $userID, string $userName, string $title, string $date, $tags, int $goods, bool $isFollowing ,bool $isGoodsIcon)
@@ -54,7 +54,7 @@ class ACGenerator
         if ($isFollowing) {
             echo '<button class="btn btn-primary btn-sm" onclick="unfollowUser(' . $userID . ')">フォロー解除する</button>';
         } else {
-            echo '<button class="btn btn-outline-primary btn-sm" onclick="followUser(' . $userID . ')" '. (($userID == $_SESSION['user_id'])? "disabled" : "") .'>フォローする</button>';
+            echo '<button class="btn btn-outline-primary btn-sm" onclick="followUser(' . $userID . ')" '. ((!isset($_SESSION['user_id']) || $userID == $_SESSION['user_id'])? "disabled" : "") .'>フォローする</button>';
         }
         echo '                          </div>
                                     </div>

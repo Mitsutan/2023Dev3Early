@@ -28,8 +28,50 @@ $userId = $_SESSION['user_id'];
     <?php require_once "./php/header.php" ?>
 
     <div class="container">
-        <h1>今日の注目記事</h1>
+        <h1>注目記事</h1>
+        <div class="row g-5 mx-0" id="popularArticle">
+            <?php
+            $datas = $db->getPopularArtcles(0, 4);
+            foreach ($datas as $key) {
+                $tags = $db->getTagsByArticleId($key["article_id"]);
+                $user = $db->getUser($key["user_id"]);
+                $goods = $db->countGoods($key["article_id"]);
+                $isFollowing = (isset($_SESSION['user_id'])? $db->isFollowingUser($_SESSION['user_id'], $key["user_id"]) : false);
+                $isGoodsIcon = (isset($_SESSION['user_id'])? $db->isGoodsIconArticle($_SESSION['user_id'], $key["article_id"]) : false);
+                $card->createCard($key['article_id'], $key['user_id'], $user['user_name'], $key['title'], $key['update_datetime'], $tags, $goods, $isFollowing, $isGoodsIcon);
+            }
+            ?>
+        </div>
+        <div class="text-center mt-2">
+            <button class="see-more-btn" id="popularArticle-btn" onclick="getMore(4,4,'popularArticle')">もっとみる ></button>
+        </div>
+
         <h1>新着記事</h1>
+        <div class="row g-5 mx-0" id="newArticle">
+        <?php
+        $sort = function ($a, $b) {
+            return strtotime($b["update_datetime"]) - strtotime($a["update_datetime"]);
+        };
+        
+        // $articles = $db->getAllArticles(); 
+        $articles = $db->getAllArticlesOrderByUpdate(0, 4);
+        
+        usort($articles, $sort);
+        
+        foreach ($articles as $key => $value) {
+            $tags = $db->getTagsByArticleId($value["article_id"]);
+            $user = $db->getUser($value["user_id"]);
+            $goods = $db->countGoods($value["article_id"]);
+            $isFollowing = (isset($_SESSION['user_id'])? $db->isFollowingUser($_SESSION['user_id'], $value["user_id"]) : false);
+            $isGoodsIcon = (isset($_SESSION['user_id'])? $db->isGoodsIconArticle($_SESSION['user_id'], $value["article_id"]) : false);
+            $card->createCard($value["article_id"], $value["user_id"], $user['user_name'], $value["title"], $value["update_datetime"], $tags, $goods, $isFollowing, $isGoodsIcon);
+        }
+        ?>
+        </div>
+        <div class="text-center mt-2">
+            <button class="see-more-btn" id="newArticle-btn" onclick="getMore(4,4,'newArticle')">もっとみる ></button>
+        </div>
+   
         <?= (isset($_SESSION['user_id'])? '<h1>フォローユーザーの記事</h1>' : "") ?>
         <div class="row g-5 mx-0">
             <?php

@@ -30,7 +30,7 @@ $db = new DBManager;
             <?php
             $tags = $db->getTags();
             foreach ($tags as $key) {
-                echo '<li><a href="./search.php?type=0&word='.$key['tag_name'].'">' . $key['tag_name'] . '</a></li>';
+                echo '<li><a href="./search.php?type=0&word=' . $key['tag_name'] . '">' . $key['tag_name'] . '</a>(' . $db->getTagCount($key['tag_id']) . ')</li>';
             }
             ?>
         </ul>

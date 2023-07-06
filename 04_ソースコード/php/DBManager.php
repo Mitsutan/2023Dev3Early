@@ -312,7 +312,30 @@ class DBManager
 
         return $detail;
     }
+    //記事をすべて取得するメソッド
+    public function getAllArticles()
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM articles ");
+        $ps->execute();
 
+        $articles = $ps->fetchAll();
+
+        return $articles;
+    }
+
+    // 記事を更新日時順に全件取得するメソッド
+    public function getAllArticlesOrderByUpdate(int $index, int $lastIndex)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM articles ORDER BY update_datetime DESC LIMIT ?, ?");
+        $ps->bindValue(1, $index, PDO::PARAM_INT);
+        $ps->bindValue(2, $lastIndex, PDO::PARAM_INT);
+        $ps->execute();
+
+        $articles = $ps->fetchAll();
+
+        return $articles;
+    }
+    
     // ユーザーIDから記事を全件取得するメソッド
     public function getArticlesByUserId(int $userId)
     {
@@ -356,6 +379,16 @@ class DBManager
         $ps->execute();
 
         return $ps->fetch();
+    }
+
+    // タグ利用数
+    public function getTagCount(int $tagId)
+    {
+        $ps = $this->connectDb()->prepare("SELECT COUNT(*) FROM usedtags WHERE tag_id = ?");
+        $ps->bindValue(1, $tagId, PDO::PARAM_INT);
+        $ps->execute();
+
+        return $ps->fetchColumn();
     }
 
     // article_idから使用タグのタグ名を取得するメソッド
@@ -487,10 +520,10 @@ class DBManager
     //人気記事選出　数値の多い順（人気順)に4件取得
     public function getPopularArtcles(int $index, int $lastIndex) 
     {
-        $ps = $this->connectDb()->prepare("SELECT T1.article_id, 
+        $ps = $this->connectDb()->prepare("SELECT T1.article_id, user_id, title, post_datetime, update_datetime,
                                             POWER(T2.count / (1 + 0.1 * TIMESTAMPDIFF(DAY, T1.post_datetime, CURRENT_TIMESTAMP())) * (1 + 0.01 * TIMESTAMPDIFF(DAY, T1.post_datetime, CURRENT_TIMESTAMP())), 1.8) AS popular
                                             FROM articles AS T1
-                                            LEFT OUTER JOIN (SELECT article_id, COUNT(*) AS count FROM goodsGROUP BY article_id) AS T2
+                                            LEFT OUTER JOIN (SELECT article_id, COUNT(*) AS count FROM goods GROUP BY article_id) AS T2
                                             ON T1.article_id = T2.article_id
                                             ORDER BY popular * POWER(1.5, -TIMESTAMPDIFF(WEEK, T1.post_datetime, CURRENT_TIMESTAMP())) DESC
                                             LIMIT ?,?;");

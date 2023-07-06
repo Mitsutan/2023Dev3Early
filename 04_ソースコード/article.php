@@ -67,7 +67,8 @@ $userData = $db->getUser($articleData['user_id']);
                         <?= $articleData['article_description'] ?>
                     </p>
                 </div>
-                <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
+                <!-- 時間に余裕がないのでこの項目は後回し -->
+                <!-- <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
                     <h3 class=""> <?php echo "同じ投稿者の次の投稿記事です" ?> </h3>
                 </div>
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
@@ -77,7 +78,7 @@ $userData = $db->getUser($articleData['user_id']);
                     print_r($userArticleData);
                     echo '`)</script>';
                     ?> </h3>
-                </div>
+                </div> -->
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-2">
                     <h3><?php echo "投稿者プロフィール" ?></h3>
                     <div class="row">
