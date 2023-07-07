@@ -99,14 +99,15 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
 
                 </div> -->
                 <div class="text-center">
-                    <form class="<?= ((isset($_SESSION['user_id']))? '' : 'd-none') ?>" action="./php/comment.php" method="post">
-                        <div class="input-group mb-3">
-                            <!-- <span class="input-group-text">With textarea</span> -->
-                            <textarea class="form-control" aria-label="With textarea" name="comment"></textarea>
-                        </div>
-                        <input type="hidden" name="detailId" value="<?= $_GET['id'] ?>">
-                        <button type="submit" class="btn btn-warning mb-3">投稿</button>
-                    </form>
+                     <!-- コメント投稿フォーム -->
+                <form class="<?= ((isset($_SESSION['user_id']))? '' : 'd-none') ?>" onsubmit="submitComment(event)">
+                <div class="input-group mb-3">
+                <textarea class="form-control" aria-label="With textarea" name="comment"></textarea>
+                </div>
+                <input type="hidden" name="detailId" value="<?= $_GET['id'] ?>">
+                <button type="submit" class="btn btn-warning mb-3">投稿</button>
+                </form>
+
                 </div>
             </div>
             <!-- <div class="col-2">
@@ -129,6 +130,53 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
     </div>
 
     <?php require_once "./php/footer.php" ?>
+    <script>
+    function submitComment(event) {
+    event.preventDefault(); // フォームのデフォルトの送信動作をキャンセルする
+
+    var commentElement = document.querySelector('textarea[name="comment"]');
+    var detailIdElement = document.querySelector('input[name="detailId"]');
+    var comment = commentElement.value;
+    var detailId = detailIdElement.value;
+
+    // コメントが空白の場合は処理を中断
+    if (comment.trim() === '') {
+        alert('コメントを入力してください。');
+        return;
+    }
+
+    console.log(comment, detailId);
+
+        // エラーメッセージをクリア
+        
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', './php/comment.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        // 投稿成功の処理
+                        alert(response.message);
+                        // 他の処理を追加する場合はここに記述
+                    } else {
+                        // 投稿失敗の処理
+                        alert(response.message);
+                        // 他の処理を追加する場合はここに記述
+                    }
+                } else {
+                    // エラー発生時の処理
+                    alert('エラーが発生しました');
+                }
+            }
+        };
+
+        var params = 'comment=' + encodeURIComponent(comment) + '&detailId=' + encodeURIComponent(detailId);
+        xhr.send(params);
+    }
+</script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./script/script.js"></script>
