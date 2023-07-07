@@ -165,3 +165,10 @@ function getMore(index, count, addFieldId) {
         })
         .catch(error => console.error(error));
 }
+
+    function multipleaction(u){
+        var f = document.querySelector("form");
+        var a = f.setAttribute("action",u);
+
+        document.querySelector("form").submit();
+    }

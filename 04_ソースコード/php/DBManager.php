@@ -580,4 +580,13 @@ class DBManager
         $res = $stmt->fetchAll();
         return $res;
     }
+
+    //パスワードの半角英数字確認
+    public function checkPass($pass) {
+        if (preg_match('/^[a-zA-Z0-9]{6,}$/', $pass)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

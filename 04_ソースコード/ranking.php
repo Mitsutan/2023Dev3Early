@@ -15,16 +15,18 @@ session_start()
 
     <link rel="stylesheet" href="./css/style.css">
 
-    <title>タイトル</title>
+    <title>ランキング</title>
 </head>
 
 <body>
     <?php require_once "./php/header.php" ?>
 
-    <div class="container-fluid">
-        ここにページの内容
-    </div>
-
+    <div class="container">
+        <div class="mb-3">
+            <h1>記事ランキング</h1>
+        </div>
+        <div class="mb-3"></div>
+            <h1>一位</h1>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="./script/script.js"></script>
 </body>
