@@ -41,7 +41,7 @@ if ($_POST['edit-type'] == 0) {
         <div class="mb-3">
             <h1>記事編集</h1>
         </div>
-        <form action="./php/update.php" enctype="multipart/form-data" method="post">
+        <form method="post">
             <input type="hidden" name="id" value="<?= ($_POST['edit-type'] == 0) ? $_POST['article_id'] : $_POST['detail_id'] ?>">
             <div id="new-field">
                 <div class="mb-3 <?= ($_POST['edit-type'] == 1) ? 'd-none' : "" ?>">
@@ -84,7 +84,7 @@ if ($_POST['edit-type'] == 0) {
                 <input id="x" type="hidden" name="content" value="<?= htmlspecialchars($oldDetail['detail_text'], ENT_QUOTES) ?>">
                 <trix-editor input="x"></trix-editor>
             </div>
-            <button type="submit" class="btn-lg btn-warning">更新</button>
+            <button type="button" onclick="multipleaction('./php/update.php')" class="btn-lg btn-warning">更新</button>
 
             <div class="<?php if (!isset($_SESSION['errorMsg'])) echo "d-none" ?>">
                 <div class="border border-danger border-2 rounded mb-2 p-1 err_area fw-bold text-danger">
@@ -94,14 +94,9 @@ if ($_POST['edit-type'] == 0) {
                     ?>
                 </div>
             </div>
-        </form>
 
-        <div class="mb-3">
-            <h1>記事削除</h1>
-        </div>
-        <form action="./php/delete.php" method="post">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" onclick="multipleaction('./php/delete.php')" class="btn-lg btn-danger">
                 削除
             </button>
 
