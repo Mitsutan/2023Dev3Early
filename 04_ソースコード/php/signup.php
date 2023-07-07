@@ -16,12 +16,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     unset($_SESSION['errorMsg']);
     try {
-        // ユーザーを登録します
-        $dbManager->submitUser($name, $pass, $mail); // ユーザー名は空文字列としていますが、適宜修正してください
+        //パスワードｎの条件チェック
+        if($dbManager->checkPass($pass)){
+            // ユーザーを登録します
+            $dbManager->submitUser($name, $pass, $mail); // ユーザー名は空文字列としていますが、適宜修正してください
 
-        // 登録成功時の処理（例: ログイン画面にリダイレクト）
-        header('Location: ../welcome.php');
-        exit;
+            // 登録成功時の処理（例: ログイン画面にリダイレクト）
+            header('Location: ../welcome.php');
+            exit;
+        }else {
+            throw new Exception('パスワードは半角英数字、6文字以上の入力が必要です。');
+        }
     } catch (Exception $e) {
         // エラーが発生した場合の処理（例: エラーメッセージの表示）
         $_SESSION['errorMsg'] = $e->getMessage();
