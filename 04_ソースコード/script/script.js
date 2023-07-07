@@ -134,6 +134,7 @@ function clickGoods(article) {
 function getMore(index, count, addFieldId) {
     const btn = document.getElementById(addFieldId + "-btn");
     btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>読み込み中...';
+    btn.disabled = true;
     const url = "./getMore.php";
     const data = {
         index: index,
@@ -154,6 +155,7 @@ function getMore(index, count, addFieldId) {
             // console.log(rtn.substring(20, 21));
             // const detailCnt = json.detailCnt;
             btn.innerHTML = 'もっと見る >';
+            btn.disabled = false;
             if (rtn.substring(20, 21) < count) {
                 btn.classList.add('d-none');
             }
