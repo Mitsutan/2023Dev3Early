@@ -323,6 +323,18 @@ class DBManager
         return $articles;
     }
 
+    // いいね数順に記事idを取得するメソッド
+    public function getArticleIdsOrderByGoods()
+    {
+        $ps = $this->connectDb()->prepare("SELECT article_id FROM goods GROUP BY article_id ORDER BY COUNT(*) DESC");
+        $ps->execute();
+
+        $articleIds = $ps->fetchAll();
+
+        return $articleIds;
+    }
+    
+
     // 記事を更新日時順に全件取得するメソッド
     public function getAllArticlesOrderByUpdate(int $index, int $lastIndex)
     {

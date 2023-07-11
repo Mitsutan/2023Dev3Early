@@ -59,6 +59,35 @@ h2{
     padding :10px;
 }
 
+#rank-1>div.articlecard {
+    margin-bottom: 5vh;
+}
+
+#rank-1>div.articlecard::before {
+    content: "１位";
+    color: gold;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+#rank-23>div.articlecard {
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+#rank-23>div.articlecard::before {
+    content: "２位";
+    color: gray;
+    font-size: x-large;
+    font-weight: bold;
+    margin-bottom: 1%;
+}
+
+#rank-23>div.articlecard+div::before {
+    content: "３位";
+    color: brown;
+}
+
 .see-more-btn {
     background-color: transparent;
     border: none;
