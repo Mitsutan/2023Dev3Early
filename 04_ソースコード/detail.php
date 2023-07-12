@@ -59,7 +59,7 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                             ?>
                         </div>
                     </div>
-                    <div>
+                    <div id="comments-container">
                         <!-- comment field -->
                         <?php
                         foreach ($comments as $c) {
@@ -131,7 +131,7 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
 
     <?php require_once "./php/footer.php" ?>
     <script>
-    function submitComment(event) {
+    async function submitComment(event) {
     event.preventDefault(); // フォームのデフォルトの送信動作をキャンセルする
 
     var commentElement = document.querySelector('textarea[name="comment"]');
@@ -160,6 +160,8 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                     if (response.success) {
                         // 投稿成功の処理
                         alert(response.message);
+                        //commentElement.value = ''; // コメント入力欄をクリアする
+                       // fetchCommentsAndRender(); // コメント一覧を取得して表示する
                         // 他の処理を追加する場合はここに記述
                     } else {
                         // 投稿失敗の処理
@@ -176,6 +178,17 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
         var params = 'comment=' + encodeURIComponent(comment) + '&detailId=' + encodeURIComponent(detailId);
         xhr.send(params);
     }
+//     async function fetchCommentsAndRender() {
+//   try {
+//     var detailId = document.querySelector('input[name="detailId"]').value;
+//     const response = await fetch(`./php/comment.php?detailId=${encodeURIComponent(detailId)}`);
+//     const comments = await response.text();
+//     var commentsContainer = document.getElementById('comments-container');
+//     commentsContainer.innerHTML = comments;
+//   } catch (error) {
+//     alert('コメントの取得に失敗しました');
+//   }
+// }
 </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
