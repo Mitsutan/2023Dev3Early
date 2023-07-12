@@ -69,18 +69,18 @@ $userData = $db->getUser($articleData['user_id']);
                 </div>
                 <!-- 時間に余裕がないのでこの項目は後回し -->
                 <!-- <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
-                    <h3 class=""> <?php echo "同じ投稿者の次の投稿記事です" ?> </h3>
+                    <h3 class=""> <?php // echo "同じ投稿者の次の投稿記事です" ?> </h3>
                 </div>
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
                     <h3 class=""> <?php
-                    echo "同じ投稿者の次の投稿記事です";
-                    echo '<script>console.log(`';
-                    print_r($userArticleData);
-                    echo '`)</script>';
+                    // echo "同じ投稿者の次の投稿記事です";
+                    // echo '<script>console.log(`';
+                    // print_r($userArticleData);
+                    // echo '`)</script>';
                     ?> </h3>
                 </div> -->
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-2">
-                    <h3><?php echo "投稿者プロフィール" ?></h3>
+                    <h3>投稿者プロフィール</h3>
                     <div class="row">
                         <!-- <img src="./kawaii.jpg" class="col-md-5" style="border-radius: 50%; width: 140px; height: 140px;"> -->
                         <div class="col-md-3">
@@ -113,7 +113,7 @@ $userData = $db->getUser($articleData['user_id']);
                     // echo '<div class="h2 text-center alert-secondary border border-1 border-dark rounded p-5 mb-5" >';
                     // echo '<a href="./detail.php?id=' . $articleDetails[$i]['detail_id'] . '" class="mb-2 text-dark" style="font-size: 45px;">関連記事' . $i+1 . '日目</a>';
                     // echo '</div>';
-                    echo '<a href="./detail.php?id=' . $articleDetails[$i]['detail_id'] . '"><li class="list-group-item">関連記事' . $i+1 . '日目</li></a>';
+                    echo '<a href="./detail.php?id=' . $articleDetails[$i]['detail_id'] . '"><li class="list-group-item">関連記事' . ($i+1) . '日目</li></a>';
                 }
                 ?>
                     </ul>

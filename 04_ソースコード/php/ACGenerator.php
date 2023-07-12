@@ -20,7 +20,7 @@ class ACGenerator
         }
 
         echo '
-            <div class="col-md-6 col-12 fade-in">
+            <div class="col-md-6 col-12 articlecard fade-in">
                     <div class="row border-start border-end border-dark border-1 p-2 h-100">
                         <div class="col-7">
                             <h4 class="text-truncate"><a href="./article?id=' . $id . '">' . $title . '</a></h4>

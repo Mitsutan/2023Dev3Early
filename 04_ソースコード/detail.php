@@ -120,7 +120,7 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                     <ul class="list-group list-group-flush">
                         <?php
                         for ($i = 0; $i < count($articleDetails); $i++) {
-                            echo '<a href="./detail.php?id=' . $articleDetails[$i]['detail_id'] . '"><li class="list-group-item">関連記事' . $i + 1 . '日目</li></a>';
+                            echo '<a href="./detail.php?id=' . $articleDetails[$i]['detail_id'] . '"><li class="list-group-item">関連記事' . ($i + 1) . '日目</li></a>';
                         }
                         ?>
                     </ul>
