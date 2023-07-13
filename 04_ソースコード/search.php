@@ -2,7 +2,10 @@
 session_start();
 
 require_once "./php/DBManager.php";
+require_once "./php/search.php";
+require_once "./php/Tbl_mmemorial.php";
 $db = new DBManager;
+$search = new Search;
 
 $userId = $_SESSION['user_id'];
 
@@ -26,33 +29,34 @@ $userId = $_SESSION['user_id'];
 
 <body>
     <?php require_once "./php/header.php" ?>
-
+    <form action="./search.php" method="post">
     <div class="container">
 
-        <div class="from-group">
-            <p class="control-label"><b>対象</b></p>
-            <div class="form-check-inline">
-                <input class="form-check-input" type="radio" name="Radio" id="flexRadioDefault1">
-                <label class="form-check-label" for="Radio1">タグ</label>
-            </div>
-            <div class="form-check-inline">
-                <input class="form-check-input" type="radio" name="Radio" id="flexRadioDefault2" checked>
-                <label class="form-check-label" for="flexRadioDefault2">記事名</label>
-            </div>
-            <div class="form-check-inline">
-                <input class="form-check-input" type="radio" name="Radio" id="flexRadioDefault2" checked>
-                <label class="form-check-label" for="flexRadioDefault2">ユーザー名</label>
-            </div>
-            <div class="form-check-inline">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">フォローのみ</label>
-            </div>
+    <div class = "from-group">
+        <p class="control-label"><b>対象</b></p>
+        <div class="form-check-inline">
+            <input class="form-check-input" type="radio" name="Radio" id="flexRadioDefault1" value="tag">
+            <label class="form-check-label" for="Radio1">タグ</label>
         </div>
+        <div class="form-check-inline">
+            <input class="form-check-input" type="radio" name="Radio" id="flexRadioDefault2" value="title" checked>
+            <label class="form-check-label" for="flexRadioDefault2">記事名</label>
+        </div>
+        <div class="form-check-inline">
+            <input class="form-check-input" type="radio" name="Radio" id="flexRadioDefault2" value="name" checked>
+            <label class="form-check-label" for="flexRadioDefault2">ユーザー名</label>
+        </div>
+        <div class="form-check-inline">
+            <input class="form-check-input" type="checkbox" value="folow" id="defaultCheck1" name="Check">
+            <label class="form-check-label" for="defaultCheck1">フォローのみ</label>
+        </div>
+    </div>
 
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="キーワードを入力">
-            <button class="btn btn-outline-success" type="button" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
-        </div>
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="キーワードを入力" name="keyword">
+        <button class="btn btn-outline-success" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
+    </div>
+    </form>
 
         <h1>検索結果</h1>
 
@@ -73,12 +77,60 @@ $userId = $_SESSION['user_id'];
         <div class="row g-5 mx-0">
 
             <div class="col-md-6 col-12">
+                <?php
+                $box = $search -> SearchArticle();
+                $_POST['Keyword'];
+                foreach($box as $id){
+                    echo "ii";  
+                }
+                // $search -> ShowArticle($box);
+                ?>
+                <div class="row border-start border-end border-dark border-1 p-2">
+                    <div class="col-7">
+                        <h3>記事の見出し</h3>
+                        <div class="d-flex justify-content-between">
+                            <p>2023/xx/xx</p>
+                            <p><i class="fa-solid fa-thumbs-up me-1"></i>1234</p>
+                        </div>
+                        <div>
+                            <div style="display:inline-block;">#ダイエット</div>
+                            <div style="display:inline-block;">#筋トレ</div>
+                            <div style="display:inline-block;">#胸</div>
+                        </div>
+                        <div class="row align-items-end" style="min-height: 10vmax;">
+                            <div class="col-4">
+                                <img src="<?php
+                                            // $userpic = glob("./img/userpics/" . $_GET["id"] . "/userpic*");
+                                            // if ($userpic) {  
+                                            //     echo $userpic[0];
+                                            // } else {
+                                                echo "./img/user_default.png";
+                                            // }
+                                            ?>" class="rounded-circle ratio ratio-1x1">
+                            </div>
+                            <div class="col-8">
+                                <div>
+                                    <div>ユーザー名</div>
+                                    <div id="followButtonContainer">
+                                        <?php
+                                        // DBManagerクラスをインスタンス化
+                                        $dbManager = new DBManager();
+                                        $followingUserId = 1;
+                                        // フォロー状態の判定と表示
+                                        $isFollowing = $dbManager->isFollowingUser($userId, $followingUserId);
+                                        if ($isFollowing) {
+                                            echo '<button onclick="unfollowUser()">フォロー解除する</button>';
+                                        } else {
+                                            echo '<button onclick="followUser()">フォローする</button>';
+                                        }
+                                        ?>
+                                    </div>
 
             </div>
 
         </div>
     </div>
-    <!-- </div> -->
+</div>
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
