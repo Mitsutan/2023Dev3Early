@@ -39,7 +39,7 @@ $userData = $db->getUser($articleData['user_id']);
         <div class="row">
             <div class="col-8">
                 <!-- <a href="./update.php"><button type="submit" class="btn btn-warning mb-3 fs-5 px-4">編集</button></a> -->
-                <form action="./update.php" method="post">
+                <form class="<?= ((isset($_SESSION['user_id']) && $_SESSION['user_id'] == $articleData['user_id'])? '' : 'd-none') ?>" action="./update.php" method="post">
                     <input type="hidden" name="article_id" value="<?= $articleData['article_id'] ?>">
                     <input type="hidden" name="edit-type" value="0">
                     <button type="submit" class="btn btn-warning mb-3 fs-5 px-4">編集</button>
