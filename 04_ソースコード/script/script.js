@@ -96,7 +96,7 @@ function observeAnimation() {
 }
 observeAnimation();
 
-// フォローボタンをクリックした時の処理
+// いいねボタンをクリックした時の処理
 function clickGoods(article) {
     var articleId = article;
 
