@@ -47,7 +47,7 @@ $userData = $db->getUser($_GET["id"]);
                 <?php
                 $showIntroduction = true; // 紹介文を表示するかどうかの条件
                 if ($showIntroduction) {
-                    echo $userData['user_about_me'];
+                    echo nl2br($userData['user_about_me']);
                 } else {
                     // 紹介文を表示しない場合の処理
                 }

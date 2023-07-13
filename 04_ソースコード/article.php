@@ -97,7 +97,7 @@ $userData = $db->getUser($articleData['user_id']);
                         </div>
                         <div class="col-md-9">
                             <h4><?= $userData['user_name'] ?></h4><br>
-                            <p><?= $userData['user_about_me'] ?></p>
+                            <p><?= nl2br($userData['user_about_me']) ?></p>
                         </div>
                     </div>
                 </div>
