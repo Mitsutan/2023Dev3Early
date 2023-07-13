@@ -107,13 +107,29 @@ function clickGoods(article) {
         if (xhr.status === 200) {
             // alert(xhr.response); // レスポンスの表示（成功メッセージなど）
             data = JSON.parse(xhr.response);
-            document.getElementById("goodsCnt" + article).innerHTML = data['count'];
+
+            const gbc = document.getElementsByClassName("goodsIcon" + article);
+            const gcnt = document.getElementsByClassName("goodsCnt" + article);
+
+            for (let i = 0; i < gcnt.length; i++) {
+                gcnt[i].innerHTML = data['count'];
+            }
+
+            // document.getElementById("goodsCnt" + article).innerHTML = data['count'];
             if (data['result']) {
-                document.getElementById("goodsIcon" + article).classList.remove('fa-regular');
-                document.getElementById("goodsIcon" + article).classList.add('fa-solid', 'click-good');
+                // document.getElementById("goodsIcon" + article).classList.remove('fa-regular');
+                // document.getElementById("goodsIcon" + article).classList.add('fa-solid', 'click-good');
+                for (let i = 0; i < gbc.length; i++) {
+                    gbc[i].classList.remove('fa-regular');
+                    gbc[i].classList.add('fa-solid', 'click-good');
+                }
             } else {
-                document.getElementById("goodsIcon" + article).classList.remove('fa-solid', 'click-good');
-                document.getElementById("goodsIcon" + article).classList.add('fa-regular');
+                // document.getElementById("goodsIcon" + article).classList.remove('fa-solid', 'click-good');
+                // document.getElementById("goodsIcon" + article).classList.add('fa-regular');
+                for (let i = 0; i < gbc.length; i++) {
+                    gbc[i].classList.remove('fa-solid', 'click-good');
+                    gbc[i].classList.add('fa-regular');
+                }
             }
             // ボタンの表示を切り替える
             // document.getElementById("followButtonContainer").innerHTML = '<button onclick="unfollowUser()">フォロー解除する</button>';

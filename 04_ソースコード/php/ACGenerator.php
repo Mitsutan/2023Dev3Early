@@ -28,9 +28,9 @@ class ACGenerator
                                 <p>' . $date . '</p>
                                 <p onclick = "clickGoods(' . $id . ')" class="good-counter">';
         if($isGoodsIcon) {
-            echo '<i class="fa-thumbs-up me-1 fa-solid" id="goodsIcon' . $id . '"></i><span id = "goodsCnt' . $id . '">' . $goods . '</span></p>';
+            echo '<i class="fa-thumbs-up me-1 fa-solid goodsIcon' . $id . '"></i><span class="goodsCnt' . $id . '">' . $goods . '</span></p>';
         }else {
-            echo '<i class="fa-thumbs-up me-1 fa-regular" id="goodsIcon' . $id . '"></i><span id = "goodsCnt' . $id . '">' . $goods . '</span></p>';
+            echo '<i class="fa-thumbs-up me-1 fa-regular goodsIcon' . $id . '"></i><span class="goodsCnt' . $id . '">' . $goods . '</span></p>';
         }
         echo '              </div>
                             <div class="tag-area">
