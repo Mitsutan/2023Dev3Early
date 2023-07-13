@@ -227,8 +227,11 @@ class DBManager
 
         if (is_uploaded_file($_FILES['topimg']['tmp_name'])) {
 
-            array_map('unlink', glob("../img/article/" . $articleId . "/*.*"));
-            mkdir("../img/article/" . $articleId);
+            if (file_exists("../img/article/" . $articleId)) {
+                array_map('unlink', glob("../img/article/" . $articleId . "/*.*"));
+            } else {
+                mkdir("../img/article/" . $articleId);
+            }
 
             move_uploaded_file($_FILES['topimg']['tmp_name'], "../img/article/" . $articleId . "/topimage" . $_FILES['topimg']['name']);
         }
@@ -333,7 +336,7 @@ class DBManager
 
         return $articleIds;
     }
-    
+
 
     // 記事を更新日時順に全件取得するメソッド
     public function getAllArticlesOrderByUpdate(int $index, int $lastIndex)
@@ -587,14 +590,15 @@ class DBManager
         }
         $stmt->bindValue(count($ids) + 1, $index, PDO::PARAM_INT);
         $stmt->bindValue(count($ids) + 2, $count, PDO::PARAM_INT);
-        
+
         $stmt->execute();
         $res = $stmt->fetchAll();
         return $res;
     }
 
     //パスワードの半角英数字確認
-    public function checkPass($pass) {
+    public function checkPass($pass)
+    {
         if (preg_match('/^[a-zA-Z0-9]{6,}$/', $pass)) {
             return true;
         } else {
