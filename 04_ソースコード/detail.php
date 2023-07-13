@@ -59,8 +59,8 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                             ?>
                         </div>
                     </div>
-                    <div id="comments-container">
                         <!-- comment field -->
+                    <div id="comments-container">
                         <?php
                         foreach ($comments as $c) {
                             $u = $db->getUser($c['user_id']);
@@ -154,14 +154,14 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
         xhr.open('POST', './php/comment.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.readyState === XMLHttpRequest.DONE ) {
                 if (xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
                     if (response.success) {
                         // 投稿成功の処理
                         alert(response.message);
-                        //commentElement.value = ''; // コメント入力欄をクリアする
-                       // fetchCommentsAndRender(); // コメント一覧を取得して表示する
+                        commentElement.value = ''; // コメント入力欄をクリアする
+                        fetchCommentsAndRender(); // コメント一覧を取得して表示する
                         // 他の処理を追加する場合はここに記述
                     } else {
                         // 投稿失敗の処理
@@ -178,17 +178,17 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
         var params = 'comment=' + encodeURIComponent(comment) + '&detailId=' + encodeURIComponent(detailId);
         xhr.send(params);
     }
-//     async function fetchCommentsAndRender() {
-//   try {
-//     var detailId = document.querySelector('input[name="detailId"]').value;
-//     const response = await fetch(`./php/comment.php?detailId=${encodeURIComponent(detailId)}`);
-//     const comments = await response.text();
-//     var commentsContainer = document.getElementById('comments-container');
-//     commentsContainer.innerHTML = comments;
-//   } catch (error) {
-//     alert('コメントの取得に失敗しました');
-//   }
-// }
+     async function fetchCommentsAndRender() {
+   try {
+     var detailId = document.querySelector('input[name="detailId"]').value;
+     const response = await fetch(`./php/comment.php?detailId=${encodeURIComponent(detailId)}`);
+     const comments = await response.text();
+     var commentsContainer = document.getElementById('comments-container');
+     commentsContainer.innerHTML = comments;
+   } catch (error) {
+     alert('コメントの取得に失敗しました');
+   }
+ }
 </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

@@ -8,6 +8,7 @@ $response = array();
 
 try {
     // コメントが空白でないかチェック
+
     if (empty(trim($_POST['comment']))) {
         $response['success'] = false;
       $response['message'] = 'コメントを入力してください。';
