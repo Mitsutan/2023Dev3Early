@@ -5,8 +5,10 @@
 
     // 画像添付時発火イベント===
     addEventListener("trix-attachment-add", function (event) {
-        if (event.attachment.file) {
+        if (event.attachment.file && event.attachment.file.type.match(/image/)) {
             uploadFileAttachment(event.attachment);
+        } else {
+            event.attachment.remove();
         }
     });
     // ===
