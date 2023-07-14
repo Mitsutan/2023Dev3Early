@@ -24,13 +24,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // 登録成功時の処理（例: ログイン画面にリダイレクト）
             header('Location: ../welcome.php');
             exit;
-        }else {
-            throw new Exception('パスワードは半角英数字、6文字以上の入力が必要です。');
+        } else {
+            // throw new Exception('パスワードは半角英数字、6文字以上の入力が必要です。');
+            $_SESSION['errorMsg'] .= 'パスワードは半角英数字、6文字以上の入力が必要です。';
         }
     } catch (Exception $e) {
         // エラーが発生した場合の処理（例: エラーメッセージの表示）
-        $_SESSION['errorMsg'] = $e->getMessage();
-        header("Location: ../signup.php");
+        if ($e->getCode() == 23000) {
+            $_SESSION['errorMsg'] .= 'このメールアドレスは既に登録されています。';
+        } else {
+            $_SESSION['errorMsg'] .= $e->getMessage();
+        }
+    } finally {
+        // セッションにエラーメッセージが設定されている場合は、サインアップ画面にリダイレクトします
+        if (isset($_SESSION['errorMsg'])) {
+            header('Location: ../signup.php');
+            exit;
+        }
     }
 }
 ?>
