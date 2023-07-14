@@ -42,8 +42,8 @@ class ACGenerator
 
         echo '
                             </div>
-                            <div class="row align-items-center mt-1">
-                                <div class="col-4">
+                            <div class="row align-items-center mt-1 ms-1">
+                                <div class="col-4 rounded-circle ratio ratio-1x1 w-25 h-25 p-0">
                                     <img src="' . $userpic . '" class="rounded-circle ratio ratio-1x1">
                                 </div>
                                 <div class="col-8">
