@@ -52,7 +52,7 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                         <div class="col-6">
                             <?php echo "コメント" ?>
                         </div>
-                        <div class="col-6 text-center">
+                        <div class="col-6 text-center" id = "comeCnt">
                             <?php
                             $comments = $db->getCommentsByDetailId($_GET['id']);
                             echo count($comments) . "件";
@@ -159,13 +159,13 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                     var response = JSON.parse(xhr.responseText);
                     if (response.success) {
                         // 投稿成功の処理
-                        alert(response.message);
+                        // alert(response.message);
                         commentElement.value = ''; // コメント入力欄をクリアする
                         fetchCommentsAndRender(); // コメント一覧を取得して表示する
                         // 他の処理を追加する場合はここに記述
                     } else {
                         // 投稿失敗の処理
-                        alert(response.message);
+                        // alert(response.message);
                         // 他の処理を追加する場合はここに記述
                     }
                 } else {
@@ -180,11 +180,47 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
     }
      async function fetchCommentsAndRender() {
    try {
+    // alert("ここまで動いてる");
      var detailId = document.querySelector('input[name="detailId"]').value;
-     const response = await fetch(`./php/comment.php?detailId=${encodeURIComponent(detailId)}`);
-     const comments = await response.text();
-     var commentsContainer = document.getElementById('comments-container');
-     commentsContainer.innerHTML = comments;
+     console.log(detailId);
+
+     var xhr = new XMLHttpRequest();
+        xhr.open('GET', './php/comment.php?detailId='+detailId, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE ) {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                    // if (response.success) {
+                        // 投稿成功の処理
+                        // alert(response.data);
+                        document.getElementById("comeCnt").innerHTML = response.cnt + "件";
+                        var commentsContainer = document.getElementById('comments-container');
+                        commentsContainer.innerHTML = response.data;
+                        // 他の処理を追加する場合はここに記述
+                    // } else {
+                    //     // 投稿失敗の処理
+                    //     alert(response.message);
+                    //     // 他の処理を追加する場合はここに記述
+                    // }
+                } else {
+                    // エラー発生時の処理
+                    alert('エラーが発生しました');
+                }
+            }
+        };
+
+        // var params = 'comment=' + encodeURIComponent(comment) + '&detailId=' + encodeURIComponent(detailId);
+        xhr.send();
+    //  const response = await fetch(`./php/comment.php?detailId=${encodeURIComponent(detailId)}`);
+    //  const res = await response;
+    //  console.log(res);
+    //  const comments = res.data;
+    //  document.getElementById("comeCnt").innerHTML = res.cnt;
+    //  console.log(response);
+    //  var commentsContainer = document.getElementById('comments-container');
+    //  commentsContainer.innerHTML = comments;
    } catch (error) {
      alert('コメントの取得に失敗しました');
    }
