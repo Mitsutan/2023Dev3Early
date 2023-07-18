@@ -97,7 +97,7 @@ if ($_POST['edit-type'] == 0) {
             </div>
 
             <!-- Button trigger modal -->
-            <button type="button" onclick="multipleaction('./php/delete.php')" class="btn-lg btn-danger">
+            <button type="button" onclick="multipleaction('./php/delete.php')" class="btn-lg btn-danger" name="delete">
                 削除
             </button>
 
@@ -114,7 +114,7 @@ if ($_POST['edit-type'] == 0) {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-                            <button type="submit" class="btn btn-primary">削除</button>
+                            <button type="submit" class="btn btn-primary" >削除</button>
                         </div>
                     </div>
                 </div>

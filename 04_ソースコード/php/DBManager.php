@@ -325,6 +325,20 @@ class DBManager
 
         return $articles;
     }
+    
+    public function deleteArticle($articleId) {
+        // 記事を削除するためのSQL文を準備
+        $sql = "DELETE FROM articles WHERE article_id = :article_id";
+
+        // SQL文をプリペアードステートメントとして準備
+        $stmt = $this->connectDb()->prepare($sql);
+
+        // パラメータをバインド
+        $stmt->bindValue(':article_id', $articleId, PDO::PARAM_INT);
+
+        // SQL文を実行
+        $stmt->execute();
+    }
 
     // いいね数順に記事idを取得するメソッド
     public function getArticleIdsOrderByGoods()
