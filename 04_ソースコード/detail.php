@@ -40,7 +40,7 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                 <form class="<?= ((isset($_SESSION['user_id']) && $_SESSION['user_id'] == $articleData['user_id'])? '' : 'd-none') ?>" action="./update.php" method="post">
                     <input type="hidden" name="detail_id" value="<?= $detailData['detail_id'] ?>">
                     <input type="hidden" name="edit-type" value="1">
-                    <button type="submit" class="btn btn-warning mb-3 fs-5 px-4">編集</button>
+                    <button type="submit" class="btn btn-warning mb-3 fs-5 px-4">　編集　</button>
                 </form>
                 <!-- <p>説明</p> -->
                 <div class="rounded p-2 mb-3">

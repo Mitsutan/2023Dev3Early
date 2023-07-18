@@ -31,7 +31,7 @@ $userData = $db->getUser($_SESSION["user_id"]);
             <div class="col-6-md.offset-md-3">
                 <div class="container">
                     <h1><?= $_SESSION["user_name"]; ?>のページ</h1>
-                    <div class="d-grid gap-2 text-center"><a href="./write.php" class="btn-lg btn-warning">新規記事投稿</a></div>
+                    <div class="d-grid gap-2 text-center"><a href="./write.php" class="btn-lg btn-warning mb-3">新規記事投稿</a></div>
                     <form action="./php/updateuser.php" enctype="multipart/form-data" method="post">
                         <div class="mb-3">
                             <label for="UpdateEmail1" class="form-label">メールアドレス</label>
@@ -61,7 +61,7 @@ $userData = $db->getUser($_SESSION["user_id"]);
                             <input type="file" name="avatar">
                         </div>
                         <div class="container mt-3 mb-3 text-center">
-                            <button type="submit" class="btn-lg btn-warning">更新</button>
+                            <button type="submit" class="btn-lg btn-warning">　　更新　　</button>
                         </div>
                         <!-- <button type="submit" class="btn-lg btn-warning">更新</button> -->
                         <!-- error message area -->
