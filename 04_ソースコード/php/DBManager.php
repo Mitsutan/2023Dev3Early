@@ -331,13 +331,13 @@ class DBManager
         $sql = "DELETE FROM articles WHERE article_id = :article_id";
 
         // SQL文をプリペアードステートメントとして準備
-        $stmt = $this->connectDb()->prepare($sql);
+        $ps= $this->connectDb()->prepare($sql);
 
         // パラメータをバインド
-        $stmt->bindValue(':article_id', $articleId, PDO::PARAM_INT);
+        $ps->bindValue(':article_id', $articleId, PDO::PARAM_INT);
 
         // SQL文を実行
-        $stmt->execute();
+        $ps->execute();
     }
 
     // いいね数順に記事idを取得するメソッド
