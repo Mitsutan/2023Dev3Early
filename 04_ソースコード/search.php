@@ -2,14 +2,14 @@
 session_start();
 
 require_once "./php/DBManager.php";
-require_once "./php/search.php";
-require_once "./php/Tbl_mmemorial.php";
-$search = new Search;
+// require_once "./php/search.php";
+// require_once "./php/Tbl_mmemorial.php";
+// $search = new Search;
 require_once "./php/ACGenerator.php";
 $db = new DBManager;
 $card = new ACGenerator;
 
-$userId = $_SESSION['user_id'];
+// $userId = $_SESSION['user_id'];
 
 ?>
 <!DOCTYPE html>
@@ -84,7 +84,8 @@ $userId = $_SESSION['user_id'];
                     </select>
                 </div> -->
                 <div class="col-6">
-                    <p><span id="dataCnt">0</span>件中～<span>0</span>件表示</p>
+                    <p><span id="dataCnt">0</span>件ヒット</p>
+                    <!-- <p><span id="dataCnt">0</span>件中～<span>0</span>件表示</p> -->
                 </div>
             </div>
 
@@ -93,6 +94,8 @@ $userId = $_SESSION['user_id'];
                 <?php
                 // 検索結果数
                 $dataCnt = 0;
+
+                $paging = ((isset($_GET['page']) ? $_GET['page'] : 1) - 1) * 10;
 
                 // 新着順ソートコールバック関数
                 $sort = function ($a, $b) {
@@ -133,19 +136,45 @@ $userId = $_SESSION['user_id'];
                                     break;
                             }
 
-                            foreach ($res as $key) {
-                                $tags = $db->getTagsByArticleId($key["article_id"]);
-                                $user = $db->getUser($key["user_id"]);
-                                // $goods = $db->countGoods($key["article_id"]);
-                                $goods = $key["good"];
-                                $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $key["user_id"]) : false);
+                            $end = count($res);
+                            for ($i=0; $i < $end; $i++) { 
+                                $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $res[$i]['user_id']) : false);
+                                if (isset($_GET['followOnly']) && !$isFollowing) {
+                                    unset($res[$i]);
+                                    // echo "delete<br>";
+                                    continue;
+                                }
+                                // echo "not delete<br>";
+                                $dataCnt++;
+                            }
+                            $res = array_merge($res);
+
+                            for ($i=$paging; $i < ($paging + 10 > count($res)? count($res) : $paging + 10); $i++) { 
+                                $tags = $db->getTagsByArticleId($res[$i]["article_id"]);
+                                $user = $db->getUser($res[$i]["user_id"]);
+                                $goods = $res[$i]["good"];
+                                $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $res[$i]["user_id"]) : false);
                                 if (isset($_GET['followOnly']) && !$isFollowing) {
                                     continue;
                                 }
-                                $isGoodsIcon = (isset($_SESSION['user_id']) ? $db->isGoodsIconArticle($_SESSION['user_id'], $key["article_id"]) : false);
-                                $card->createCard($key['article_id'], $key['user_id'], $user['user_name'], $key['title'], $key['update_datetime'], $tags, $goods, $isFollowing, $isGoodsIcon);
-                                $dataCnt++;
+                                $isGoodsIcon = (isset($_SESSION['user_id']) ? $db->isGoodsIconArticle($_SESSION['user_id'], $res[$i]["article_id"]) : false);
+                                $card->createCard($res[$i]['article_id'], $res[$i]['user_id'], $user['user_name'], $res[$i]['title'], $res[$i]['update_datetime'], $tags, $goods, $isFollowing, $isGoodsIcon);
+
                             }
+
+                            // foreach ($res as $key) {
+                            //     $tags = $db->getTagsByArticleId($key["article_id"]);
+                            //     $user = $db->getUser($key["user_id"]);
+                            //     // $goods = $db->countGoods($key["article_id"]);
+                            //     $goods = $key["good"];
+                            //     $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $key["user_id"]) : false);
+                            //     if (isset($_GET['followOnly']) && !$isFollowing) {
+                            //         continue;
+                            //     }
+                            //     $isGoodsIcon = (isset($_SESSION['user_id']) ? $db->isGoodsIconArticle($_SESSION['user_id'], $key["article_id"]) : false);
+                            //     $card->createCard($key['article_id'], $key['user_id'], $user['user_name'], $key['title'], $key['update_datetime'], $tags, $goods, $isFollowing, $isGoodsIcon);
+                            //     $dataCnt++;
+                            // }
                             break;
 
                         case '1': // 記事名
@@ -163,17 +192,32 @@ $userId = $_SESSION['user_id'];
 
                                     break;
                             }
-                            foreach ($res as $key) {
-                                $tags = $db->getTagsByArticleId($key["article_id"]);
-                                $user = $db->getUser($key["user_id"]);
-                                $goods = $db->countGoods($key["article_id"]);
-                                $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $key["user_id"]) : false);
+
+                            // echo count($res);
+                            $end = count($res);
+                            for ($i=0; $i < $end; $i++) { 
+                                $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $res[$i]['user_id']) : false);
+                                if (isset($_GET['followOnly']) && !$isFollowing) {
+                                    unset($res[$i]);
+                                    // echo "delete<br>";
+                                    continue;
+                                }
+                                // echo "not delete<br>";
+                                $dataCnt++;
+                            }
+                            $res = array_merge($res);
+
+                            for ($i=$paging; $i < ($paging + 10 > count($res)? count($res) : $paging + 10); $i++) { 
+                                $tags = $db->getTagsByArticleId($res[$i]["article_id"]);
+                                $user = $db->getUser($res[$i]["user_id"]);
+                                $goods = $res[$i]["good"];
+                                $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $res[$i]["user_id"]) : false);
                                 if (isset($_GET['followOnly']) && !$isFollowing) {
                                     continue;
                                 }
-                                $isGoodsIcon = (isset($_SESSION['user_id']) ? $db->isGoodsIconArticle($_SESSION['user_id'], $key["article_id"]) : false);
-                                $card->createCard($key['article_id'], $key['user_id'], $user['user_name'], $key['title'], $key['update_datetime'], $tags, $goods, $isFollowing, $isGoodsIcon);
-                                $dataCnt++;
+                                $isGoodsIcon = (isset($_SESSION['user_id']) ? $db->isGoodsIconArticle($_SESSION['user_id'], $res[$i]["article_id"]) : false);
+                                $card->createCard($res[$i]['article_id'], $res[$i]['user_id'], $user['user_name'], $res[$i]['title'], $res[$i]['update_datetime'], $tags, $goods, $isFollowing, $isGoodsIcon);
+
                             }
                             break;
 
@@ -196,17 +240,31 @@ $userId = $_SESSION['user_id'];
 
                                     break;
                             }
-                            foreach ($res as $key) {
-                                $tags = $db->getTagsByArticleId($key["article_id"]);
-                                $user = $db->getUser($key["user_id"]);
-                                $goods = $db->countGoods($key["article_id"]);
-                                $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $key["user_id"]) : false);
+
+                            $end = count($res);
+                            for ($i=0; $i < $end; $i++) { 
+                                $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $res[$i]['user_id']) : false);
+                                if (isset($_GET['followOnly']) && !$isFollowing) {
+                                    unset($res[$i]);
+                                    // echo "delete<br>";
+                                    continue;
+                                }
+                                // echo "not delete<br>";
+                                $dataCnt++;
+                            }
+                            $res = array_merge($res);
+
+                            for ($i=$paging; $i < ($paging + 10 > count($res)? count($res) : $paging + 10); $i++) { 
+                                $tags = $db->getTagsByArticleId($res[$i]["article_id"]);
+                                $user = $db->getUser($res[$i]["user_id"]);
+                                $goods = $res[$i]["good"];
+                                $isFollowing = (isset($_SESSION['user_id']) ? $db->isFollowingUser($_SESSION['user_id'], $res[$i]["user_id"]) : false);
                                 if (isset($_GET['followOnly']) && !$isFollowing) {
                                     continue;
                                 }
-                                $isGoodsIcon = (isset($_SESSION['user_id']) ? $db->isGoodsIconArticle($_SESSION['user_id'], $key["article_id"]) : false);
-                                $card->createCard($key['article_id'], $key['user_id'], $user['user_name'], $key['title'], $key['update_datetime'], $tags, $goods, $isFollowing, $isGoodsIcon);
-                                $dataCnt++;
+                                $isGoodsIcon = (isset($_SESSION['user_id']) ? $db->isGoodsIconArticle($_SESSION['user_id'], $res[$i]["article_id"]) : false);
+                                $card->createCard($res[$i]['article_id'], $res[$i]['user_id'], $user['user_name'], $res[$i]['title'], $res[$i]['update_datetime'], $tags, $goods, $isFollowing, $isGoodsIcon);
+
                             }
                             break;
 
@@ -222,19 +280,15 @@ $userId = $_SESSION['user_id'];
     </div>
 
     <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item"><a class="page-link" href="#">6</a></li>
-            <li class="page-item"><a class="page-link" href="#">7</a></li>
-            <li class="page-item"><a class="page-link" href="#">8</a></li>
-            <li class="page-item"><a class="page-link" href="#">9</a></li>
-            <li class="page-item"><a class="page-link" href="#">10</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <ul class="pagination justify-content-center mt-3">
+            <?php
+            $query = $_SERVER['QUERY_STRING'];
+            for ($i=1; $i <= $dataCnt/10 + 1; $i++) { 
+                echo "<li class='page-item'><a class='page-link' href='search?$query&page=$i'>$i</a></li>";
+            }
+            ?>
+            <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
+            <!-- <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
         </ul>
     </nav>
 
