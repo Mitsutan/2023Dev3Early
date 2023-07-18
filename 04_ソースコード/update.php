@@ -95,12 +95,14 @@ if ($_POST['edit-type'] == 0) {
                     ?>
                 </div>
             </div>
-
+            </form>
             <!-- Button trigger modal -->
-            <button type="button" onclick="multipleaction('./php/delete.php')" class="btn-lg btn-danger" name="delete">
+            <!--<button type="button" onclick="multipleaction('./php/delete.php')" class="btn-lg btn-danger" name="delete">-->
+            <form action="./php/delete.php" method="post">
+            <button type="submit" class="btn-lg btn-danger" name="delete">
                 削除
             </button>
-
+            
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -115,11 +117,12 @@ if ($_POST['edit-type'] == 0) {
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
                             <button type="submit" class="btn btn-primary" >削除</button>
+                
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+                </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
