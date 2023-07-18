@@ -60,7 +60,7 @@ $articleDetails = $db->getDetailsByArticleId($detailData['article_id']);
                         </div>
                     </div>
                         <!-- comment field -->
-                    <div id="comments-container">
+                    <div id="comments-container" style = "overflow-wrap: break-word;">
                         <?php
                         foreach ($comments as $c) {
                             $u = $db->getUser($c['user_id']);

@@ -64,7 +64,7 @@ $userId = $_SESSION['user_id'];
                 </div>
             </div>
 
-            <div class="input-group">
+            <div class="input-group"  style ="position:relative;z-index: inherit; z-index: 0;">
                 <input type="text" class="form-control" name="word" placeholder="キーワードを入力" value="<?= isset($_GET['word']) ? $_GET['word'] : '' ?>">
                 <button class="btn btn-outline-success" type="submit" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
             </div>
