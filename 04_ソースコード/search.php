@@ -279,7 +279,7 @@ $card = new ACGenerator;
         </div>
     </div>
 
-    <nav aria-label="Page navigation example">
+    <nav class="<?= (isset($_GET['type'])) ? '' : 'd-none' ?>" aria-label="Page navigation example">
         <ul class="pagination justify-content-center mt-3">
             <?php
             $query = $_SERVER['QUERY_STRING'];
