@@ -58,7 +58,7 @@ $userData = $db->getUser($_SESSION["user_id"]);
                                             ?>" class="rounded-circle ratio ratio-1x1" width="250" height="250">
                             </div>
                             <label for="UpdateIntroduce" class="form-label">プロフィール画像</label><br>
-                            <input type="file" name="avatar">
+                            <input type="file" accept = "image/*" name="avatar">
                         </div>
                         <div class="container mt-3 mb-3 text-center">
                             <button type="submit" class="btn-lg btn-warning">　　更新　　</button>
