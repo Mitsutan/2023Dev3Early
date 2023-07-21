@@ -340,6 +340,20 @@ class DBManager
         $ps->execute();
     }
 
+    public function deleteDetail($detailId) {
+        // 詳細記事を削除するためのSQL文を準備
+        $sql = "DELETE FROM details WHERE detail_id = :detail_id";
+    
+        // SQL文をプリペアードステートメントとして準備
+        $ps = $this->connectDb()->prepare($sql);
+    
+        // パラメータをバインド
+        $ps->bindValue(':detail_id', $detailId, PDO::PARAM_INT);
+    
+        // SQL文を実行
+        $ps->execute();
+    }
+
     // いいね数順に記事idを取得するメソッド
     public function getArticleIdsOrderByGoods()
     {
