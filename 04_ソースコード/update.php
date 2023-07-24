@@ -50,7 +50,8 @@ if ($_POST['edit-type'] == 0) {
                 </div>
                 <div class="mb-3 <?= ($_POST['edit-type'] == 1) ? 'd-none' : "" ?>">
                     <label for="articleoverview" class="form-label">記事概要</label>
-                    <input type="text" class="form-control" id="articleoverview" name="overview" value="<?= $oldArticle['article_description'] ?>" required <?= ($_POST['edit-type'] == 1) ? 'disabled' : "" ?>>
+                    <!-- <input type="text" class="form-control" id="articleoverview" name="overview" value="<?= $oldArticle['article_description'] ?>" required <?= ($_POST['edit-type'] == 1) ? 'disabled' : "" ?>> -->
+                    <textarea class="form-control" id="articleoverview" name="overview" rows="3" required <?= ($_POST['edit-type'] == 1) ? 'disabled' : "" ?>><?= $oldArticle['article_description'] ?></textarea>
                 </div>
                 <div class="mb-3 <?= ($_POST['edit-type'] == 1) ? 'd-none' : "" ?>">
                     <label for="article_image" class="form-label">現在の表紙画像</label><br>

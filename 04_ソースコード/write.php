@@ -55,7 +55,8 @@ $userArticleData = $db->getArticlesByUserId($_SESSION['user_id']);
                 </div>
                 <div class="mb-3">
                     <label for="articleoverview" class="form-label">記事概要</label>
-                    <input type="text" class="form-control" id="articleoverview" name="overview" required>
+                    <!-- <input type="text" class="form-control" id="articleoverview" name="overview" required> -->
+                    <textarea class="form-control" id="articleoverview" name="overview" rows="3" required></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="article_image" class="form-label">表紙画像</label><br>
