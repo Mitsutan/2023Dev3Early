@@ -325,6 +325,34 @@ class DBManager
 
         return $articles;
     }
+    
+    public function deleteArticle($articleId) {
+        // 記事を削除するためのSQL文を準備
+        $sql = "DELETE FROM articles WHERE article_id = :article_id";
+
+        // SQL文をプリペアードステートメントとして準備
+        $ps= $this->connectDb()->prepare($sql);
+
+        // パラメータをバインド
+        $ps->bindValue(':article_id', $articleId, PDO::PARAM_INT);
+
+        // SQL文を実行
+        $ps->execute();
+    }
+
+    public function deleteDetail($detailId) {
+        // 詳細記事を削除するためのSQL文を準備
+        $sql = "DELETE FROM details WHERE detail_id = :detail_id";
+    
+        // SQL文をプリペアードステートメントとして準備
+        $ps = $this->connectDb()->prepare($sql);
+    
+        // パラメータをバインド
+        $ps->bindValue(':detail_id', $detailId, PDO::PARAM_INT);
+    
+        // SQL文を実行
+        $ps->execute();
+    }
 
     // いいね数順に記事idを取得するメソッド
     public function getArticleIdsOrderByGoods()
@@ -354,7 +382,7 @@ class DBManager
     // ユーザーIDから記事を全件取得するメソッド
     public function getArticlesByUserId(int $userId)
     {
-        $ps = $this->connectDb()->prepare("SELECT * FROM articles WHERE user_id = ?");
+        $ps = $this->connectDb()->prepare("SELECT a.*, COUNT(g.article_id) AS good FROM articles AS a LEFT OUTER JOIN goods AS g ON a.article_id = g.article_id WHERE a.user_id = ? GROUP BY a.article_id");
         $ps->bindValue(1, $userId, PDO::PARAM_INT);
         $ps->execute();
 
@@ -366,8 +394,20 @@ class DBManager
     // 記事名から記事を検索するメソッド
     public function getArticlesByTitle(string $title)
     {
-        $ps = $this->connectDb()->prepare("SELECT * FROM articles WHERE title LIKE ?");
+        $ps = $this->connectDb()->prepare("SELECT a.*, COUNT(g.article_id) AS good FROM articles AS a LEFT OUTER JOIN goods AS g ON a.article_id = g.article_id WHERE title LIKE ? GROUP BY a.article_id");
         $ps->bindValue(1, "%$title%", PDO::PARAM_STR);
+        $ps->execute();
+
+        $articles = $ps->fetchAll();
+
+        return $articles;
+    }
+
+    // タグidから記事を検索するメソッド
+    public function getArticlesByTagId(int $tagId)
+    {
+        $ps = $this->connectDb()->prepare("SELECT a.*,COUNT(g.article_id) AS good FROM articles AS a LEFT OUTER JOIN usedtags AS ut ON a.article_id = ut.article_id LEFT OUTER JOIN goods AS g ON a.article_id = g.article_id WHERE ut.tag_id = ? GROUP BY a.article_id");
+        $ps->bindValue(1, $tagId, PDO::PARAM_INT);
         $ps->execute();
 
         $articles = $ps->fetchAll();
@@ -394,6 +434,16 @@ class DBManager
         $ps->execute();
 
         return $ps->fetch();
+    }
+
+    // タグ名からタグを検索するメソッド
+    public function getTagsByName(string $tagName)
+    {
+        $ps = $this->connectDb()->prepare("SELECT * FROM tags WHERE tag_name LIKE ?");
+        $ps->bindValue(1, "%$tagName%", PDO::PARAM_STR);
+        $ps->execute();
+
+        return $ps->fetchAll();
     }
 
     // タグ利用数

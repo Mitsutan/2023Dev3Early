@@ -42,8 +42,8 @@ class ACGenerator
 
         echo '
                             </div>
-                            <div class="row align-items-center mt-1">
-                                <div class="col-4">
+                            <div class="row align-items-center mt-1 ms-1">
+                                <div class="col-4 rounded-circle ratio ratio-1x1 w-25 h-25 p-0">
                                     <img src="' . $userpic . '" class="rounded-circle ratio ratio-1x1">
                                 </div>
                                 <div class="col-8">
@@ -52,9 +52,9 @@ class ACGenerator
                                             <div class="followButtonContainer-' . $userID . '">
             ';
         if ($isFollowing) {
-            echo '<button class="btn btn-primary btn-sm" onclick="unfollowUser(' . $userID . ')">フォロー解除する</button>';
+            echo '<button class="btn btn-primary btn-sm" onclick="unfollowUser(' . $userID . ')"><i class="fa-solid fa-user-xmark"></i><span class="d-none d-md-inline">フォロー解除する</span></button>';
         } else {
-            echo '<button class="btn btn-outline-primary btn-sm" onclick="followUser(' . $userID . ')" '. ((!isset($_SESSION['user_id']) || $userID == $_SESSION['user_id'])? "disabled" : "") .'>フォローする</button>';
+            echo '<button class="btn btn-outline-primary btn-sm" onclick="followUser(' . $userID . ')" '. ((!isset($_SESSION['user_id']) || $userID == $_SESSION['user_id'])? "disabled" : "") .'><i class="fa-solid fa-user-plus"></i><span class="d-none d-md-inline">フォローする</span></button>';
         }
         echo '                          </div>
                                     </div>

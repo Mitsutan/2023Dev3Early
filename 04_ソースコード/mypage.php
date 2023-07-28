@@ -31,30 +31,8 @@ $userData = $db->getUser($_SESSION["user_id"]);
         <h1><?= $_SESSION["user_name"]; ?>のページ</h1>
             <div class="col-md-5">
                 <div class="container">
-                <div class="mb-3">
-                            <div class="rounded-circle ratio ratio-1x1 w-25 h-25">
-                                <img src="<?php
-                                            $userpic = glob("./img/userpics/" . $_SESSION['user_id'] . "/userpic*");
-                                            if ($userpic) {
-                                                echo $userpic[0];
-                                            } else {
-                                                echo "./img/user_default.png";
-                                            }
-                                            ?>" class="rounded-circle ratio ratio-1x1" width="300" height="300">
-                            </div>
-                            <label for="UpdateIntroduce" class="form-label">プロフィール画像</label><br>
-                            <input type="file" name="avatar">
-                        </div>
-                    
-                    
-                    </form>
-                    <div><a href="./profile?id=<?= $_SESSION['user_id'] ?>">自分のプロフィール画面をみる</a></div><br>
-                    <div><a href="./php/logout.php">ログアウト</a></div>
-                </div>
-            </div>
-            <div class="col-md-7">
-                <div class="container">
-                <div class="d-grid gap-2 text-center"><a href="./write.php" class="btn-lg btn-warning">新規記事投稿</a></div>
+                    <h1><?= $_SESSION["user_name"]; ?>のページ</h1>
+                    <div class="d-grid gap-2 text-center"><a href="./write.php" class="btn-lg btn-warning mb-3">新規記事投稿</a></div>
                     <form action="./php/updateuser.php" enctype="multipart/form-data" method="post">
                         <div class="mb-3">
                             <label for="UpdateEmail1" class="form-label">メールアドレス</label>
@@ -69,8 +47,22 @@ $userData = $db->getUser($_SESSION["user_id"]);
                             <label for="UpdateIntroduce" class="form-label">自己紹介</label>
                             <textarea name="Introduce" class="form-control" id="updateIntroduce"><?= $userData['user_about_me'] ?></textarea>
                         </div>
+                        <div class="mb-3">
+                            <div class="rounded-circle ratio ratio-1x1 w-25 h-25">
+                                <img src="<?php
+                                            $userpic = glob("./img/userpics/" . $_SESSION['user_id'] . "/userpic*");
+                                            if ($userpic) {
+                                                echo $userpic[0];
+                                            } else {
+                                                echo "./img/user_default.png";
+                                            }
+                                            ?>" class="rounded-circle ratio ratio-1x1" width="250" height="250">
+                            </div>
+                            <label for="UpdateIntroduce" class="form-label">プロフィール画像</label><br>
+                            <input type="file" accept = "image/*" name="avatar">
+                        </div>
                         <div class="container mt-3 mb-3 text-center">
-                            <button type="submit" class="btn-lg btn-warning">更新</button>
+                            <button type="submit" class="btn-lg btn-warning">　　更新　　</button>
                         </div>
                         <!-- <button type="submit" class="btn-lg btn-warning">更新</button> -->
                         <!-- error message area -->

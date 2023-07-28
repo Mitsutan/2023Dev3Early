@@ -64,7 +64,7 @@ $userData = $db->getUser($articleData['user_id']);
                 <hr aline="center" size="5" class="bg-primary mb-3">
                 <div class="alert-secondary border border-1 border-dark rounded p-2 mb-3">
                     <p>
-                        <?= $articleData['article_description'] ?>
+                        <?= nl2br($articleData['article_description']) ?>
                     </p>
                 </div>
                 <!-- 時間に余裕がないのでこの項目は後回し -->

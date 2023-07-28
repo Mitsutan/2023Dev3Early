@@ -46,11 +46,12 @@ if ($_POST['edit-type'] == 0) {
             <div id="new-field">
                 <div class="mb-3 <?= ($_POST['edit-type'] == 1) ? 'd-none' : "" ?>">
                     <label for="articletitle" class="form-label">記事名</label>
-                    <input type="text" class="form-control" id="articletitle" name="title" value="<?= $oldArticle['title'] ?>" required>
+                    <input type="text" class="form-control" id="articletitle" name="title" value="<?= $oldArticle['title'] ?>" required <?= ($_POST['edit-type'] == 1) ? 'disabled' : "" ?>>
                 </div>
                 <div class="mb-3 <?= ($_POST['edit-type'] == 1) ? 'd-none' : "" ?>">
                     <label for="articleoverview" class="form-label">記事概要</label>
-                    <input type="text" class="form-control" id="articleoverview" name="overview" value="<?= $oldArticle['article_description'] ?>" required>
+                    <!-- <input type="text" class="form-control" id="articleoverview" name="overview" value="<?= $oldArticle['article_description'] ?>" required <?= ($_POST['edit-type'] == 1) ? 'disabled' : "" ?>> -->
+                    <textarea class="form-control" id="articleoverview" name="overview" rows="3" required <?= ($_POST['edit-type'] == 1) ? 'disabled' : "" ?>><?= $oldArticle['article_description'] ?></textarea>
                 </div>
                 <div class="mb-3 <?= ($_POST['edit-type'] == 1) ? 'd-none' : "" ?>">
                     <label for="article_image" class="form-label">現在の表紙画像</label><br>
@@ -95,9 +96,11 @@ if ($_POST['edit-type'] == 0) {
                     ?>
                 </div>
             </div>
-
-            <!-- Button trigger modal -->
-            <button type="button" onclick="multipleaction('./php/delete.php')" class="btn-lg btn-danger">
+        </form>
+        <!-- Button trigger modal -->
+        <!--<button type="button" onclick="multipleaction('./php/delete.php')" class="btn-lg btn-danger" name="delete">-->
+        <form action="./php/delete.php" method="post">
+            <button type="submit" class="btn-lg btn-danger" name="delete">
                 削除
             </button>
 
@@ -115,6 +118,7 @@ if ($_POST['edit-type'] == 0) {
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
                             <button type="submit" class="btn btn-primary">削除</button>
+
                         </div>
                     </div>
                 </div>
